@@ -1,0 +1,53 @@
+# backend gitignore
+# Ignore virtual environment folder
+.venv/
+
+# Ignore Python bytecode files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Ignore instance folder (used for storing environment-specific files like database)
+instance/
+
+# Ignore migrations folder (database migration files, can be regenerated)
+migrations/
+
+# Ignore environment variables file
+.env
+
+# Ignore log files
+*.log
+
+# Ignore IDE/editor configuration files
+.vscode/
+.idea/
+
+# ----------------------------------------------
+
+# frontend gitignore
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
