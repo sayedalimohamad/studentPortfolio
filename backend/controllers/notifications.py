@@ -1,36 +1,27 @@
-from flask import request, jsonify
-from models import db, Notification
-from . import notifications_bp
+from flask import Blueprint, request, jsonify
+from extensions import db
+from models import Notification
 
+def register_routes(bp: Blueprint):
+    @bp.route('/notifications', methods=['POST'])
+    def create_notification():
+        data = request.get_json()
+        notification = Notification(
+            user_id=data['user_id'],
+            message=data['message']
+        )
+        db.session.add(notification)
+        db.session.commit()
+        return jsonify(notification.to_dict()), 201
 
-@notifications_bp.route("/notifications", methods=["GET"])
-def get_notifications():
-    notifications = Notification.query.all()
-    return jsonify([notification.to_dict() for notification in notifications])
+    @bp.route('/notifications/<int:notification_id>', methods=['GET'])
+    def get_notification(notification_id):
+        notification = Notification.query.get_or_404(notification_id)
+        return jsonify(notification.to_dict())
 
-
-@notifications_bp.route("/notifications", methods=["POST"])
-def create_notification():
-    data = request.get_json()
-    new_notification = Notification(**data)
-    db.session.add(new_notification)
-    db.session.commit()
-    return jsonify(new_notification.to_dict()), 201
-
-
-@notifications_bp.route("/notifications/<int:id>", methods=["PUT"])
-def update_notification(id):
-    notification = Notification.query.get_or_404(id)
-    data = request.get_json()
-    for key, value in data.items():
-        setattr(notification, key, value)
-    db.session.commit()
-    return jsonify(notification.to_dict())
-
-
-@notifications_bp.route("/notifications/<int:id>", methods=["DELETE"])
-def delete_notification(id):
-    notification = Notification.query.get_or_404(id)
-    db.session.delete(notification)
-    db.session.commit()
-    return jsonify({"message": "Notification deleted"}), 200
+    @bp.route('/notifications/<int:notification_id>', methods=['DELETE'])
+    def delete_notification(notification_id):
+        notification = Notification.query.get_or_404(notification_id)
+        db.session.delete(notification)
+        db.session.commit()
+        return '', 204

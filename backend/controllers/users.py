@@ -1,40 +1,43 @@
-from flask import request, jsonify
-from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
-from models import db, User
-from . import users_bp
+from flask import Blueprint, request, jsonify
+from extensions import db
+from models import User
 
-
-@users_bp.route("/register", methods=["POST"])
-def register():
-    data = request.get_json()
-    user = User(
-        username=data.get("username"),
-        email=data.get("email"),
-        role=data.get("role", "student"),
-    )
-    user.set_password(data.get("password"))
-    db.session.add(user)
-    db.session.commit()
-    return jsonify(user.to_dict()), 201
-
-
-@users_bp.route("/login", methods=["POST"])
-def login():
-    data = request.get_json()
-    user = User.query.filter_by(email=data.get("email")).first()
-    if user and user.check_password(data.get("password")):
-        access_token = create_access_token(
-            identity=user.user_id, additional_claims={"role": user.role}
+def register_routes(bp: Blueprint):
+    @bp.route('/users', methods=['POST'])
+    def create_user():
+        data = request.get_json()
+        user = User(
+            username=data['username'],
+            email=data['email'],
+            role=data['role'],
+            status='active'
         )
-        return jsonify(access_token=access_token, role=user.role), 200
-    return jsonify({"error": "Invalid credentials"}), 401
+        user.set_password(data['password'])
+        db.session.add(user)
+        db.session.commit()
+        return jsonify(user.to_dict()), 201
 
+    @bp.route('/users/<int:user_id>', methods=['GET'])
+    def get_user(user_id):
+        user = User.query.get_or_404(user_id)
+        return jsonify(user.to_dict())
 
-@users_bp.route("/protected", methods=["GET"])
-@jwt_required()
-def protected():
-    current_user_id = get_jwt_identity()
-    user = User.query.get(current_user_id)
-    return jsonify(user.to_dict()), 200
+    @bp.route('/users/<int:user_id>', methods=['PUT'])
+    def update_user(user_id):
+        data = request.get_json()
+        user = User.query.get_or_404(user_id)
+        user.username = data.get('username', user.username)
+        user.email = data.get('email', user.email)
+        user.role = data.get('role', user.role)
+        user.status = data.get('status', user.status)
+        if 'password' in data:
+            user.set_password(data['password'])
+        db.session.commit()
+        return jsonify(user.to_dict())
 
-
+    @bp.route('/users/<int:user_id>', methods=['DELETE'])
+    def delete_user(user_id):
+        user = User.query.get_or_404(user_id)
+        db.session.delete(user)
+        db.session.commit()
+        return '', 204

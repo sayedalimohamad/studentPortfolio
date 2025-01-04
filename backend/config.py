@@ -5,11 +5,10 @@ from dotenv import load_dotenv
 basedir = os.path.abspath(os.path.dirname(__file__))
 load_dotenv(os.path.join(basedir, ".env"))
 
-
 class Config:
     # Database
     SQLALCHEMY_DATABASE_URI = os.getenv(
-        "DATABASE_URL", f"sqlite:///{os.path.join(basedir, 'student_portfolio.db')}"
+        "DATABASE_URL", f"sqlite:///{os.path.join(basedir, 'instance', 'student_portfolio.db')}"
     )
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
@@ -25,3 +24,11 @@ class Config:
 
     # Debugging
     DEBUG = os.getenv("DEBUG", "False").lower() == "true"
+
+    # CORS
+    CORS_HEADERS = 'Content-Type'
+
+    # Additional configurations
+    MAX_CONTENT_LENGTH = 16 * 1024 * 1024  # 16 MB max file size
+    SESSION_COOKIE_SECURE = True
+    REMEMBER_COOKIE_SECURE = True

@@ -1,36 +1,43 @@
-from flask import request, jsonify
-from models import db, File
-from . import files_bp
+from flask import Blueprint, request, jsonify
+from extensions import db
+from models import File
 
+def register_routes(bp: Blueprint):
+    @bp.route('/files', methods=['POST'])
+    def upload_file():
+        data = request.get_json()
+        file = File(
+            user_id=data['user_id'],
+            file_name=data['file_name'],
+            file_path=data['file_path'],
+            file_type=data['file_type'],
+            file_type_id=data['file_type_id'],
+            visibility=data['visibility']
+        )
+        db.session.add(file)
+        db.session.commit()
+        return jsonify(file.to_dict()), 201
 
-@files_bp.route("/files", methods=["GET"])
-def get_files():
-    files = File.query.all()
-    return jsonify([file.to_dict() for file in files])
+    @bp.route('/files/<int:file_id>', methods=['GET'])
+    def get_file(file_id):
+        file = File.query.get_or_404(file_id)
+        return jsonify(file.to_dict())
 
+    @bp.route('/files/<int:file_id>', methods=['PUT'])
+    def update_file(file_id):
+        data = request.get_json()
+        file = File.query.get_or_404(file_id)
+        file.file_name = data.get('file_name', file.file_name)
+        file.file_path = data.get('file_path', file.file_path)
+        file.file_type = data.get('file_type', file.file_type)
+        file.file_type_id = data.get('file_type_id', file.file_type_id)
+        file.visibility = data.get('visibility', file.visibility)
+        db.session.commit()
+        return jsonify(file.to_dict())
 
-@files_bp.route("/files", methods=["POST"])
-def upload_file():
-    data = request.get_json()
-    new_file = File(**data)
-    db.session.add(new_file)
-    db.session.commit()
-    return jsonify(new_file.to_dict()), 201
-
-
-@files_bp.route("/files/<int:id>", methods=["PUT"])
-def update_file(id):
-    file = File.query.get_or_404(id)
-    data = request.get_json()
-    for key, value in data.items():
-        setattr(file, key, value)
-    db.session.commit()
-    return jsonify(file.to_dict())
-
-
-@files_bp.route("/files/<int:id>", methods=["DELETE"])
-def delete_file(id):
-    file = File.query.get_or_404(id)
-    db.session.delete(file)
-    db.session.commit()
-    return jsonify({"message": "File deleted"}), 200
+    @bp.route('/files/<int:file_id>', methods=['DELETE'])
+    def delete_file(file_id):
+        file = File.query.get_or_404(file_id)
+        db.session.delete(file)
+        db.session.commit()
+        return '', 204

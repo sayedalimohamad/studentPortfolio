@@ -1,8 +1,5 @@
 from flask import Flask, jsonify, request
-from flask_cors import CORS
-from config import Config
-from extensions import db, jwt, cors
-from flask_migrate import Migrate
+from extensions import db, jwt, cors, migrate
 from controllers import (
     admin_bp,
     api_bp,
@@ -13,20 +10,18 @@ from controllers import (
     supervisors_bp,
     users_bp,
 )
-from services.ai_service import ask_ai  # Import the AI service
-from utils.auth import role_required, get_current_user_id  # Import auth utilities
+from services.ai_service import ask_ai
+from utils.auth import role_required, get_current_user_id
 
 
 def create_app():
     app = Flask(__name__)
-    CORS(app)
-    app.config.from_object(Config)
+    app.config.from_object("config.Config")
 
     # Initialize extensions
     db.init_app(app)
-    jwt.init_app(app)
+    migrate.init_app(app, db)
     cors.init_app(app)
-    migrate = Migrate(app, db)
 
     # Register Blueprints
     app.register_blueprint(admin_bp, url_prefix="/api/admins")
