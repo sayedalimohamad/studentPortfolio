@@ -1,87 +1,170 @@
-from datetime import date
+from datetime import date, timedelta
+import random
+from faker import Faker
 from app import create_app
 from extensions import db
-from models import User, Student, Supervisor, Admin, PrivacyLevel
+from models import User, Student, Supervisor, Admin, PrivacyLevel, FileType, EntityType, RecommendationStatus, File, Event, Notification, History, Recommendation
 
-# Create the Flask app
-app = create_app()
+def init_db():
+    app = create_app()
+    fake = Faker()
 
-# Use the app context to interact with the database
-with app.app_context():
-    # Clear existing data (optional, for testing purposes)
-    db.session.query(User).delete()
-    db.session.query(Student).delete()
-    db.session.query(Admin).delete()
-    db.session.query(Supervisor).delete()
-    db.session.query(PrivacyLevel).delete()
-    db.session.commit()
+    with app.app_context():
+        # Clear existing data
+        db.drop_all()
+        db.create_all()
 
-    # Add a privacy level
-    privacy_level = PrivacyLevel(level="public", description="Visible to everyone")
-    db.session.add(privacy_level)
-    db.session.commit()
+        # Add privacy levels
+        privacy_levels = [
+            PrivacyLevel(level="public", description="Visible to everyone"),
+            PrivacyLevel(level="private", description="Visible only to the user"),
+            PrivacyLevel(level="supervisors", description="Visible to supervisors and admins")
+        ]
+        db.session.add_all(privacy_levels)
 
-    # Create a student user
-    student_user = User(
-        username="alice_student",
-        email="alice@example.com",
-        role="student",
-        status="active",
-    )
-    student_user.set_password("studentpass")
-    db.session.add(student_user)
-    db.session.commit()
+        # Add file types
+        file_types = [
+            FileType(type_name="document"),
+            FileType(type_name="image"),
+            FileType(type_name="video")
+        ]
+        db.session.add_all(file_types)
 
-    # Create a student profile
-    student = Student(
-        user_id=student_user.user_id,
-        full_name="Alice Johnson",
-        dob=date(2001, 2, 2),
-        institution="Example University",
-        major="Mathematics",
-        privacy_level="public",
-        bio="A dedicated student.",
-    )
-    db.session.add(student)
-    db.session.commit()
+        # Add entity types
+        entity_types = [
+            EntityType(type="user", description="User actions"),
+            EntityType(type="file", description="File actions"),
+            EntityType(type="event", description="Event actions")
+        ]
+        db.session.add_all(entity_types)
 
-    # Create an admin user
-    admin_user = User(
-        username="bob_admin", email="bob@example.com", role="admin", status="active"
-    )
-    admin_user.set_password("adminpass")
-    db.session.add(admin_user)
-    db.session.commit()
+        # Add recommendation statuses
+        recommendation_statuses = [
+            RecommendationStatus(status="pending", description="Recommendation is pending"),
+            RecommendationStatus(status="accepted", description="Recommendation is accepted"),
+            RecommendationStatus(status="rejected", description="Recommendation is rejected")
+        ]
+        db.session.add_all(recommendation_statuses)
 
-    # Create an admin profile
-    admin = Admin(
-        user_id=admin_user.user_id,
-        created_by=admin_user.user_id,  # Self-created admin
-        permissions={"manage_users": True, "manage_content": True},
-        role="admin",
-    )
-    db.session.add(admin)
-    db.session.commit()
+        # Create users
+        users = []
+        roles = ["student", "supervisor", "admin"]
+        for _ in range(12):  # 12 users
+            role = random.choice(roles)
+            user = User(
+                username=fake.user_name(),
+                email=fake.email(),
+                role=role,
+                status="active",
+            )
+            user.set_password(f"{role}pass")
+            users.append(user)
 
-    # Create a supervisor user
-    supervisor_user = User(
-        username="charlie_supervisor",
-        email="charlie@example.com",
-        role="supervisor",
-        status="active",
-    )
-    supervisor_user.set_password("supervisorpass")
-    db.session.add(supervisor_user)
-    db.session.commit()
+        db.session.add_all(users)
+        db.session.commit()
 
-    # Create a supervisor profile
-    supervisor = Supervisor(
-        user_id=supervisor_user.user_id,
-        institution="Example University",
-        department="Engineering",
-        bio="Experienced supervisor.",
-    )
-    db.session.add(supervisor)
-    db.session.commit()
+        # Create profiles
+        for user in users:
+            if user.role == "student":
+                student = Student(
+                    user_id=user.user_id,
+                    full_name=fake.name(),
+                    dob=fake.date_of_birth(minimum_age=18, maximum_age=25),
+                    institution=fake.company(),
+                    major=fake.job(),
+                    privacy_level=random.choice(["public", "private", "supervisors"]),
+                    bio=fake.text(),
+                )
+                db.session.add(student)
+            elif user.role == "supervisor":
+                supervisor = Supervisor(
+                    user_id=user.user_id,
+                    institution=fake.company(),
+                    department=fake.job(),
+                    bio=fake.text(),
+                )
+                db.session.add(supervisor)
+            elif user.role == "admin":
+                admin = Admin(
+                    user_id=user.user_id,
+                    created_by=random.choice([u.user_id for u in users if u.role == "admin"]),
+                    permissions={"manage_users": True, "manage_content": True},
+                    role="admin",
+                )
+                db.session.add(admin)
 
-    print("Test data created successfully!")
+        db.session.commit()
+
+        # Create files
+        file_types = ["document", "image", "video"]
+        for user in users:
+            for _ in range(random.randint(1, 5)):  # 1 to 5 files per user
+                file = File(
+                    user_id=user.user_id,
+                    file_name=fake.file_name(extension=random.choice(["pdf", "jpg", "mp4"])),
+                    file_path=f"/path/to/{fake.file_path()}",
+                    file_type=random.choice(file_types),
+                    file_type_id=random.randint(1, 3),
+                    visibility=random.choice(["public", "private", "supervisors"]),
+                )
+                db.session.add(file)
+
+        db.session.commit()
+
+        # Create events
+        for user in users:
+            for _ in range(random.randint(1, 3)):  # 1 to 3 events per user
+                event = Event(
+                    user_id=user.user_id,
+                    title=fake.sentence(),
+                    description=fake.text(),
+                    date=fake.date_between(start_date="-30d", end_date="+30d"),
+                    location=fake.address(),
+                )
+                db.session.add(event)
+
+        db.session.commit()
+
+        # Create notifications
+        for user in users:
+            for _ in range(random.randint(1, 5)):  # 1 to 5 notifications per user
+                notification = Notification(
+                    user_id=user.user_id,
+                    message=fake.sentence(),
+                )
+                db.session.add(notification)
+
+        db.session.commit()
+
+        # Create history entries
+        actions = ["login", "logout", "file_upload", "event_create"]
+        for user in users:
+            for _ in range(random.randint(1, 10)):  # 1 to 10 history entries per user
+                history = History(
+                    user_id=user.user_id,
+                    action_type=random.choice(actions),
+                    action_details=fake.sentence(),
+                    entity_type=random.choice(["user", "file", "event"]),
+                    entity_id=random.randint(1, 100),  # Random entity ID
+                )
+                db.session.add(history)
+
+        db.session.commit()
+
+        # Create recommendations
+        events = Event.query.all()
+        for event in events:
+            for _ in range(random.randint(1, 2)):  # 1 to 2 recommendations per event
+                recommendation = Recommendation(
+                    user_id=random.choice([u.user_id for u in users]),
+                    event_id=event.event_id,
+                    status=random.choice(["pending", "accepted", "rejected"]),
+                )
+                db.session.add(recommendation)
+
+        db.session.commit()
+
+        print("Test data created successfully!")
+
+if __name__ == "__main__":
+    init_db()
