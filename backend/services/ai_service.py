@@ -72,6 +72,36 @@ def make_response_friendly(answer: str, full_context: str) -> str:
     )
     return friendly_response
 
+def find_similar_questions(question: str, knowledge_base: list, max_recommendations: int = 5) -> list:
+    """
+    Finds similar questions or topics by splitting the question into words and comparing them to the knowledge base.
+
+    Args:
+        question (str): The question to find similar topics for.
+        knowledge_base (list): A list of documents or facts.
+        max_recommendations (int): The maximum number of recommendations to return.
+
+    Returns:
+        list: A list of recommended topics (up to max_recommendations).
+    """
+    # Split the question into words
+    question_words = question.lower().split()
+
+    # Use TF-IDF to find similar topics
+    vectorizer = TfidfVectorizer()
+    tfidf_matrix = vectorizer.fit_transform(knowledge_base + [" ".join(question_words)])
+    question_vector = tfidf_matrix[-1]  # The last vector is the question
+    context_vectors = tfidf_matrix[:-1]  # The rest are the knowledge base contexts
+
+    # Compute cosine similarity between the question and each context
+    similarities = cosine_similarity(question_vector, context_vectors).flatten()
+
+    # Get the indices of the top N most similar contexts
+    top_indices = similarities.argsort()[-max_recommendations:][::-1]
+    similar_topics = [knowledge_base[i] for i in top_indices if similarities[i] > 0]
+
+    return similar_topics
+
 def ask_ai(question: str) -> str:
     """
     Sends a question to the AI and returns the response.
@@ -105,6 +135,14 @@ def ask_ai(question: str) -> str:
 
         # Make the response more friendly and include the full context
         friendly_answer = make_response_friendly(raw_answer, full_context)
+
+        # Find similar questions or topics based on the question words
+        similar_topics = find_similar_questions(question, knowledge_base, max_recommendations=5)
+        if similar_topics:
+            friendly_answer += "\n\nHere are some recommended topics based on your question:\n"
+            for i, topic in enumerate(similar_topics, 1):
+                friendly_answer += f"{i}. {topic}\n"
+
         return friendly_answer
     except Exception as e:
         print(f"Error in AI service: {e}")

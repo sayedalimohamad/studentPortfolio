@@ -10,8 +10,8 @@ headers = {
 
 # Define the JSON payload
 payload = {
-    "question": "velocity from Earth"
-    # "question": "Qui est Albert Einstein?"
+    # "question": "velocity from Earth"
+    "question": "Qui est Albert Einstein?"
 }
 
 try:
