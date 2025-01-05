@@ -73,11 +73,12 @@ The platform aims to streamline the process of showcasing skills, managing acade
 
 #### Example:
 
-```
+```json
 {
-"question": "Velocity from Earth",
-"response": "Sure! Here's what I found: 11.2 km/s.\n\nHere's the full information:\nThe escape velocity from Earth is approximately 11.2 km/s."
+  "question": "Velocity from Earth",
+  "response": "Sure! Here's what I found: 11.2 km/s.\n\nHere's the full information:\nThe escape velocity from Earth is approximately 11.2 km/s.\n\nHere are some recommended topics based on your question:\n1. Hubble's law states that the velocity of a galaxy is proportional to its distance from us.\n2. The moon is moving away from Earth at a rate of about 3.8 cm per year.\n3. Momentum is the product of mass and velocity, p = mv.\n4. Angular velocity is measured in radians per second."
 }
+
 ```
 
 ```
@@ -85,6 +86,13 @@ Sure! Here's what I found: 11.2 km/s.
 
 Here's the full information:
 The escape velocity from Earth is approximately 11.2 km/s.
+
+Here are some recommended topics based on your question:
+  1. Hubble's law states that the velocity of a galaxy is proportional to its distance from us.
+  2. The moon is moving away from Earth at a rate of about 3.8 cm per year.
+  3. Momentum is the product of mass and velocity, p = mv.
+  4. Angular velocity is measured in radians per second.
+
 ```
 
 ### Collaboration Tools
