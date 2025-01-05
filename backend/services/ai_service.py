@@ -5,20 +5,30 @@ import json
 import os
 
 # Initialize the QA pipeline
-qa_pipeline = pipeline("question-answering", model="distilbert-base-cased-distilled-squad")
+qa_pipeline = pipeline(
+    "question-answering", model="distilbert-base-cased-distilled-squad"
+)
 
 # Set the path to the knowledge base file
 knowledge_base_path = "services/knowledge_base.json"
 
 # Check if the knowledge base file exists
 if not os.path.exists(knowledge_base_path):
-    raise FileNotFoundError(f"The knowledge base file '{knowledge_base_path}' was not found.")
+    raise FileNotFoundError(
+        f"The knowledge base file '{knowledge_base_path}' was not found."
+    )
 
 # Load the knowledge base from the JSON file with UTF-8 encoding
 with open(knowledge_base_path, "r", encoding="utf-8") as f:
     knowledge_base = json.load(f)
 
-def retrieve_relevant_context(question: str, knowledge_base: list, top_k: int = 1, similarity_threshold: float = 0.2) -> tuple:
+
+def retrieve_relevant_context(
+    question: str,
+    knowledge_base: list,
+    top_k: int = 1,
+    similarity_threshold: float = 0.2,
+) -> tuple:
     """
     Retrieves the most relevant context from the knowledge base for a given question.
 
@@ -54,6 +64,7 @@ def retrieve_relevant_context(question: str, knowledge_base: list, top_k: int = 
         return "I don't have enough information to answer that question.", nearby_topics
     return knowledge_base[most_relevant_index], []
 
+
 def make_response_friendly(answer: str, full_context: str) -> str:
     """
     Makes the AI's response more friendly and includes the full context.
@@ -72,7 +83,10 @@ def make_response_friendly(answer: str, full_context: str) -> str:
     )
     return friendly_response
 
-def find_similar_questions(question: str, knowledge_base: list, max_recommendations: int = 5) -> list:
+
+def find_similar_questions(
+    question: str, knowledge_base: list, max_recommendations: int = 5
+) -> list:
     """
     Finds similar questions or topics by splitting the question into words and comparing them to the knowledge base.
 
@@ -102,6 +116,7 @@ def find_similar_questions(question: str, knowledge_base: list, max_recommendati
 
     return similar_topics
 
+
 def ask_ai(question: str) -> str:
     """
     Sends a question to the AI and returns the response.
@@ -114,7 +129,9 @@ def ask_ai(question: str) -> str:
     """
     try:
         # Retrieve the most relevant context and nearby topics from the knowledge base
-        full_context, nearby_topics = retrieve_relevant_context(question, knowledge_base)
+        full_context, nearby_topics = retrieve_relevant_context(
+            question, knowledge_base
+        )
 
         # If no relevant context is found, suggest nearby topics
         if full_context == "I don't have enough information to answer that question.":
@@ -137,14 +154,22 @@ def ask_ai(question: str) -> str:
         friendly_answer = make_response_friendly(raw_answer, full_context)
 
         # Find similar questions or topics based on the question words
-        similar_topics = find_similar_questions(question, knowledge_base, max_recommendations=5)
+        similar_topics = find_similar_questions(
+            question, knowledge_base, max_recommendations=5
+        )
         if similar_topics:
-            friendly_answer += "\n\nHere are some recommended topics based on your question:\n"
-            for i, topic in enumerate(similar_topics, 1):
-                friendly_answer += f"{i}. {topic}\n"
+            # Exclude the current context from the recommended topics
+            similar_topics = [
+                topic for topic in similar_topics if topic != full_context
+            ]
+            if similar_topics:  # Check if there are still topics to recommend
+                friendly_answer += (
+                    "\n\nHere are some recommended topics based on your question:\n"
+                )
+                for i, topic in enumerate(similar_topics, 1):
+                    friendly_answer += f"{i}. {topic}\n"
 
         return friendly_answer
     except Exception as e:
         print(f"Error in AI service: {e}")
         return "Sorry, I couldn't process your request."
-
