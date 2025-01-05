@@ -18,7 +18,7 @@ if not os.path.exists(knowledge_base_path):
 with open(knowledge_base_path, "r", encoding="utf-8") as f:
     knowledge_base = json.load(f)
 
-def retrieve_relevant_context(question: str, knowledge_base: list, top_k: int = 1) -> str:
+def retrieve_relevant_context(question: str, knowledge_base: list, top_k: int = 1, similarity_threshold: float = 0.2) -> tuple:
     """
     Retrieves the most relevant context from the knowledge base for a given question.
 
@@ -26,9 +26,12 @@ def retrieve_relevant_context(question: str, knowledge_base: list, top_k: int = 
         question (str): The question to retrieve context for.
         knowledge_base (list): A list of documents or facts.
         top_k (int): The number of top contexts to retrieve.
+        similarity_threshold (float): The minimum similarity score for a context to be considered relevant.
 
     Returns:
-        str: The most relevant context.
+        tuple: A tuple containing:
+            - The most relevant context (or a fallback message if no relevant context is found).
+            - A list of nearby topics (top N similar contexts).
     """
     # Use TF-IDF to find the most relevant context
     vectorizer = TfidfVectorizer()
@@ -39,9 +42,17 @@ def retrieve_relevant_context(question: str, knowledge_base: list, top_k: int = 
     # Compute cosine similarity between the question and each context
     similarities = cosine_similarity(question_vector, context_vectors).flatten()
 
-    # Get the index of the most relevant context
-    most_relevant_index = similarities.argsort()[-top_k:][::-1][0]
-    return knowledge_base[most_relevant_index]
+    # Get the indices of the top N most similar contexts
+    top_indices = similarities.argsort()[-top_k:][::-1]
+    most_relevant_index = top_indices[0]
+    most_relevant_similarity = similarities[most_relevant_index]
+
+    # Check if the similarity score meets the threshold
+    if most_relevant_similarity < similarity_threshold:
+        # Retrieve the top N nearby topics
+        nearby_topics = [knowledge_base[i] for i in top_indices]
+        return "I don't have enough information to answer that question.", nearby_topics
+    return knowledge_base[most_relevant_index], []
 
 def make_response_friendly(answer: str, full_context: str) -> str:
     """
@@ -72,8 +83,21 @@ def ask_ai(question: str) -> str:
         str: The AI's response.
     """
     try:
-        # Retrieve the most relevant context from the knowledge base
-        full_context = retrieve_relevant_context(question, knowledge_base)
+        # Retrieve the most relevant context and nearby topics from the knowledge base
+        full_context, nearby_topics = retrieve_relevant_context(question, knowledge_base)
+
+        # If no relevant context is found, suggest nearby topics
+        if full_context == "I don't have enough information to answer that question.":
+            if nearby_topics:
+                response = (
+                    f"{full_context}\n\n"
+                    f"Here are some topics that might be related to your question:\n"
+                )
+                for i, topic in enumerate(nearby_topics, 1):
+                    response += f"{i}. {topic}\n"
+                return response
+            else:
+                return full_context
 
         # Use the QA pipeline to get an answer
         result = qa_pipeline(question=question, context=full_context)
@@ -85,3 +109,4 @@ def ask_ai(question: str) -> str:
     except Exception as e:
         print(f"Error in AI service: {e}")
         return "Sorry, I couldn't process your request."
+
