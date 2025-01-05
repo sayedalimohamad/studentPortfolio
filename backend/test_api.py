@@ -10,7 +10,7 @@ headers = {
 
 # Define the JSON payload
 payload = {
-    "question": "What is the capital of France?"
+    "question": "velocity from Earth"
 }
 
 try:

@@ -1,7 +1,6 @@
 from flask import Blueprint, jsonify, request, current_app
 from services.ai_service import ask_ai
 
-
 def register_routes(bp: Blueprint):
     @bp.route("/status", methods=["GET"])
     def status() -> None:

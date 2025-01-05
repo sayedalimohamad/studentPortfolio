@@ -64,8 +64,28 @@ The platform aims to streamline the process of showcasing skills, managing acade
 
 ### AI-Powered Learning Assistance
 
-- Integrate a Q&A system to help students solve academic challenges.
-- Offer personalized learning suggestions based on user activity.
+- Leverages the **Hugging Face Transformers** library for natural language processing.
+- Integrates a **fine-tuned question-answering pipeline** using the `distilbert-base-cased-distilled-squad` model to provide accurate and concise answers to academic questions.
+  ```python
+  from transformers import pipeline
+  qa_pipeline = pipeline("question-answering", model="distilbert-base-cased-distilled-squad")
+  ```
+
+#### Example:
+
+```
+{
+"question": "Velocity from Earth",
+"response": "Sure! Here's what I found: 11.2 km/s.\n\nHere's the full information:\nThe escape velocity from Earth is approximately 11.2 km/s."
+}
+```
+
+```
+Sure! Here's what I found: 11.2 km/s.
+
+Here's the full information:
+The escape velocity from Earth is approximately 11.2 km/s.
+```
 
 ### Collaboration Tools
 
