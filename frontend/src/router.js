@@ -4,6 +4,7 @@ import StudentView from './views/StudentView.vue';
 import AdminView from './views/AdminView.vue';
 import LoginView from './views/LoginView.vue';
 import RegisterView from './views/RegisterView.vue';
+import ChatInterfaceView from './views/ChatInterfaceView.vue';
 
 const routes = [
   { path: '/', component: HomeView },
@@ -11,6 +12,7 @@ const routes = [
   { path: '/admins', component: AdminView },
   { path: '/login', component: LoginView },
   { path: '/register', component: RegisterView },
+  { path: '/chat', component: ChatInterfaceView },
 ];
 
 const router = createRouter({

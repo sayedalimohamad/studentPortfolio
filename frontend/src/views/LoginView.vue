@@ -5,8 +5,25 @@
         <v-card class="px-6 py-8">
           <h1 class="text-3xl font-bold mb-6 text-center">Login</h1>
           <v-form @submit.prevent="login">
-            <v-text-field v-model="email" label="Email" required outlined></v-text-field>
-            <v-text-field v-model="password" label="Password" type="password" required outlined></v-text-field>
+            <v-text-field
+              v-model="email"
+              label="Email"
+              type="email"
+              :rules="[
+                (v) => !!v || 'Email is required',
+                (v) => /.+@.+\..+/.test(v) || 'Email must be valid',
+              ]"
+              required
+              outlined
+            ></v-text-field>
+            <v-text-field
+              v-model="password"
+              label="Password"
+              type="password"
+              :rules="[(v) => !!v || 'Password is required']"
+              required
+              outlined
+            ></v-text-field>
             <v-btn type="submit" color="primary" block large>Login</v-btn>
           </v-form>
         </v-card>
@@ -31,10 +48,12 @@ export default {
           email: this.email,
           password: this.password,
         });
-        localStorage.setItem('token', response.data.access_token);
-        this.$router.push('/');
+        localStorage.setItem('token', response.data.token);
+        alert('Login successful!');
+        this.$router.push('/'); // Redirect to home page
       } catch (error) {
-        alert('Invalid credentials');
+        alert('Login failed. Please try again.');
+        console.error(error);
       }
     },
   },

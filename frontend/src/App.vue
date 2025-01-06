@@ -9,6 +9,7 @@
       <v-btn to="/admins" text class="text-white">Admins</v-btn>
       <v-btn to="/login" text class="text-white">Login</v-btn>
       <v-btn to="/register" text class="text-white">Register</v-btn>
+      <v-btn to="/chat" text class="text-white">Chat</v-btn>
       <v-btn @click="toggleTheme" icon>
         <v-icon>{{ themeIcon }}</v-icon>
       </v-btn>
