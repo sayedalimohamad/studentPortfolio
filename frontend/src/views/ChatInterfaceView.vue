@@ -5,9 +5,10 @@
         <v-row justify="center" align="center">
           <v-col cols="12" sm="10" md="8" lg="6">
             <v-card class="elevation-12">
-              <v-card-title class="text-h5 font-weight-bold text-center py-4">
-                AI Chat Assistant
-              </v-card-title>
+              <v-card-title class="text-h5 font-weight-bold text-center py-4 ai-chat-title d-flex align-center justify-center">
+  <v-icon size="36px" class="mr-2">mdi-robot</v-icon>
+  <span>AI Chat Assistant</span>
+</v-card-title>
               
               <v-card-text>
                 <div class="chat-messages" ref="chatContainer">
@@ -15,14 +16,14 @@
                     <v-slide-y-transition group>
                       <div v-for="(message, index) in messages" :key="index" class="mb-4">
                         <v-chip
-                          :color="message.isUser ? 'primary' : 'grey-lighten-3'"
+                          :color="message.isUser ? 'primary' : 'secondary'"
                           :text-color="message.isUser ? 'white' : 'black'"
                           label
                         >
                           {{ message.isUser ? 'You' : 'AI' }}
                         </v-chip>
-                        <div :class="['message-content', { 'text-right': message.isUser }]">
-                          {{ message.content }}
+                        <div :class="['message-content', { 'text-right': message.isUser, 'ai-message': !message.isUser }]">
+                          <div v-html="formatMessage(message.content)"></div>
                         </div>
                       </div>
                     </v-slide-y-transition>
@@ -45,6 +46,9 @@
                     :loading="isLoading"
                     :disabled="isLoading"
                   ></v-text-field>
+                  <v-btn @click="clearChat" icon>
+                    <v-icon>mdi-delete</v-icon>
+                  </v-btn>
                 </v-form>
               </v-card-actions>
             </v-card>
@@ -64,6 +68,8 @@ const newMessage = ref('')
 const isLoading = ref(false)
 const chatContainer = ref(null)
 
+const greetings = ['hello', 'hi', 'hey']
+
 const sendMessage = async () => {
   if (!newMessage.value.trim() || isLoading.value) return
 
@@ -71,6 +77,14 @@ const sendMessage = async () => {
   messages.value.push({ content: userMessage, isUser: true })
   newMessage.value = ''
   isLoading.value = true
+
+  if (greetings.includes(userMessage.toLowerCase())) {
+    messages.value.push({ content: 'Welcome! How can I assist you today?', isUser: false })
+    isLoading.value = false
+    await nextTick()
+    scrollToBottom()
+    return
+  }
 
   try {
     const response = await axios.post('/api/ask', { question: userMessage })
@@ -86,6 +100,20 @@ const sendMessage = async () => {
     await nextTick()
     scrollToBottom()
   }
+}
+
+const clearChat = () => {
+  messages.value = []
+}
+
+const formatMessage = (message) => {
+  // Replace newlines with <br> tags for HTML rendering
+  message = message.replace(/\n/g, '<br>')
+
+  // Bold specific parts of the response
+  message = message.replace(/(Sure! Here's what I found:|Here's the full information:)/g, '<strong>$1</strong>')
+
+  return message
 }
 
 const scrollToBottom = () => {
@@ -104,19 +132,51 @@ onMounted(() => {
   max-height: 400px;
   overflow-y: auto;
   padding: 16px;
+  background-color: var(--v-theme-background);
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .message-content {
   margin-top: 4px;
   padding: 8px 12px;
   border-radius: 8px;
-  background-color: #f5f5f5;
+  background-color: var(--v-theme-surface);
   display: inline-block;
   max-width: 80%;
+  word-wrap: break-word;
 }
 
 .text-right .message-content {
-  background-color: #e3f2fd;
+  background-color: var(--v-theme-secondary);
   float: right;
+}
+
+.ai-message {
+  background-color: #e0f7fa;
+  margin-left: 8px;/* Light blue background for AI messages */
+}
+
+.v-card-title {
+  background-color: var(--v-theme-primary);
+  color: white;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+.v-card-actions {
+  background-color: var(--v-theme-surface);
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+
+.v-text-field {
+  background-color: var(--v-theme-surface);
+  border-radius: 8px;
+}
+.ai-chat-title {
+  background-color: #e0f7fa !important;
+  color: #101010;
+  
 }
 </style>

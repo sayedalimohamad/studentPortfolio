@@ -4,12 +4,30 @@
     <v-app-bar app :color="$vuetify.theme.current.dark ? 'primary' : 'primary'" dark>
       <v-toolbar-title>Student Portfolio</v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn to="/" text class="text-white">Home</v-btn>
-      <v-btn to="/students" text class="text-white">Students</v-btn>
-      <v-btn to="/admins" text class="text-white">Admins</v-btn>
-      <v-btn to="/login" text class="text-white">Login</v-btn>
-      <v-btn to="/register" text class="text-white">Register</v-btn>
-      <v-btn to="/chat" text class="text-white">Chat</v-btn>
+      <v-btn to="/" class="text-white mx-2">
+        <v-icon left>mdi-home</v-icon>
+        Home
+      </v-btn>
+      <v-btn to="/students" class="text-white mx-2">
+        <v-icon left>mdi-account-group</v-icon>
+        Students
+      </v-btn>
+      <v-btn to="/admins" class="text-white mx-2">
+        <v-icon left>mdi-account-tie</v-icon>
+        Admins
+      </v-btn>
+      <v-btn to="/login" class="text-white mx-2">
+        <v-icon left>mdi-account-tie</v-icon>
+        Login
+      </v-btn>
+      <v-btn to="/register" class="text-white mx-2">
+        <v-icon left>mdi-account-plus</v-icon>
+        Register
+      </v-btn>
+      <v-btn to="/chat" class="text-white mx-2">
+        <v-icon left>mdi-chat</v-icon>
+        Chat
+      </v-btn>
       <v-btn @click="toggleTheme" icon>
         <v-icon>{{ themeIcon }}</v-icon>
       </v-btn>
