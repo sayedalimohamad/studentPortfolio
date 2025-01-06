@@ -24,6 +24,8 @@
 </template>
 
 <script>
+import axios from '../axios'; // Import the custom Axios instance
+
 export default {
   name: 'StudentView',
   data() {
@@ -33,7 +35,7 @@ export default {
   },
   async created() {
     try {
-      const response = await this.$axios.get('/api/students'); // Use global Axios
+      const response = await axios.get('/api/students'); // Use the custom Axios instance
       this.students = response.data;
     } catch (error) {
       console.error('Error fetching students:', error);

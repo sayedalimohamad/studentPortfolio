@@ -1,7 +1,11 @@
 <template>
   <v-app>
     <!-- Navigation Bar -->
-    <v-app-bar app :color="$vuetify.theme.current.dark ? 'primary' : 'primary'" dark>
+    <v-app-bar
+      app
+      :color="$vuetify.theme.global.dark ? 'primary' : 'primary'"
+      :dark="$vuetify.theme.global.dark"
+    >
       <v-toolbar-title>Student Portfolio</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-btn to="/" class="text-white mx-2">
@@ -39,7 +43,11 @@
     </v-main>
 
     <!-- Footer -->
-    <v-footer :color="$vuetify.theme.current.dark ? 'primary' : 'primary'" dark padless>
+    <v-footer
+      :color="$vuetify.theme.global.dark ? 'primary' : 'primary'"
+      :dark="$vuetify.theme.global.dark"
+      padless
+    >
       <v-col class="text-center" cols="12">
         &copy; {{ new Date().getFullYear() }} — Student Portfolio
       </v-col>
@@ -51,13 +59,15 @@
 export default {
   name: 'App',
   computed: {
+    // Dynamically determine the icon based on the current theme
     themeIcon() {
-      return this.$vuetify.theme.current.dark ? 'mdi-weather-sunny' : 'mdi-weather-night';
+      return this.$vuetify.theme.global.dark ? 'mdi-weather-sunny' : 'mdi-weather-night';
     },
   },
   methods: {
+    // Toggle between light and dark themes
     toggleTheme() {
-      this.$vuetify.theme.current.dark = !this.$vuetify.theme.current.dark;
+      this.$vuetify.theme.global.dark = !this.$vuetify.theme.global.dark;
     },
   },
 };
