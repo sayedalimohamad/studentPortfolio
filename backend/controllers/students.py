@@ -18,6 +18,11 @@ def register_routes(bp: Blueprint):
         db.session.add(student)
         db.session.commit()
         return jsonify(student.to_dict()), 201
+    
+    @bp.route('/students', methods=['GET'])
+    def get_students():
+        students = Student.query.all()
+        return jsonify([student.to_dict() for student in students])
 
     @bp.route('/students/<int:student_id>', methods=['GET'])
     def get_student(student_id):

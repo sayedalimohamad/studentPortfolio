@@ -12,7 +12,7 @@ from controllers import (
 )
 from services.ai_service import ask_ai
 from utils.auth import role_required, get_current_user_id
-
+from models import Student
 
 def create_app():
     app = Flask(__name__)
@@ -42,6 +42,13 @@ def create_app():
         user_id = get_current_user_id()  # Get the current user's ID
         response = ask_ai(question)  # Use the AI service
         return jsonify({"user_id": user_id, "response": response})
+    
+    @app.route("/api/students", methods=["GET"])
+    # @role_required("supervisor")
+    def get_students():
+        students = Student.query.all()
+        return jsonify([student.to_dict() for student in students])
+    
 
     # Error handlers
     @app.errorhandler(404)
