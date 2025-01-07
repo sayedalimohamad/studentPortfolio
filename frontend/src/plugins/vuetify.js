@@ -12,25 +12,37 @@ export default createVuetify({
       light: {
         dark: false, // Explicitly mark this as a light theme
         colors: {
-          primary: '#1976D2',
-          secondary: '#424242',
-          accent: '#82B1FF',
-          error: '#FF5252',
-          info: '#2196F3',
-          success: '#4CAF50',
-          warning: '#FFC107',
+          primary: '#00ACC1', // Darker cyan
+          secondary: '#80DEEA', // Lighter cyan
+          accent: '#FF6F00', // Vibrant orange
+          error: '#D32F2F', // Red for errors
+          info: '#0097A7', // Dark cyan for info
+          success: '#43A047', // Green for success
+          warning: '#FFA000', // Amber for warnings
+          background: '#E0F7FA', // Base background color
+          surface: '#FFFFFF', // White for surfaces
+          onPrimary: '#FFFFFF', // White text on primary
+          onSecondary: '#000000', // Black text on secondary
+          onBackground: '#000000', // Black text on background
+          onSurface: '#000000', // Black text on surface
         },
       },
       dark: {
         dark: true, // Explicitly mark this as a dark theme
         colors: {
-          primary: '#2196F3',
-          secondary: '#424242',
-          accent: '#FF4081',
-          error: '#FF5252',
-          info: '#2196F3',
-          success: '#4CAF50',
-          warning: '#FFC107',
+          primary: '#00ACC1', // Darker cyan
+          secondary: '#80DEEA', // Lighter cyan
+          accent: '#FF6F00', // Vibrant orange
+          error: '#D32F2F', // Red for errors
+          info: '#0097A7', // Dark cyan for info
+          success: '#43A047', // Green for success
+          warning: '#FFA000', // Amber for warnings
+          background: '#121212', // Dark background
+          surface: '#1E1E1E', // Slightly lighter surface
+          onPrimary: '#000000', // Black text on primary
+          onSecondary: '#000000', // Black text on secondary
+          onBackground: '#FFFFFF', // White text on background
+          onSurface: '#FFFFFF', // White text on surface
         },
       },
     },
