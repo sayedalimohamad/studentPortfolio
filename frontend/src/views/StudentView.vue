@@ -33,7 +33,7 @@
 </template>
 
 <script>
-import axios from '../axios'; // Import the custom Axios instance
+import axios from 'axios'; // Import the custom Axios instance
 
 export default {
   name: 'StudentView',
