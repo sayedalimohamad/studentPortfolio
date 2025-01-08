@@ -13,6 +13,7 @@ from controllers import (
 from services.ai_service import ask_ai
 from utils.auth import role_required, get_current_user_id
 from models import Student
+import socket
 
 def create_app():
     app = Flask(__name__)
@@ -62,8 +63,15 @@ def create_app():
     return app
 
 
+def get_ip4_address():
+    hostname = socket.gethostname()
+    ip_address = socket.gethostbyname(hostname)
+    return ip_address
+
+
 if __name__ == "__main__":
     app = create_app()
     with app.app_context():
         db.create_all()
-    app.run(debug=True, port=5000)
+    app.run(debug=True, port=5000, host=f"{get_ip4_address()}")  
+
