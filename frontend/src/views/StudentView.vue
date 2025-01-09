@@ -51,6 +51,6 @@ export default {
 
 <style scoped>
 .word-color {
-  color: #2b6cb0;
+  color: #0097A7;
 }
 </style>
