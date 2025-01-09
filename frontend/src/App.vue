@@ -1,17 +1,13 @@
 <template>
   <v-app>
     <!-- Navigation Bar -->
-    <v-app-bar
-      app
-      :color="$vuetify.theme.global.dark ? 'primary' : 'primary'"
-      :dark="$vuetify.theme.global.dark"
-    >
+    <v-app-bar app :color="$vuetify.theme.global.dark ? 'primary' : 'primary'" :dark="$vuetify.theme.global.dark">
       <v-toolbar-title>Student Portfolio</v-toolbar-title>
       <v-spacer></v-spacer>
-      
+
       <!-- Hamburger Menu for Small Screens -->
       <v-app-bar-nav-icon @click="drawer = !drawer" class="d-sm-none"></v-app-bar-nav-icon>
-      
+
       <!-- Navigation Buttons for Larger Screens -->
       <div class="d-none d-sm-flex">
         <v-btn to="/" class="text-white mx-2">
@@ -39,19 +35,14 @@
           Chat
         </v-btn>
       </div>
-      
+
       <v-btn @click="toggleTheme" icon>
         <v-icon>{{ themeIcon }}</v-icon>
       </v-btn>
     </v-app-bar>
 
     <!-- Navigation Drawer for Small Screens -->
-    <v-navigation-drawer
-      v-model="drawer"
-      app
-      temporary
-      class="d-sm-none"
-    >
+    <v-navigation-drawer v-model="drawer" app temporary class="d-sm-none">
       <v-list>
         <v-list-item to="/">
           <v-list-item-icon><v-icon>mdi-home</v-icon></v-list-item-icon>
@@ -86,11 +77,7 @@
     </v-main>
 
     <!-- Footer -->
-    <v-footer
-      :color="$vuetify.theme.global.dark ? 'primary' : 'primary'"
-      :dark="$vuetify.theme.global.dark"
-      padless
-    >
+    <v-footer :color="$vuetify.theme.global.dark ? 'primary' : 'primary'" :dark="$vuetify.theme.global.dark" padless>
       <v-col class="text-center" cols="12">
         &copy; {{ new Date().getFullYear() }} — Student Portfolio
       </v-col>

@@ -5,24 +5,23 @@
         <v-row justify="center" align="center">
           <v-col cols="12" sm="10" md="8" lg="6">
             <v-card class="elevation-12">
-              <v-card-title class="text-h5 font-weight-bold text-center py-4 ai-chat-title d-flex align-center justify-center">
-  <v-icon size="36px" class="mr-2">mdi-robot</v-icon>
-  <span>AI Chat Assistant</span>
-</v-card-title>
-              
+              <v-card-title
+                class="text-h5 font-weight-bold text-center py-4 ai-chat-title d-flex align-center justify-center">
+                <v-icon size="36px" class="mr-2">mdi-robot</v-icon>
+                <span>AI Chat Assistant</span>
+              </v-card-title>
+
               <v-card-text>
                 <div class="chat-messages" ref="chatContainer">
                   <template v-if="messages.length">
                     <v-slide-y-transition group>
                       <div v-for="(message, index) in messages" :key="index" class="mb-4">
-                        <v-chip
-                          :color="message.isUser ? 'primary' : 'secondary'"
-                          :text-color="message.isUser ? 'white' : 'black'"
-                          label
-                        >
+                        <v-chip :color="message.isUser ? 'primary' : 'secondary'"
+                          :text-color="message.isUser ? 'white' : 'black'" label>
                           {{ message.isUser ? 'You' : 'AI' }}
                         </v-chip>
-                        <div :class="['message-content', { 'text-right': message.isUser, 'ai-message': !message.isUser }]">
+                        <div
+                          :class="['message-content', { 'text-right': message.isUser, 'ai-message': !message.isUser }]">
                           <div v-html="formatMessage(message.content)"></div>
                         </div>
                       </div>
@@ -36,16 +35,9 @@
 
               <v-card-actions>
                 <v-form @submit.prevent="sendMessage" class="d-flex align-center w-100">
-                  <v-text-field
-                    v-model="newMessage"
-                    label="Type your message..."
-                    append-inner-icon="mdi-send"
-                    @click:append-inner="sendMessage"
-                    variant="outlined"
-                    hide-details
-                    :loading="isLoading"
-                    :disabled="isLoading"
-                  ></v-text-field>
+                  <v-text-field v-model="newMessage" label="Type your message..." append-inner-icon="mdi-send"
+                    @click:append-inner="sendMessage" variant="outlined" hide-details :loading="isLoading"
+                    :disabled="isLoading"></v-text-field>
                   <v-btn @click="clearChat" icon>
                     <v-icon>mdi-delete</v-icon>
                   </v-btn>
@@ -154,7 +146,8 @@ onMounted(() => {
 
 .ai-message {
   background-color: #e0f7fa;
-  margin-left: 8px;/* Light blue background for AI messages */
+  margin-left: 8px;
+  /* Light blue background for AI messages */
 }
 
 .v-card-title {
@@ -174,9 +167,10 @@ onMounted(() => {
   background-color: var(--v-theme-surface);
   border-radius: 8px;
 }
+
 .ai-chat-title {
   background-color: #e0f7fa !important;
   color: #101010;
-  
+
 }
 </style>

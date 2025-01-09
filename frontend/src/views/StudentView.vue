@@ -3,11 +3,7 @@
     <h1 class="text-3xl font-bold mb-6 word-color">Students List</h1>
     <v-card v-if="students.length > 0">
       <v-list>
-        <v-list-item
-          v-for="student in students"
-          :key="student.student_id"
-          class="hover:bg-gray-50"
-        >
+        <v-list-item v-for="student in students" :key="student.student_id" class="hover:bg-gray-50">
           <v-list-item-content>
             <v-list-item-title class="text-lg font-bold word-color">
               {{ student.full_name }}
