@@ -20,6 +20,8 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   name: 'LoginView',
   data() {
@@ -31,11 +33,11 @@ export default {
   methods: {
     async login() {
       try {
-        const response = await this.$axios.post('/api/users/login', { // Use global Axios
+        const response = await axios.post('/api/users/login', {
           email: this.email,
           password: this.password,
         });
-        localStorage.setItem('token', response.data.token);
+        localStorage.setItem('token', response.data.access_token);
         alert('Login successful!');
         this.$router.push('/'); // Redirect to home page
       } catch (error) {

@@ -3,7 +3,7 @@ from extensions import db
 from models import Student
 
 def register_routes(bp: Blueprint):
-    @bp.route('/students', methods=['POST'])
+    @bp.route('/', methods=['POST'])
     def create_student():
         data = request.get_json()
         student = Student(
@@ -19,17 +19,17 @@ def register_routes(bp: Blueprint):
         db.session.commit()
         return jsonify(student.to_dict()), 201
     
-    @bp.route('/students', methods=['GET'])
+    @bp.route('/', methods=['GET'])
     def get_students():
         students = Student.query.all()
         return jsonify([student.to_dict() for student in students])
 
-    @bp.route('/students/<int:student_id>', methods=['GET'])
+    @bp.route('/<int:student_id>', methods=['GET'])
     def get_student(student_id):
         student = Student.query.get_or_404(student_id)
         return jsonify(student.to_dict())
 
-    @bp.route('/students/<int:student_id>', methods=['PUT'])
+    @bp.route('/<int:student_id>', methods=['PUT'])
     def update_student(student_id):
         data = request.get_json()
         student = Student.query.get_or_404(student_id)
@@ -42,7 +42,7 @@ def register_routes(bp: Blueprint):
         db.session.commit()
         return jsonify(student.to_dict())
 
-    @bp.route('/students/<int:student_id>', methods=['DELETE'])
+    @bp.route('/<int:student_id>', methods=['DELETE'])
     def delete_student(student_id):
         student = Student.query.get_or_404(student_id)
         db.session.delete(student)
