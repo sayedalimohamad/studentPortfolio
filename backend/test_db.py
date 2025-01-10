@@ -10,41 +10,47 @@ def init_db():
     fake = Faker()
 
     with app.app_context():
-        # Clear existing data
-        db.drop_all()
-        db.create_all()
+        # Remove the lines that drop and recreate the database tables
+        # db.drop_all()
+        # db.create_all()
 
-        # Add privacy levels
-        privacy_levels = [
-            PrivacyLevel(level="public", description="Visible to everyone"),
-            PrivacyLevel(level="private", description="Visible only to the user"),
-            PrivacyLevel(level="supervisors", description="Visible to supervisors and admins")
-        ]
-        db.session.add_all(privacy_levels)
+        # Add privacy levels if they don't exist
+        if not PrivacyLevel.query.first():
+            privacy_levels = [
+                PrivacyLevel(level="public", description="Visible to everyone"),
+                PrivacyLevel(level="private", description="Visible only to the user"),
+                PrivacyLevel(level="supervisors", description="Visible to supervisors and admins")
+            ]
+            db.session.add_all(privacy_levels)
 
-        # Add file types
-        file_types = [
-            FileType(type_name="document"),
-            FileType(type_name="image"),
-            FileType(type_name="video")
-        ]
-        db.session.add_all(file_types)
+        # Add file types if they don't exist
+        if not FileType.query.first():
+            file_types = [
+                FileType(type_name="document"),
+                FileType(type_name="image"),
+                FileType(type_name="video")
+            ]
+            db.session.add_all(file_types)
 
-        # Add entity types
-        entity_types = [
-            EntityType(type="user", description="User actions"),
-            EntityType(type="file", description="File actions"),
-            EntityType(type="event", description="Event actions")
-        ]
-        db.session.add_all(entity_types)
+        # Add entity types if they don't exist
+        if not EntityType.query.first():
+            entity_types = [
+                EntityType(type="user", description="User actions"),
+                EntityType(type="file", description="File actions"),
+                EntityType(type="event", description="Event actions")
+            ]
+            db.session.add_all(entity_types)
 
-        # Add recommendation statuses
-        recommendation_statuses = [
-            RecommendationStatus(status="pending", description="Recommendation is pending"),
-            RecommendationStatus(status="accepted", description="Recommendation is accepted"),
-            RecommendationStatus(status="rejected", description="Recommendation is rejected")
-        ]
-        db.session.add_all(recommendation_statuses)
+        # Add recommendation statuses if they don't exist
+        if not RecommendationStatus.query.first():
+            recommendation_statuses = [
+                RecommendationStatus(status="pending", description="Recommendation is pending"),
+                RecommendationStatus(status="accepted", description="Recommendation is accepted"),
+                RecommendationStatus(status="rejected", description="Recommendation is rejected")
+            ]
+            db.session.add_all(recommendation_statuses)
+
+        db.session.commit()
 
         # Create users
         users = []

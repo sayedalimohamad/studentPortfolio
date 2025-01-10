@@ -12,18 +12,14 @@ def register_routes(bp: Blueprint):
 
     @bp.route("/ask", methods=["POST"])
     def ask() -> None:
-        print("Headers:", request.headers)
-        print("Raw Data:", request.data.decode("utf-8"))
-
         try:
             data = request.get_json()
+            if not data or "question" not in data:
+                return jsonify({"error": "Question is required"}), 400
+
+            question = data["question"]
+            response = ask_ai(question)
+            return jsonify({"question": question, "response": response})
         except Exception as e:
-            current_app.logger.error(f"Error parsing JSON: {e}")
-            return jsonify({"error": "Invalid JSON"}), 400
-
-        if not data or "question" not in data:
-            return jsonify({"error": "Question is required"}), 400
-
-        question = data["question"]
-        response = ask_ai(question)
-        return jsonify({"question": question, "response": response})
+            current_app.logger.error(f"Error processing request: {e}")
+            return jsonify({"error": "Invalid request"}), 400

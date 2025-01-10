@@ -44,6 +44,7 @@ export default {
       this.students = response.data;
     } catch (error) {
       console.error('Error fetching students:', error);
+      this.$toast.error('Failed to fetch students. Please try again.');
     }
   },
 };

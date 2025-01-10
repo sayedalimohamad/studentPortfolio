@@ -1,5 +1,5 @@
 <template>
-  <v-container class="py-12">
+  <v-container class="py-12" >
     <!-- Hero Section -->
     <v-row align="center" class="mb-12">
       <v-col cols="12" md="6" class="text-center text-md-left">
@@ -12,7 +12,7 @@
       </v-col>
       <v-col cols="12" md="6" class="text-center">
         <v-img
-          src="https://via.placeholder.com/500x300"
+          src="/reading-book_qe4h.svg"
           alt="StudentPortfolio Hero Image"
           class="rounded-lg"
         ></v-img>
@@ -77,45 +77,45 @@
     </v-row>
 
     <!-- Testimonials Section -->
-    <v-row class="mb-12">
+    <v-row class="mb-12" align="stretch">
       <v-col cols="12" class="text-center">
-        <h2 class="text-3xl font-bold mb-6 word-color">What Our Users Say</h2>
+      <h2 class="text-3xl font-bold mb-6 word-color">What Our Users Say</h2>
       </v-col>
-      <v-col cols="12" md="4">
-        <v-card class="pa-6 text-center">
-          <v-avatar size="96" class="mb-4">
-            <v-img src="https://via.placeholder.com/96" alt="User 1"></v-img>
-          </v-avatar>
-          <p class="text-gray-700 mb-4">
-            "StudentPortfolio has transformed how I manage my academic journey. It's intuitive and powerful!"
-          </p>
-          <h3 class="text-lg font-bold">John Doe</h3>
-          <p class="text-gray-600">Student</p>
-        </v-card>
+      <v-col cols="12" md="4" class="d-flex">
+      <v-card class="pa-6 text-center flex-grow-1">
+        <v-avatar size="96" class="mb-4">
+        <v-img src="https://via.placeholder.com/96" alt="User 1"></v-img>
+        </v-avatar>
+        <p class="text-gray-700 mb-4">
+        "StudentPortfolio has transformed how I manage my academic journey."
+        </p>
+        <h3 class="text-lg font-bold">John Doe</h3>
+        <p class="text-gray-600">Student</p>
+      </v-card>
       </v-col>
-      <v-col cols="12" md="4">
-        <v-card class="pa-6 text-center">
-          <v-avatar size="96" class="mb-4">
-            <v-img src="https://via.placeholder.com/96" alt="User 2"></v-img>
-          </v-avatar>
-          <p class="text-gray-700 mb-4">
-            "As a supervisor, I find the platform incredibly helpful for guiding my students."
-          </p>
-          <h3 class="text-lg font-bold">Jane Smith</h3>
-          <p class="text-gray-600">Supervisor</p>
-        </v-card>
+      <v-col cols="12" md="4" class="d-flex">
+      <v-card class="pa-6 text-center flex-grow-1">
+        <v-avatar size="96" class="mb-4">
+        <v-img src="https://via.placeholder.com/96" alt="User 2"></v-img>
+        </v-avatar>
+        <p class="text-gray-700 mb-4">
+        "As a supervisor, I find the platform incredibly helpful for guiding my students."
+        </p>
+        <h3 class="text-lg font-bold">Jane Smith</h3>
+        <p class="text-gray-600">Supervisor</p>
+      </v-card>
       </v-col>
-      <v-col cols="12" md="4">
-        <v-card class="pa-6 text-center">
-          <v-avatar size="96" class="mb-4">
-            <v-img src="https://via.placeholder.com/96" alt="User 3"></v-img>
-          </v-avatar>
-          <p class="text-gray-700 mb-4">
-            "The AI tools and collaboration features are game-changers for our institution."
-          </p>
-          <h3 class="text-lg font-bold">Michael Brown</h3>
-          <p class="text-gray-600">Administrator</p>
-        </v-card>
+      <v-col cols="12" md="4" class="d-flex">
+      <v-card class="pa-6 text-center flex-grow-1">
+        <v-avatar size="96" class="mb-4">
+        <v-img src="https://via.placeholder.com/96" alt="User 3"></v-img>
+        </v-avatar>
+        <p class="text-gray-700 mb-4">
+        "The AI tools and collaboration features are game-changers for our institution."
+        </p>
+        <h3 class="text-lg font-bold">Michael Brown</h3>
+        <p class="text-gray-600">Administrator</p>
+      </v-card>
       </v-col>
     </v-row>
 

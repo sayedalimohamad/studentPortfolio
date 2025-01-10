@@ -13,7 +13,7 @@ class Config:
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
     # JWT
-    JWT_SECRET_KEY = os.getenv("JWT_SECRET_KEY", "fallback_secret_key")
+    JWT_SECRET_KEY = os.getenv("JWT_SECRET_KEY")
 
     # File Uploads
     UPLOAD_FOLDER = os.path.join(basedir, "uploads")

@@ -1,4 +1,7 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify
+from flask_jwt_extended import JWTManager
+from flask_limiter import Limiter
+from flask_limiter.util import get_remote_address
 from extensions import db, jwt, cors, migrate
 from controllers import (
     admin_bp,
@@ -10,8 +13,7 @@ from controllers import (
     supervisors_bp,
     users_bp,
 )
-from services.ai_service import ask_ai
-from utils.auth import role_required, get_current_user_id
+import os
 import socket
 
 def create_app():
@@ -24,6 +26,13 @@ def create_app():
     cors.init_app(app)
     jwt.init_app(app)
 
+    # Initialize rate limiter
+    limiter = Limiter(
+        app=app,
+        key_func=get_remote_address,
+        default_limits=["200 per day", "50 per hour"]
+    )
+
     # Register Blueprints
     app.register_blueprint(admin_bp, url_prefix="/api/admins")
     app.register_blueprint(api_bp, url_prefix="/api")
@@ -33,8 +42,6 @@ def create_app():
     app.register_blueprint(students_bp, url_prefix="/api/students")
     app.register_blueprint(supervisors_bp, url_prefix="/api/supervisors")
     app.register_blueprint(users_bp, url_prefix="/api/users")
-
-    
 
     # Error handlers
     @app.errorhandler(404)

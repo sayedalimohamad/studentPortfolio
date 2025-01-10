@@ -32,23 +32,30 @@ export default {
   },
   methods: {
     async login() {
-      try {
-        const response = await axios.post('/api/users/login', {
-          email: this.email,
-          password: this.password,
-        });
-        localStorage.setItem('token', response.data.access_token);
-        alert('Login successful!');
-        this.$router.push('/'); // Redirect to home page
-      } catch (error) {
-        alert('Login failed. Please try again.');
-        console.error(error);
+    try {
+      const response = await axios.post('/api/users/login', {
+        email: this.email,
+        password: this.password,
+      });
+      localStorage.setItem('token', response.data.access_token);
+      this.$toast.success('Login successful!');
+
+      // Fetch the current user's details
+      const userResponse = await axios.get('/api/users/me', {
+        headers: { Authorization: `Bearer ${response.data.access_token}` },
+      });
+      const user = userResponse.data;
+
+      // Redirect to the user's profile page
+      this.$router.push({
+        name: 'UserProfile',
+        params: { role: user.role, id: user.user_id },
+      });
+    } catch (error) {
+      this.$toast.error('Login failed. Please try again.');
+      console.error(error);
       }
     },
   },
 };
 </script>
-
-<style scoped>
-/* Add custom Tailwind classes or styles here */
-</style>

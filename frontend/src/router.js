@@ -5,7 +5,7 @@ import AdminView from './views/AdminView.vue';
 import LoginView from './views/LoginView.vue';
 import RegisterView from './views/RegisterView.vue';
 import ChatInterfaceView from './views/ChatInterfaceView.vue';
-import UserProfileView from './views/UserProfileView.vue'; // Import the new UserProfileView
+import UserProfileView from './views/UserProfileView.vue'; 
 
 const routes = [
   {
@@ -39,10 +39,10 @@ const routes = [
     component: ChatInterfaceView,
   },
   {
-    path: '/user/:role/:id', // Dynamic route for user profiles
+    path: '/user/:role/:id',
     name: 'UserProfile',
     component: UserProfileView,
-    props: true, // Pass route params as props
+    props: true, 
   },
 ];
 
