@@ -5,14 +5,45 @@ import AdminView from './views/AdminView.vue';
 import LoginView from './views/LoginView.vue';
 import RegisterView from './views/RegisterView.vue';
 import ChatInterfaceView from './views/ChatInterfaceView.vue';
+import UserProfileView from './views/UserProfileView.vue'; // Import the new UserProfileView
 
 const routes = [
-  { path: '/', component: HomeView },
-  { path: '/students', component: StudentView },
-  { path: '/admins', component: AdminView },
-  { path: '/login', component: LoginView },
-  { path: '/register', component: RegisterView },
-  { path: '/chat', component: ChatInterfaceView },
+  {
+    path: '/',
+    name: 'Home',
+    component: HomeView,
+  },
+  {
+    path: '/students',
+    name: 'Students',
+    component: StudentView,
+  },
+  {
+    path: '/admins',
+    name: 'Admins',
+    component: AdminView,
+  },
+  {
+    path: '/login',
+    name: 'Login',
+    component: LoginView,
+  },
+  {
+    path: '/register',
+    name: 'Register',
+    component: RegisterView,
+  },
+  {
+    path: '/chat',
+    name: 'Chat',
+    component: ChatInterfaceView,
+  },
+  {
+    path: '/user/:role/:id', // Dynamic route for user profiles
+    name: 'UserProfile',
+    component: UserProfileView,
+    props: true, // Pass route params as props
+  },
 ];
 
 const router = createRouter({
