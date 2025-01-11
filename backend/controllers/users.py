@@ -100,7 +100,7 @@ def register_routes(bp: Blueprint):
         user = User.query.get_or_404(user_id)
         return jsonify(user.to_dict())
 
-    @bp.route('/users', methods=['GET'])
+    @bp.route('/', methods=['GET'])
     @jwt_required()
     def get_users():
         page = request.args.get('page', 1, type=int)
@@ -113,13 +113,13 @@ def register_routes(bp: Blueprint):
             "current_page": users.page
         })
 
-    @bp.route('/users/<int:user_id>', methods=['GET'])
+    @bp.route('/<int:user_id>', methods=['GET'])
     @jwt_required()
     def get_user(user_id):
         user = User.query.get_or_404(user_id)
         return jsonify(user.to_dict())
 
-    @bp.route('/users/<int:user_id>', methods=['PUT'])
+    @bp.route('/<int:user_id>', methods=['PUT'])
     @jwt_required()
     def update_user(user_id):
         data = request.get_json()
@@ -133,7 +133,7 @@ def register_routes(bp: Blueprint):
         db.session.commit()
         return jsonify(user.to_dict())
 
-    @bp.route('/users/<int:user_id>', methods=['DELETE'])
+    @bp.route('/<int:user_id>', methods=['DELETE'])
     @jwt_required()
     def delete_user(user_id):
         user = User.query.get_or_404(user_id)
