@@ -44,6 +44,12 @@ const routes = [
     component: UserProfileView,
     props: true, 
   },
+  {
+    path: '/:pathMatch(.*)*', // Catch-all route for 404 errors
+    name: 'NotFound',
+    component: () => import('./views/NotFoundView.vue'), // Lazy load the 404 component
+    meta: { title: 'Page Not Found' },
+  },
 ];
 
 const router = createRouter({

@@ -5,43 +5,61 @@
         <v-card class="px-6 py-8">
           <h1 class="text-3xl font-bold mb-6 text-center">Register</h1>
           <v-form @submit.prevent="register" ref="form">
-            <v-text-field v-model="username" label="Username" :rules="[(v) => !!v || 'Username is required']" required outlined></v-text-field>
-            <v-text-field v-model="email" label="Email" type="email" :rules="[ (v) => !!v || 'Email is required', (v) => /.+@.+\..+/.test(v) || 'Email must be valid', ]" required outlined></v-text-field>
-            <v-text-field v-model="password" label="Password" type="password" :rules="[ (v) => !!v || 'Password is required', (v) => v.length >= 8 || 'Password must be at least 8 characters', ]" required outlined></v-text-field>
+            <v-text-field v-model="username" label="Username" :rules="[(v) => !!v || 'Username is required']" required
+              outlined></v-text-field>
+            <v-text-field v-model="email" label="Email" type="email"
+              :rules="[(v) => !!v || 'Email is required', (v) => /.+@.+\..+/.test(v) || 'Email must be valid',]"
+              required outlined></v-text-field>
+            <v-text-field v-model="password" label="Password" :type="showPassword ? 'text' : 'password'"
+              :append-inner-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+              :rules="[(v) => !!v || 'Password is required', (v) => v.length >= 8 || 'Password must be at least 8 characters',]"
+              required outlined @click:append-inner="showPassword = !showPassword"></v-text-field>
 
             <!-- Dynamic Row for Role and Code Input -->
             <v-row>
               <!-- Role Selection -->
               <v-col :cols="rolesUnlocked ? 12 : 6">
-                <v-select v-model="role" :items="filteredRoles" label="Role" :rules="[(v) => !!v || 'Role is required']" required outlined dense @change="handleRoleChange"></v-select>
+                <v-select v-model="role" :items="filteredRoles" label="Role" :rules="[(v) => !!v || 'Role is required']"
+                  required outlined dense @change="handleRoleChange"></v-select>
               </v-col>
 
               <!-- Code/Password Input -->
               <v-col v-if="!rolesUnlocked" cols="6">
-                <v-text-field class="text-info font-bold" v-model="roleCode" label="Unlock Roles" type="password" :rules="[(v) => !!v || 'Code is required to unlock roles']" outlined dense @input="validateCode"></v-text-field>
+                <v-text-field class="text-info font-bold" v-model="roleCode" label="Unlock Roles" type="password"
+                  :rules="[(v) => !!v || 'Code is required to unlock roles']" outlined dense
+                  @input="validateCode"></v-text-field>
               </v-col>
             </v-row>
 
             <!-- Additional Fields for Admin -->
             <template v-if="role === 'admin'">
-              <v-text-field v-model="adminPermissions" label="Permissions" :rules="[(v) => !!v || 'Permissions are required']" required outlined></v-text-field>
-              <v-text-field v-model="createdBy" label="Created By (User ID)" :rules="[(v) => !!v || 'Created By is required']" required outlined></v-text-field>
+              <v-text-field v-model="adminPermissions" label="Permissions"
+                :rules="[(v) => !!v || 'Permissions are required']" required outlined></v-text-field>
+              <v-text-field v-model="createdBy" label="Created By (User ID)"
+                :rules="[(v) => !!v || 'Created By is required']" required outlined></v-text-field>
             </template>
 
             <!-- Additional Fields for Supervisor -->
             <template v-if="role === 'supervisor'">
-              <v-text-field v-model="institution" label="Institution" :rules="[(v) => !!v || 'Institution is required']" required outlined></v-text-field>
-              <v-text-field v-model="department" label="Department" :rules="[(v) => !!v || 'Department is required']" required outlined></v-text-field>
+              <v-text-field v-model="institution" label="Institution" :rules="[(v) => !!v || 'Institution is required']"
+                required outlined></v-text-field>
+              <v-text-field v-model="department" label="Department" :rules="[(v) => !!v || 'Department is required']"
+                required outlined></v-text-field>
               <v-textarea v-model="bio" label="Bio" outlined></v-textarea>
             </template>
 
             <!-- Additional Fields for Student -->
             <template v-if="role === 'student'">
-              <v-text-field v-model="fullName" label="Full Name" :rules="[(v) => !!v || 'Full Name is required']" required outlined></v-text-field>
-              <v-text-field v-model="dob" label="Date of Birth" type="date" :rules="[(v) => !!v || 'Date of Birth is required']" required outlined></v-text-field>
-              <v-text-field v-model="institution" label="Institution" :rules="[(v) => !!v || 'Institution is required']" required outlined></v-text-field>
-              <v-text-field v-model="major" label="Major" :rules="[(v) => !!v || 'Major is required']" required outlined></v-text-field>
-              <v-select v-model="privacyLevel" :items="privacyLevels" label="Privacy Level" :rules="[(v) => !!v || 'Privacy Level is required']" required outlined></v-select>
+              <v-text-field v-model="fullName" label="Full Name" :rules="[(v) => !!v || 'Full Name is required']"
+                required outlined></v-text-field>
+              <v-text-field v-model="dob" label="Date of Birth" type="date"
+                :rules="[(v) => !!v || 'Date of Birth is required']" required outlined></v-text-field>
+              <v-text-field v-model="institution" label="Institution" :rules="[(v) => !!v || 'Institution is required']"
+                required outlined></v-text-field>
+              <v-text-field v-model="major" label="Major" :rules="[(v) => !!v || 'Major is required']" required
+                outlined></v-text-field>
+              <v-select v-model="privacyLevel" :items="privacyLevels" label="Privacy Level"
+                :rules="[(v) => !!v || 'Privacy Level is required']" required outlined></v-select>
               <v-textarea v-model="bio" label="Bio" outlined></v-textarea>
             </template>
 
@@ -67,6 +85,7 @@ export default {
       role: 'student', // Default role
       filteredRoles: ['student'], // Initially only show "student"
       roles: ['student', 'admin', 'supervisor'],
+      showPassword: false,
 
       // Admin-specific fields
       adminPermissions: '',

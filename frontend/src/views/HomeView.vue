@@ -7,7 +7,7 @@
         <p class="text-lg text-gray-700 mb-6">
           Revolutionizing how students manage their academic and professional growth.
         </p>
-        <v-btn to="/login" color="primary" large class="mr-4">Get Started</v-btn>
+        <v-btn to="/login" color="primary" large class="mr-4" >Get Started</v-btn>
         <v-btn to="/register" outlined color="primary" large>Register</v-btn>
       </v-col>
       <v-col cols="12" md="6" class="text-center">
@@ -24,8 +24,8 @@
       <v-col cols="12" class="text-center">
         <h2 class="text-3xl font-bold mb-6 word-color">Why Choose StudentPortfolio?</h2>
       </v-col>
-      <v-col cols="12" md="4">
-        <v-card class="pa-6 text-center">
+      <v-col cols="12" md="4" class="d-flex">
+        <v-card class="pa-6 text-center flex-grow-1">
           <v-icon size="64" color="primary">mdi-account-group</v-icon>
           <h3 class="text-xl font-bold mt-4 mb-2">Centralized Platform</h3>
           <p class="text-gray-700">
@@ -33,8 +33,8 @@
           </p>
         </v-card>
       </v-col>
-      <v-col cols="12" md="4">
-        <v-card class="pa-6 text-center">
+      <v-col cols="12" md="4" class="d-flex">
+        <v-card class="pa-6 text-center flex-grow-1">
           <v-icon size="64" color="primary">mdi-chart-line</v-icon>
           <h3 class="text-xl font-bold mt-4 mb-2">AI-Powered Tools</h3>
           <p class="text-gray-700">
@@ -42,8 +42,8 @@
           </p>
         </v-card>
       </v-col>
-      <v-col cols="12" md="4">
-        <v-card class="pa-6 text-center">
+      <v-col cols="12" md="4" class="d-flex">
+        <v-card class="pa-6 text-center flex-grow-1">
           <v-icon size="64" color="primary">mdi-handshake</v-icon>
           <h3 class="text-xl font-bold mt-4 mb-2">Collaboration & Guidance</h3>
           <p class="text-gray-700">
@@ -58,6 +58,13 @@
       <v-col cols="12" class="text-center">
         <h2 class="text-3xl font-bold mb-6 word-color">About StudentPortfolio</h2>
       </v-col>
+      <v-col cols="12" md="6" class="text-center">
+        <v-img
+          src="/resume-folder_hf4p.svg"
+          alt="About StudentPortfolio"
+          class="rounded-lg"
+        ></v-img>
+      </v-col>
       <v-col cols="12" md="6">
         <p class="text-lg text-gray-700 mb-6">
           StudentPortfolio is an advanced platform designed to streamline the process of showcasing skills, managing academic activities, and enabling meaningful interactions between students, supervisors, and administrators.
@@ -67,13 +74,7 @@
         </p>
         <v-btn to="/about" color="primary" large>Learn More</v-btn>
       </v-col>
-      <v-col cols="12" md="6" class="text-center">
-        <v-img
-          src="https://via.placeholder.com/500x300"
-          alt="About StudentPortfolio"
-          class="rounded-lg"
-        ></v-img>
-      </v-col>
+      
     </v-row>
 
     <!-- Testimonials Section -->
@@ -83,37 +84,37 @@
       </v-col>
       <v-col cols="12" md="4" class="d-flex">
       <v-card class="pa-6 text-center flex-grow-1">
-        <v-avatar size="96" class="mb-4">
-        <v-img src="https://via.placeholder.com/96" alt="User 1"></v-img>
+        <v-avatar size="120" class="mb-4">
+        <v-img src="/man_yellow.svg" alt="User 1"></v-img>
         </v-avatar>
         <p class="text-gray-700 mb-4">
         "StudentPortfolio has transformed how I manage my academic journey."
         </p>
-        <h3 class="text-lg font-bold">John Doe</h3>
+        <h3 class="text-lg font-bold word-color">John Doe</h3>
         <p class="text-gray-600">Student</p>
       </v-card>
       </v-col>
       <v-col cols="12" md="4" class="d-flex">
       <v-card class="pa-6 text-center flex-grow-1">
-        <v-avatar size="96" class="mb-4">
-        <v-img src="https://via.placeholder.com/96" alt="User 2"></v-img>
+        <v-avatar size="120" class="mb-4">
+        <v-img src="/man_red.svg" alt="User 2"></v-img>
         </v-avatar>
         <p class="text-gray-700 mb-4">
         "As a supervisor, I find the platform incredibly helpful for guiding my students."
         </p>
-        <h3 class="text-lg font-bold">Jane Smith</h3>
+        <h3 class="text-lg font-bold word-color">Jane Smith</h3>
         <p class="text-gray-600">Supervisor</p>
       </v-card>
       </v-col>
       <v-col cols="12" md="4" class="d-flex">
       <v-card class="pa-6 text-center flex-grow-1">
-        <v-avatar size="96" class="mb-4">
-        <v-img src="https://via.placeholder.com/96" alt="User 3"></v-img>
+        <v-avatar size="120" class="mb-4">
+        <v-img src="/man_green.svg" alt="User 3"></v-img>
         </v-avatar>
         <p class="text-gray-700 mb-4">
         "The AI tools and collaboration features are game-changers for our institution."
         </p>
-        <h3 class="text-lg font-bold">Michael Brown</h3>
+        <h3 class="text-lg font-bold word-color">Michael Brown</h3>
         <p class="text-gray-600">Administrator</p>
       </v-card>
       </v-col>

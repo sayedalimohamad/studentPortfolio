@@ -1,13 +1,21 @@
 import { createApp } from 'vue';
 import App from './App.vue';
-import vuetify from './plugins/vuetify'; // Import the updated Vuetify plugin
+import vuetify from './plugins/vuetify'; 
 import router from './router';
-import axios from './axios'; // Import the custom Axios instance
+import axios from './axios'; 
+import Toast from 'vue-toastification'; 
+import 'vue-toastification/dist/index.css'; 
 
 const app = createApp(App);
 
-// Add the custom Axios instance to the Vue prototype
+
 app.config.globalProperties.$axios = axios;
+
+
+app.use(Toast, {
+  timeout: 3000, 
+  position: 'top-right', 
+});
 
 app
   .use(vuetify)

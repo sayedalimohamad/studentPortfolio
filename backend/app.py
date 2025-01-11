@@ -55,14 +55,15 @@ def create_app():
     return app
 
 
-def get_ip4_address():
-    hostname = socket.gethostname()
-    ip_address = socket.gethostbyname(hostname)
-    return ip_address
+# def get_ip4_address():
+#     hostname = socket.gethostname()
+#     ip_address = socket.gethostbyname(hostname)
+#     return ip_address
 
 
 if __name__ == "__main__":
     app = create_app()
     with app.app_context():
         db.create_all()
-    app.run(debug=True, port=5000, host=f"{get_ip4_address()}")
+    # app.run(debug=True, port=5000, host="f"{get_ip4_address()}"")
+    app.run(debug=True, port=5000, host="0.0.0.0")

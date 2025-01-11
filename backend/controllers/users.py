@@ -44,35 +44,45 @@ def register_routes(bp: Blueprint):
     def create_user():
         try:
             data = user_schema.load(request.get_json())
+            
+            if User.query.filter_by(email=data['email']).first():
+                return jsonify({"error": "Email already exists"}), 400
+            
+            if User.query.filter_by(username=data['username']).first():
+                return jsonify({"error": "Username already exists"}), 400
+            
+            user = User(
+                username=data['username'],
+                email=data['email'],
+                role=data['role'],
+                status='active'
+            )
+            
+            user.set_password(data['password'])
+            db.session.add(user)
+            db.session.commit()
+            
+            return jsonify(user.to_dict()), 201
         except ValidationError as err:
             return jsonify({"error": err.messages}), 400
+        except Exception as e:
+            return jsonify({"error": str(e)}), 500
 
-        if User.query.filter_by(email=data['email']).first():
-            return jsonify({"error": "Email already exists"}), 400
-        if User.query.filter_by(username=data['username']).first():
-            return jsonify({"error": "Username already exists"}), 400
-
-        user = User(
-            username=data['username'],
-            email=data['email'],
-            role=data['role'],
-            status='active'
-        )
-        user.set_password(data['password'])
-        db.session.add(user)
-        db.session.commit()
-        return jsonify(user.to_dict()), 201
 
     @bp.route('/login', methods=['POST'])
     def login():
-        data = request.get_json()
-        user = User.query.filter_by(email=data['email']).first()
+        try:
+            data = request.get_json()
+            user = User.query.filter_by(email=data['email']).first()
+            
+            if user and user.check_password(data['password']):
+                access_token = create_access_token(identity=str(user.user_id))
+                return jsonify(access_token=access_token, role=user.role), 200
+            else:
+                return jsonify({"error": "Invalid email or password"}), 401
+        except Exception as e:
+            return jsonify({"error": str(e)}), 500
 
-        if user and user.check_password(data['password']):
-            access_token = create_access_token(identity=user.id)
-            return jsonify(access_token=access_token, role=user.role), 200
-        else:
-            return jsonify({"error": "Invalid email or password"}), 401
 
     @bp.route('/logout', methods=['POST'])
     @jwt_required()
@@ -89,7 +99,7 @@ def register_routes(bp: Blueprint):
         if not user:
             return jsonify({"error": "User not found"}), 404
 
-        token = create_access_token(identity=user.id)
+        token = create_access_token(identity=str(user.user_id))
         send_password_reset_email(user.email, token)
         return jsonify({"message": "Password reset email sent"}), 200
 
