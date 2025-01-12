@@ -58,64 +58,69 @@ export default {
   },
   methods: {
     async login() {
-      this.errorMessage = '';
-      try {
-        console.log('Sending login request with:', {
-          email: this.email,
-          password: this.password,
-        });
+  this.errorMessage = '';
+  try {
+    console.log('Sending login request with:', {
+      email: this.email,
+      password: this.password,
+    });
 
-        // Step 1: Login
-        const response = await axios.post('/api/users/login', {
-          email: this.email,
-          password: this.password,
-        });
+    // Step 1: Login
+    const response = await axios.post('/api/users/login', {
+      email: this.email,
+      password: this.password,
+    });
 
-        console.log('Login response:', response.data);
-        localStorage.setItem('token', response.data.access_token);
+    console.log('Login response:', response.data);
+    localStorage.setItem('token', response.data.access_token);
 
-        // Step 2: Show success message
-        this.toast.success('Login successful!');
+    // Step 2: Show success message
+    this.toast.success('Login successful!');
 
-        // Step 3: Fetch user profile
-        console.log('Fetching user profile...');
-        const userResponse = await axios.get('/api/users/me', {
-          headers: { Authorization: `Bearer ${response.data.access_token}` },
-        });
+    // Step 3: Fetch user profile
+    console.log('Fetching user profile...');
+    const userResponse = await axios.get('/api/users/me', {
+      headers: { Authorization: `Bearer ${response.data.access_token}` },
+    });
 
-        console.log('User profile response:', userResponse.data);
-        const user = userResponse.data;
+    console.log('User profile response:', userResponse.data);
+    const user = userResponse.data;
 
-        // Step 4: Redirect the user
-        console.log('Redirecting to user profile...');
-        this.$router.push({
-          name: 'UserProfile',
-          params: { role: user.role, id: user.user_id },
-        });
-      } catch (error) {
-        console.error('Error during login:', error);
+    // Step 4: Redirect the user
+    console.log('Redirecting to user profile...');
+    console.log('Route name:', 'UserProfile');
+    console.log('Route params:', { role: String(user.role), id: String(user.user_id) });
 
-        if (error.response) {
-          console.error('Server Error:', error.response.data);
-          if (error.response.status === 401) {
-            this.errorMessage = 'Invalid email or password. Please try again.';
-          } else if (error.response.status === 500) {
-            this.errorMessage = 'Server error. Please try again later.';
-          } else {
-            this.errorMessage = 'An error occurred. Please try again later.';
-          }
-        } else if (error.request) {
-          console.error('Network Error:', error.request);
-          this.errorMessage = 'Network error. Please check your connection.';
-        } else {
-          console.error('Error:', error.message);
-          this.errorMessage = 'An unexpected error occurred.';
-        }
+    this.$router.push({
+      name: 'UserProfile',
+      params: { role: String(user.role), id: String(user.user_id) },
+    }).catch(err => {
+      console.error('Router push error:', err);
+    });
+  } catch (error) {
+    console.error('Error during login:', error);
 
-        // Show error message
-        this.toast.error(this.errorMessage);
+    if (error.response) {
+      console.error('Server Error:', error.response.data);
+      if (error.response.status === 401) {
+        this.errorMessage = 'Invalid email or password. Please try again.';
+      } else if (error.response.status === 500) {
+        this.errorMessage = 'Server error. Please try again later.';
+      } else {
+        this.errorMessage = 'An error occurred. Please try again later.';
       }
-    },
+    } else if (error.request) {
+      console.error('Network Error:', error.request);
+      this.errorMessage = 'Network error. Please check your connection.';
+    } else {
+      console.error('Error:', error.message);
+      this.errorMessage = 'An unexpected error occurred.';
+    }
+
+    // Show error message
+    this.toast.error(this.errorMessage);
+  }
+},
   },
 };
 </script>
