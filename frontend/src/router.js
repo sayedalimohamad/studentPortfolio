@@ -17,11 +17,13 @@ const routes = [
     path: '/students',
     name: 'Students',
     component: StudentView,
+    meta: { requiresAuth: true },  // This route requires authentication
   },
   {
     path: '/admins',
     name: 'Admins',
     component: AdminView,
+    meta: { requiresAuth: true },  // This route requires authentication
   },
   {
     path: '/login',
@@ -37,12 +39,14 @@ const routes = [
     path: '/chat',
     name: 'Chat',
     component: ChatInterfaceView,
+    meta: { requiresAuth: true },  // This route requires authentication
   },
   {
     path: '/user/:role/:id',
     name: 'UserProfile',
     component: UserProfileView,
-    props: true, 
+    props: true,
+    meta: { requiresAuth: true },  // This route requires authentication
   },
   {
     path: '/:pathMatch(.*)*', // Catch-all route for 404 errors
@@ -55,6 +59,18 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(),
   routes,
+});
+
+// Add a global navigation guard to check authentication
+router.beforeEach((to, from, next) => {
+  const isAuthenticated = !!localStorage.getItem('token'); // Check if the user is authenticated (e.g., via token)
+
+  // If the route requires authentication and the user is not authenticated, redirect to login
+  if (to.meta.requiresAuth && !isAuthenticated) {
+    next({ name: 'Login' }); // Redirect to login page
+  } else {
+    next(); // Proceed to the requested route
+  }
 });
 
 export default router;

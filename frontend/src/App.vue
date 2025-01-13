@@ -191,14 +191,26 @@ export default {
     },
   },
   mounted() {
-    // Check authentication status on app load (e.g., from localStorage or Vuex)
-    const storedRole = localStorage.getItem('userRole');
-    const storedAuth = localStorage.getItem('isAuthenticated');
-    if (storedRole && storedAuth) {
-      this.isAuthenticated = true;
-      this.userRole = storedRole;
-    }
+  // Check authentication status on app load 
+  const storedToken = localStorage.getItem('token');
+  const storedRole = localStorage.getItem('userRole');
+  if (storedToken && storedRole) {
+    this.isAuthenticated = true;
+    this.userRole = storedRole;
+  }
+},
+methods: {
+  logout() {
+    // Clear user session
+    this.isAuthenticated = false;
+    this.userRole = null;
+    localStorage.removeItem('userRole');
+    localStorage.removeItem('isAuthenticated');
+    localStorage.removeItem('token'); // Clear the token
+    // Redirect to login page
+    this.$router.push('/login');
   },
+},
 };
 </script>
 
