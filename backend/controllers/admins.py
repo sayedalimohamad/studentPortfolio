@@ -39,7 +39,7 @@ def register_routes(bp: Blueprint):
         return jsonify(admin.to_dict()), 201
     
     @bp.route('/', methods=['GET'])
-    @jwt_required()
+    # @jwt_required()
     def get_admins():
         admins = db.session.query(Admin, User).join(User, Admin.user_id == User.user_id).all()
         result = []

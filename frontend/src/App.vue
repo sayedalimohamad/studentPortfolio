@@ -21,6 +21,10 @@
           <v-icon left>mdi-account-group</v-icon>
           Students
         </v-btn>
+        <v-btn v-if="userRole === 'admin'" to="/admins" class="text-white mx-2">
+            <v-icon left>mdi-account-multiple</v-icon>
+          Admins
+        </v-btn>
 
         <!-- Chat Link (Visible to Students) -->
         <v-btn v-if="userRole === 'student'" to="/chat" class="text-white mx-2">
@@ -74,6 +78,11 @@
         <v-list-item v-if="userRole === 'admin'" to="/students">
           <v-list-item-icon><v-icon>mdi-account-group</v-icon></v-list-item-icon>
           <v-list-item-content>Students</v-list-item-content>
+        </v-list-item>
+
+        <v-list-item v-if="userRole === 'admin'" to="/admins">
+          <v-list-item-icon><v-icon>mdi-account-multiple</v-icon></v-list-item-icon>
+          <v-list-item-content>Admins</v-list-item-content>
         </v-list-item>
 
         <!-- Chat Link (Visible to Students) -->
@@ -173,14 +182,15 @@ export default {
         localStorage.setItem('isAuthenticated', true);
         localStorage.setItem('access_token', access_token);
 
-        // Redirect based on the user's role
-        if (role === 'admin') {
-          this.$router.push('/admin-dashboard');
-        } else if (role === 'student') {
-          this.$router.push('/student-profile');
-        } else if (role === 'supervisor') {
-          this.$router.push('/supervisor-profile');
-        }
+        // // Redirect based on the user's role
+        // if (role === 'admin') {
+        //   this.$router.push('/admin-dashboard');
+        // } else if (role === 'student') {
+        //   this.$router.push('/student-profile');
+        // } else if (role === 'supervisor') {
+        //   this.$router.push('/supervisor-profile');
+        // }
+
       } catch (error) {
         if (error.response && error.response.status === 401) {
           this.error = 'Invalid email or password';
