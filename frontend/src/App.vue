@@ -199,18 +199,6 @@ export default {
     this.userRole = storedRole;
   }
 },
-methods: {
-  logout() {
-    // Clear user session
-    this.isAuthenticated = false;
-    this.userRole = null;
-    localStorage.removeItem('userRole');
-    localStorage.removeItem('isAuthenticated');
-    localStorage.removeItem('token'); // Clear the token
-    // Redirect to login page
-    this.$router.push('/login');
-  },
-},
 };
 </script>
 

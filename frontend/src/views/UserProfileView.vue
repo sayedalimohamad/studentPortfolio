@@ -55,41 +55,33 @@ export default {
     };
   },
   async created() {
-  const storedRole = localStorage.getItem('userRole');
-  const storedAuth = localStorage.getItem('access_token');
+    const { role, id } = this.$route.params; // Ensure these match the route params
+    const storedAuth = localStorage.getItem('token');
 
-  // Redirect to login if not authenticated
-  if (!storedRole || !storedAuth) {
-    this.$router.push('/login');
-    return;
-  }
+    // Redirect to login if not authenticated
+    if (!storedAuth) {
+      this.$router.push('/login');
+      return;
+    }
 
-  const { role, id } = this.$route.params;
-  const validRoles = ['student', 'admin', 'supervisor'];
-  if (!validRoles.includes(role)) {
-    this.error = 'Invalid user role.';
-    this.loading = false;
-    return;
-  }
+    this.userRole = role;
 
-  this.userRole = role;
-
-  try {
-    // Fetch user details from the backend
-    const response = await axios.get(`/api/users/${id}`, {
-      headers: {
-        Authorization: `Bearer ${storedAuth}`,
-      },
-    });
-    this.user = response.data;
-  } catch (error) {
-    console.error(`Error fetching ${role} data:`, error);
-    this.error = `Failed to load ${role} data.`;
-  } finally {
-    this.loading = false;
-  }
-}
-};
+    try {
+      // Fetch user details from the backend
+      const response = await axios.get(`/api/users/${id}`, {
+        headers: {
+          Authorization: `Bearer ${storedAuth}`,
+        },
+      });
+      this.user = response.data;
+    } catch (error) {
+      console.error(`Error fetching ${role} data:`, error);
+      this.error = `Failed to load ${role} data.`;
+    } finally {
+      this.loading = false;
+    }
+  },
+};;
 </script>
 
 <style scoped>
