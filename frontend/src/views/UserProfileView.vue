@@ -17,7 +17,7 @@
               </v-list-item-icon>
               <v-list-item-content>
                 <v-list-item-title class="font-bold">Full Name</v-list-item-title>
-                <v-list-item-subtitle class="text-gray-700">{{ user.full_name }}</v-list-item-subtitle>
+                <v-list-item-subtitle class="text-gray-700">{{ studentInfo.full_name }}</v-list-item-subtitle>
               </v-list-item-content>
             </v-list-item>
           </v-col>
@@ -29,6 +29,84 @@
               <v-list-item-content>
                 <v-list-item-title class="font-bold">Email</v-list-item-title>
                 <v-list-item-subtitle class="text-gray-700">{{ user.email }}</v-list-item-subtitle>
+              </v-list-item-content>
+            </v-list-item>
+          </v-col>
+        </v-row>
+
+        <!-- Student Specific Information -->
+        <v-row v-if="userRole === 'student' && studentInfo">
+          <v-col cols="12" md="6">
+            <v-list-item>
+              <v-list-item-icon>
+                <v-icon color="primary">mdi-school</v-icon>
+              </v-list-item-icon>
+              <v-list-item-content>
+                <v-list-item-title class="font-bold">Institution</v-list-item-title>
+                <v-list-item-subtitle class="text-gray-700">{{ studentInfo.institution }}</v-list-item-subtitle>
+              </v-list-item-content>
+            </v-list-item>
+          </v-col>
+          <v-col cols="12" md="6">
+            <v-list-item>
+              <v-list-item-icon>
+                <v-icon color="primary">mdi-book</v-icon>
+              </v-list-item-icon>
+              <v-list-item-content>
+                <v-list-item-title class="font-bold">Major</v-list-item-title>
+                <v-list-item-subtitle class="text-gray-700">{{ studentInfo.major }}</v-list-item-subtitle>
+              </v-list-item-content>
+            </v-list-item>
+          </v-col>
+        </v-row>
+
+        <!-- Supervisor Specific Information -->
+        <v-row v-if="userRole === 'supervisor' && supervisorInfo">
+          <v-col cols="12" md="6">
+            <v-list-item>
+              <v-list-item-icon>
+                <v-icon color="primary">mdi-office-building</v-icon>
+              </v-list-item-icon>
+              <v-list-item-content>
+                <v-list-item-title class="font-bold">Institution</v-list-item-title>
+                <v-list-item-subtitle class="text-gray-700">{{ supervisorInfo.institution }}</v-list-item-subtitle>
+              </v-list-item-content>
+            </v-list-item>
+          </v-col>
+          <v-col cols="12" md="6">
+            <v-list-item>
+              <v-list-item-icon>
+                <v-icon color="primary">mdi-domain</v-icon>
+              </v-list-item-icon>
+              <v-list-item-content>
+                <v-list-item-title class="font-bold">Department</v-list-item-title>
+                <v-list-item-subtitle class="text-gray-700">{{ supervisorInfo.department }}</v-list-item-subtitle>
+              </v-list-item-content>
+            </v-list-item>
+          </v-col>
+        </v-row>
+
+        <!-- Admin Specific Information -->
+        <v-row v-if="userRole === 'admin' && adminInfo">
+          <v-col cols="12" md="6">
+            <v-list-item>
+              <v-list-item-icon>
+                <v-icon color="primary">mdi-shield-account</v-icon>
+              </v-list-item-icon>
+              <v-list-item-content>
+                <v-list-item-title class="font-bold">Permissions</v-list-item-title>
+                <v-list-item-subtitle class="text-gray-700">{{ adminInfo.permissions }}</v-list-item-subtitle>
+              </v-list-item-content>
+            </v-list-item>
+          </v-col>
+          <v-col cols="12" md="6">
+            <v-list-item>
+              <v-list-item-icon>
+                <v-icon color="primary">mdi-account-multiple</v-icon>
+              </v-list-item-icon>
+              <v-list-item-content>
+                <v-list-item-title class="font-bold">Role</v-list-item-title>
+                <v-list-item-subtitle class="text-gray-700">{{ adminInfo.role }}</v-list-item-subtitle>
               </v-list-item-content>
             </v-list-item>
           </v-col>
@@ -49,6 +127,9 @@ export default {
   data() {
     return {
       user: null,
+      studentInfo: null,
+      supervisorInfo: null,
+      adminInfo: null,
       loading: true,
       error: null,
       userRole: null,
@@ -68,12 +149,36 @@ export default {
 
     try {
       // Fetch user details from the backend
-      const response = await axios.get(`/api/users/${id}`, {
+      const userResponse = await axios.get(`/api/users/${id}`, {
         headers: {
           Authorization: `Bearer ${storedAuth}`,
         },
       });
-      this.user = response.data;
+      this.user = userResponse.data;
+
+      // Fetch role-specific information
+      if (role === 'student') {
+        const studentResponse = await axios.get(`/api/students/${id}`, {
+          headers: {
+            Authorization: `Bearer ${storedAuth}`,
+          },
+        });
+        this.studentInfo = studentResponse.data;
+      } else if (role === 'supervisor') {
+        const supervisorResponse = await axios.get(`/api/supervisors/${id}`, {
+          headers: {
+            Authorization: `Bearer ${storedAuth}`,
+          },
+        });
+        this.supervisorInfo = supervisorResponse.data;
+      } else if (role === 'admin') {
+        const adminResponse = await axios.get(`/api/admins/${id}`, {
+          headers: {
+            Authorization: `Bearer ${storedAuth}`,
+          },
+        });
+        this.adminInfo = adminResponse.data;
+      }
     } catch (error) {
       console.error(`Error fetching ${role} data:`, error);
       this.error = `Failed to load ${role} data.`;
@@ -81,7 +186,7 @@ export default {
       this.loading = false;
     }
   },
-};;
+};
 </script>
 
 <style scoped>
