@@ -17,7 +17,7 @@
               </v-list-item-icon>
               <v-list-item-content>
                 <v-list-item-title class="font-bold">Full Name</v-list-item-title>
-                <v-list-item-subtitle class="text-gray-700">{{ studentInfo.full_name }}</v-list-item-subtitle>
+                <v-list-item-subtitle class="text-gray-700">{{ user.full_name }}</v-list-item-subtitle>
               </v-list-item-content>
             </v-list-item>
           </v-col>
@@ -29,6 +29,28 @@
               <v-list-item-content>
                 <v-list-item-title class="font-bold">Email</v-list-item-title>
                 <v-list-item-subtitle class="text-gray-700">{{ user.email }}</v-list-item-subtitle>
+              </v-list-item-content>
+            </v-list-item>
+          </v-col>
+          <v-col cols="12" md="6">
+            <v-list-item>
+              <v-list-item-icon>
+                <v-icon color="primary">mdi-calendar</v-icon>
+              </v-list-item-icon>
+              <v-list-item-content>
+                <v-list-item-title class="font-bold">Date of Birth</v-list-item-title>
+                <v-list-item-subtitle class="text-gray-700">{{ user.dob }}</v-list-item-subtitle>
+              </v-list-item-content>
+            </v-list-item>
+          </v-col>
+          <v-col cols="12" md="6">
+            <v-list-item>
+              <v-list-item-icon>
+                <v-icon color="primary">mdi-account-circle</v-icon>
+              </v-list-item-icon>
+              <v-list-item-content>
+                <v-list-item-title class="font-bold">Username</v-list-item-title>
+                <v-list-item-subtitle class="text-gray-700">{{ user.username }}</v-list-item-subtitle>
               </v-list-item-content>
             </v-list-item>
           </v-col>

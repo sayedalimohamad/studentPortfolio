@@ -61,6 +61,8 @@ def init_db():
                 username=fake.user_name(),
                 email=fake.email(),
                 role=role,
+                full_name=fake.name(),  # Added full_name
+                dob=fake.date_of_birth(minimum_age=18, maximum_age=65),  # Added dob
                 status="active",
             )
             user.set_password(f"{role}pass")
@@ -74,8 +76,6 @@ def init_db():
             if user.role == "student":
                 student = Student(
                     user_id=user.user_id,
-                    full_name=fake.name(),
-                    dob=fake.date_of_birth(minimum_age=18, maximum_age=25),
                     institution=fake.company(),
                     major=fake.job(),
                     privacy_level=random.choice(["public", "private", "supervisors"]),

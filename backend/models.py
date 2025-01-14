@@ -8,6 +8,8 @@ class User(db.Model):
     email = db.Column(db.String(255), unique=True, nullable=False)
     password_hash = db.Column(db.String(255), nullable=False)
     role = db.Column(db.String(255), nullable=False)  # student, admin, supervisor
+    full_name = db.Column(db.String(255), nullable=False)  # Moved from Student
+    dob = db.Column(db.Date, nullable=False)  # Moved from Student
     created_at = db.Column(db.TIMESTAMP, default=db.func.now())
     last_login = db.Column(db.TIMESTAMP, default=db.func.now())
     status = db.Column(db.String(255), nullable=False)
@@ -34,6 +36,8 @@ class User(db.Model):
             "username": self.username,
             "email": self.email,
             "role": self.role,
+            "full_name": self.full_name,
+            "dob": self.dob,
             "created_at": self.created_at,
             "last_login": self.last_login,
             "status": self.status
@@ -43,8 +47,6 @@ class Student(db.Model):
     __tablename__ = "students"
     student_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     user_id = db.Column(db.Integer, db.ForeignKey("users.user_id"), unique=True)
-    full_name = db.Column(db.String(255), nullable=False)
-    dob = db.Column(db.Date, nullable=False)
     institution = db.Column(db.String(255), nullable=False)
     major = db.Column(db.String(255), nullable=False)
     privacy_level = db.Column(db.String(255), db.ForeignKey("privacy_levels.level"), nullable=False)
@@ -54,8 +56,6 @@ class Student(db.Model):
         return {
             "student_id": self.student_id,
             "user_id": self.user_id,
-            "full_name": self.full_name,
-            "dob": self.dob,
             "institution": self.institution,
             "major": self.major,
             "privacy_level": self.privacy_level,
