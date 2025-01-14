@@ -1,29 +1,67 @@
 <template>
   <v-container class="py-12">
-    <h1 class="text-3xl font-bold mb-6 word-color">Admins List</h1>
-    <v-card v-if="admins.length > 0">
-      <v-list>
-        <v-list-item v-for="admin in admins" :key="admin.admin_id" class="hover:bg-gray-50">
-          <v-list-item-content>
-            <v-list-item-title class="text-lg font-bold word-color">
-              {{ admin.user.username }} ({{ admin.role }})
-            </v-list-item-title>
-            <v-list-item-subtitle class="text-gray-600">
-              Email: <span class="word-color">{{ admin.user.email }}</span>
-            </v-list-item-subtitle>
-            <v-list-item-subtitle class="text-gray-600">
-              Permissions: <span class="word-color">{{ JSON.stringify(admin.permissions) }}</span>
-            </v-list-item-subtitle>
-            <v-list-item-subtitle class="text-gray-600">
-              Created By: <span class="word-color">{{ admin.created_by }}</span>
-            </v-list-item-subtitle>
-            <v-list-item-subtitle class="text-gray-600">
-              Status: <span class="word-color">{{ admin.user.status }}</span>
-            </v-list-item-subtitle>
-          </v-list-item-content>
-        </v-list-item>
-      </v-list>
-    </v-card>
+    <h1 class="text-3xl font-bold mb-6 word-color">Admins List ({{ filteredAdmins.length }})</h1>
+    <v-text-field
+      v-model="search"
+      label="Search by username or created by"
+      class="mb-6"
+      outlined
+      dense
+    ></v-text-field>
+    <v-row v-if="filteredAdmins.length > 0" dense>
+      <v-col v-for="admin in filteredAdmins" :key="admin.admin_id" cols="12" md="6" lg="4">
+        <v-card class="mb-4 pa-4">
+          <v-card-title class="d-flex align-center">
+            <v-avatar class="mr-3">
+              <v-icon color="primary">mdi-account-circle</v-icon>
+            </v-avatar>
+            <span class="text-lg font-bold word-color">{{ admin.user.username }} ({{ admin.role }})</span>
+          </v-card-title>
+          <v-card-subtitle class="text-gray-600 d-flex align-center mb-2">
+            <v-icon small class="mr-1">mdi-email</v-icon>
+            <span>Email: <span class="word-color">{{ admin.user.email }}</span></span>
+          </v-card-subtitle>
+            <v-card-subtitle class="text-gray-600 d-flex align-center mb-2">
+              <v-icon small class="mr-1">mdi-lock</v-icon>
+              <span>Permissions & Manage:</span>
+              <v-chip
+              class="ma-1 ml-2"
+              :color="admin.permissions.manage_users ? 'green' : 'red'"
+              text-color="white"
+              small
+              >
+              <v-icon left small>mdi-account-multiple</v-icon>
+              Users
+              </v-chip>
+              <v-chip
+              class="ma-1"
+              :color="admin.permissions.manage_content ? 'green' : 'red'"
+              text-color="white"
+              small
+              >
+              <v-icon left small>mdi-file-document</v-icon>
+              Content
+              </v-chip>
+            </v-card-subtitle>
+          <v-card-subtitle class="text-gray-600 d-flex align-center mb-2">
+            <v-icon small class="mr-1">mdi-account</v-icon>
+            <span>Created By:</span>
+            <v-chip class="ma-1 ml-2" color="primary" text-color="white" small>
+              <v-icon left small>mdi-account</v-icon>
+              ID: {{ admin.created_by }}
+            </v-chip>
+            <v-chip class="ma-1" color="primary" text-color="white" small>
+              <v-icon left small>mdi-account-circle</v-icon>
+              Username: {{ getUserName(admin.created_by) }}
+            </v-chip>
+          </v-card-subtitle>
+          <v-card-subtitle class="text-gray-600 d-flex align-center">
+            <v-icon small class="mr-1">mdi-check-circle</v-icon>
+            <span>Status: <span class="word-color">{{ admin.user.status }}</span></span>
+          </v-card-subtitle>
+        </v-card>
+      </v-col>
+    </v-row>
     <v-alert v-else type="info" class="mt-6">
       No admins found.
     </v-alert>
@@ -38,12 +76,26 @@ export default {
   data() {
     return {
       admins: [],
+      search: '',
     };
+  },
+  computed: {
+    filteredAdmins() {
+      return this.admins.filter(admin => {
+        const usernameMatch = admin.user.username.toLowerCase().includes(this.search.toLowerCase());
+        const createdByMatch = admin.created_by.toString().includes(this.search);
+        return usernameMatch || createdByMatch;
+      });
+    },
   },
   async created() {
     try {
       const response = await axios.get('/api/admins');
       this.admins = response.data;
+      this.getUserName = function(userId) {
+        const user = this.admins.find((admin) => admin.user_id === userId);
+        return user ? user.user.username : 'Unknown';
+      };
     } catch (error) {
       console.error('Error fetching admins:', error);
     }
@@ -54,5 +106,15 @@ export default {
 <style scoped>
 .word-color {
   color: #0097A7; /* Custom color for highlighted text */
+}
+.v-card {
+  padding: 16px;
+  margin-bottom: 16px;
+}
+.v-card-title {
+  padding-bottom: 8px;
+}
+.v-card-subtitle {
+  padding-bottom: 8px;
 }
 </style>
