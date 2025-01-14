@@ -9,9 +9,9 @@
               v-model="email"
               label="Email"
               type="email"
-              :rules="[
-                (v) => !!v || 'Email is required',
-                (v) => /.+@.+\..+/.test(v) || 'Email must be valid',
+              :rules="[ 
+                (v) => !!v || 'Email is required', 
+                (v) => /.+@.+\..+/.test(v) || 'Email must be valid'
               ]"
               required
               outlined
@@ -57,49 +57,57 @@ export default {
     return { toast };
   },
   methods: {
-    
-  async login() {
-    this.errorMessage = '';
-    try {
-      // Step 1: Login
-      const response = await axios.post('/api/users/login', {
-        email: this.email,
-        password: this.password,
-      });
+    async login() {
+      this.errorMessage = '';
+      try {
+        // Step 1: Login
+        const response = await axios.post('/api/users/login', {
+          email: this.email,
+          password: this.password,
+        });
 
-      console.log('Login response:', response.data);
+        console.log('Login response:', response.data);
 
-      // Store token and user role in localStorage
-      localStorage.setItem('token', response.data.access_token);
-      localStorage.setItem('userRole', response.data.role);
-      localStorage.setItem('isAuthenticated', true); // Set authentication state
+        // Store token and user role in localStorage
+        localStorage.setItem('token', response.data.access_token);
+        localStorage.setItem('userRole', response.data.role);
+        localStorage.setItem('isAuthenticated', true); // Set authentication state
 
-      // Step 2: Show success message
-      this.toast.success('Login successful!');
+        // Step 2: Show success message
+        this.toast.success('Login successful!');
 
-      // Step 3: Fetch user profile
-      const userResponse = await axios.get('/api/users/me', {
-        headers: { Authorization: `Bearer ${response.data.access_token}` },
-      });
+        // Step 3: Fetch user profile
+        const userResponse = await axios.get('/api/users/me', {
+          headers: { Authorization: `Bearer ${response.data.access_token}` },
+        });
 
-      console.log('User profile response:', userResponse.data);
-      const user = userResponse.data;
+        console.log('User profile response:', userResponse.data);
+        const user = userResponse.data;
 
-      // Step 4: Redirect the user
-      this.$router.push({
-        name: 'UserProfile',
-        params: { role: user.role, id: user.user_id },
-      }).catch(err => {
-        console.error('Router push error:', err);
-        this.$router.push('/'); // Fallback to home page if redirection fails
-      });
-    } catch (error) {
-      console.error('Error during login:', error);
-      this.errorMessage = 'Invalid email or password. Please try again.';
-      this.toast.error(this.errorMessage);
-    }
+        // Store the user ID after fetching the profile
+        localStorage.setItem('userId', user.user_id);
+
+        
+
+        // Step 4: Redirect the user
+        this.$router
+          .push({
+            name: 'UserProfile',
+            params: { role: user.role, id: user.user_id },
+          }).then(() => {
+            location.reload();
+          })
+          .catch((err) => {
+            console.error('Router push error:', err);
+            this.$router.push('/'); // Fallback to home page if redirection fails
+          });
+      } catch (error) {
+        console.error('Error during login:', error);
+        this.errorMessage = 'Invalid email or password. Please try again.';
+        this.toast.error(this.errorMessage);
+      }
+    },
   },
-},
 };
 </script>
 

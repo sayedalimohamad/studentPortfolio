@@ -22,7 +22,7 @@
           Students
         </v-btn>
         <v-btn v-if="userRole === 'admin'" to="/admins" class="text-white mx-2">
-            <v-icon left>mdi-account-multiple</v-icon>
+          <v-icon left>mdi-account-multiple</v-icon>
           Admins
         </v-btn>
 
@@ -32,25 +32,11 @@
           Chat
         </v-btn>
 
-        <!-- Dropdown for Login/Register or Logout -->
-        <v-menu v-if="!isAuthenticated" offset-y>
-          <template v-slot:activator="{ on, attrs }">
-            <v-btn class="text-white mx-2" v-bind="attrs" v-on="on">
-              <v-icon left>mdi-account</v-icon>
-              Account
-            </v-btn>
-          </template>
-          <v-list>
-            <v-list-item to="/login">
-              <v-list-item-icon><v-icon>mdi-login</v-icon></v-list-item-icon>
-              <v-list-item-title>Login</v-list-item-title>
-            </v-list-item>
-            <v-list-item to="/register">
-              <v-list-item-icon><v-icon>mdi-account-plus</v-icon></v-list-item-icon>
-              <v-list-item-title>Register</v-list-item-title>
-            </v-list-item>
-          </v-list>
-        </v-menu>
+        <!-- Account Button (Visible to Authenticated Users) -->
+        <v-btn v-if="isAuthenticated" :to="`/user/${userRole}/${userId}`" class="text-white mx-2">
+          <v-icon left>mdi-account</v-icon>
+          Account
+        </v-btn>
 
         <!-- Logout Button (Visible to Authenticated Users) -->
         <v-btn v-if="isAuthenticated" @click="logout" class="text-dark font-weight-bold mx-2" variant="flat">
@@ -130,92 +116,58 @@ export default {
   name: 'App',
   data() {
     return {
-      drawer: false, // Controls the visibility of the navigation drawer
-      isAuthenticated: false, // Tracks authentication status
-      userRole: null, // Tracks the user's role (admin, student, supervisor)
+      drawer: false,
+      isAuthenticated: false,
+      userRole: null,
+      userId: null,
     };
   },
   computed: {
-    // Dynamically determine the theme icon
     themeIcon() {
       return this.isDarkTheme ? 'mdi-weather-sunny' : 'mdi-weather-night';
     },
-    // Check if the theme is dark
     isDarkTheme() {
       return this.$vuetify.theme.global.dark;
     },
-    // Navbar color based on theme
     navbarColor() {
       return this.isDarkTheme ? 'onBackground' : 'primary';
     },
-    // Footer color based on theme
     footerColor() {
       return this.isDarkTheme ? 'onBackground' : 'primary';
     },
   },
   methods: {
-    // Toggle between light and dark themes
     toggleTheme() {
       this.$vuetify.theme.global.dark = !this.$vuetify.theme.global.dark;
     },
-    // Logout method
     logout() {
-      // Clear user session
       this.isAuthenticated = false;
       this.userRole = null;
+      this.userId = null;
+      localStorage.removeItem('token');
       localStorage.removeItem('userRole');
       localStorage.removeItem('isAuthenticated');
-      // Redirect to login page
+      localStorage.removeItem('userId');
       this.$router.push('/login');
-    },
-    // Simulate login 
-    async login(credentials) {
-      try {
-        // Send login request to the backend
-        const response = await axios.post('/api/users/login', credentials);
-        const { access_token, role } = response.data;
-
-        // Update authentication state
-        this.isAuthenticated = true;
-        this.userRole = role;
-        localStorage.setItem('userRole', role);
-        localStorage.setItem('isAuthenticated', true);
-        localStorage.setItem('access_token', access_token);
-
-        // // Redirect based on the user's role
-        // if (role === 'admin') {
-        //   this.$router.push('/admin-dashboard');
-        // } else if (role === 'student') {
-        //   this.$router.push('/student-profile');
-        // } else if (role === 'supervisor') {
-        //   this.$router.push('/supervisor-profile');
-        // }
-
-      } catch (error) {
-        if (error.response && error.response.status === 401) {
-          this.error = 'Invalid email or password';
-        } else {
-          this.error = 'An error occurred during login';
-        }
-      }
     },
   },
   mounted() {
-  // Check authentication status on app load 
-  const storedToken = localStorage.getItem('token');
-  const storedRole = localStorage.getItem('userRole');
-  if (storedToken && storedRole) {
-    this.isAuthenticated = true;
-    this.userRole = storedRole;
-  }
-},
+    const storedToken = localStorage.getItem('token');
+    const storedRole = localStorage.getItem('userRole');
+    const storedUserId = localStorage.getItem('userId');
+    if (storedToken && storedRole && storedUserId) {
+      this.isAuthenticated = true;
+      this.userRole = storedRole;
+      this.userId = storedUserId;
+    }
+    console.log('Stored User ID:', storedUserId);
+  },
+  
 };
 </script>
 
 <style>
-/* Add custom Tailwind classes or styles here */
 .word-color {
   color: #0097a7;
-  /* Custom accent color */
 }
 </style>
