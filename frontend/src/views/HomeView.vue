@@ -85,37 +85,40 @@
       <v-col cols="12" md="4" class="d-flex">
       <v-card class="pa-6 text-center flex-grow-1">
         <v-avatar size="120" class="mb-4">
-        <v-img src="/man_yellow.svg" alt="User 1"></v-img>
+        <v-img src="/man.svg" alt="User 1" style="background-color: #fbc531;"></v-img>
         </v-avatar>
         <p class="text-gray-700 mb-4">
         "StudentPortfolio has transformed how I manage my academic journey."
         </p>
         <h3 class="text-lg font-bold word-color">John Doe</h3>
-        <p class="text-gray-600">Student</p>
+        <p class="text-gray-600">Student </p>
+        <v-chip color="warning" outlined >Idle</v-chip>
       </v-card>
       </v-col>
       <v-col cols="12" md="4" class="d-flex">
       <v-card class="pa-6 text-center flex-grow-1">
         <v-avatar size="120" class="mb-4">
-        <v-img src="/man_red.svg" alt="User 2"></v-img>
+        <v-img src="/man.svg" alt="User 2" style="background-color: #e84118;"></v-img>
         </v-avatar>
         <p class="text-gray-700 mb-4">
         "As a supervisor, I find the platform incredibly helpful for guiding my students."
         </p>
         <h3 class="text-lg font-bold word-color">Jane Smith</h3>
         <p class="text-gray-600">Supervisor</p>
+        <v-chip color="error" outlined>Offline</v-chip>
       </v-card>
       </v-col>
       <v-col cols="12" md="4" class="d-flex">
       <v-card class="pa-6 text-center flex-grow-1">
         <v-avatar size="120" class="mb-4">
-        <v-img src="/man_green.svg" alt="User 3"></v-img>
+        <v-img src="/man.svg" alt="User 3" style="background-color: #4cd137;"></v-img>
         </v-avatar>
         <p class="text-gray-700 mb-4">
         "The AI tools and collaboration features are game-changers for our institution."
         </p>
         <h3 class="text-lg font-bold word-color">Michael Brown</h3>
         <p class="text-gray-600">Administrator</p>
+        <v-chip color="success" outlined>Active</v-chip>
       </v-card>
       </v-col>
     </v-row>

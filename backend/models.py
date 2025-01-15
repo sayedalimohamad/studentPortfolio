@@ -53,7 +53,7 @@ class Student(db.Model):
     bio = db.Column(db.Text)
 
     def to_dict(self):
-        return {
+        student_dict = {
             "student_id": self.student_id,
             "user_id": self.user_id,
             "institution": self.institution,
@@ -61,6 +61,13 @@ class Student(db.Model):
             "privacy_level": self.privacy_level,
             "bio": self.bio
         }
+        # Add User-related data to the response (full_name and dob)
+        if self.user:
+            student_dict.update({
+                "full_name": self.user.full_name,
+                "dob": self.user.dob
+            })
+        return student_dict
 
 class Supervisor(db.Model):
     __tablename__ = "supervisors"

@@ -3,7 +3,7 @@
     <h1 class="text-3xl font-bold mb-6 word-color">Admins List ({{ filteredAdmins.length }})</h1>
     <v-text-field
       v-model="search"
-      label="Search by username or created by"
+      label="Search by username, full name, or created by"
       class="mb-6"
       outlined
       dense
@@ -13,10 +13,14 @@
         <v-card class="mb-4 pa-4">
           <v-card-title class="d-flex align-center">
             <v-avatar class="mr-3">
-              <v-icon color="primary">mdi-account-circle</v-icon>
+              <v-icon color="primary">mdi-account</v-icon>
             </v-avatar>
-            <span class="text-lg font-bold word-color">{{ admin.user.username }} ({{ admin.role }})</span>
+            <span class="text-lg font-bold word-color">{{ admin.user.full_name }} </span>
           </v-card-title>
+          <v-card-subtitle class="text-gray-600 d-flex align-center mb-2">
+            <v-icon small class="mr-1">mdi-account-circle</v-icon>
+            <span>Username: <span class="word-color">{{ admin.user.username }} ({{ admin.role }})</span></span>
+          </v-card-subtitle>
           <v-card-subtitle class="text-gray-600 d-flex align-center mb-2">
             <v-icon small class="mr-1">mdi-email</v-icon>
             <span>Email: <span class="word-color">{{ admin.user.email }}</span></span>
@@ -47,12 +51,11 @@
             <v-icon small class="mr-1">mdi-account</v-icon>
             <span>Created By:</span>
             <v-chip class="ma-1 ml-2" color="primary" text-color="white" small>
-              <v-icon left small>mdi-account</v-icon>
               ID: {{ admin.created_by }}
             </v-chip>
             <v-chip class="ma-1" color="primary" text-color="white" small>
               <v-icon left small>mdi-account-circle</v-icon>
-              Username: {{ getUserName(admin.created_by) }}
+              {{ getUserName(admin.created_by) }}
             </v-chip>
           </v-card-subtitle>
           <v-card-subtitle class="text-gray-600 d-flex align-center">
@@ -83,8 +86,9 @@ export default {
     filteredAdmins() {
       return this.admins.filter(admin => {
         const usernameMatch = admin.user.username.toLowerCase().includes(this.search.toLowerCase());
+        const fullNameMatch = admin.user.full_name.toLowerCase().includes(this.search.toLowerCase());
         const createdByMatch = admin.created_by.toString().includes(this.search);
-        return usernameMatch || createdByMatch;
+        return usernameMatch || fullNameMatch || createdByMatch;
       });
     },
   },

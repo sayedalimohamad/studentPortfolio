@@ -28,6 +28,7 @@ def register_routes(bp: Blueprint):
         return jsonify([student.to_dict() for student in students])
 
     @bp.route('/<int:student_id>', methods=['GET'])
+    @jwt_required()
     def get_student(student_id):
         student = Student.query.get_or_404(student_id)
         return jsonify(student.to_dict())
