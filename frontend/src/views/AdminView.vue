@@ -4,10 +4,12 @@
     <v-text-field
       v-model="search"
       label="Search by username, full name, or created by"
+      prepend-inner-icon="mdi-magnify"
       class="mb-6"
       outlined
       dense
     ></v-text-field>
+    
     <v-row v-if="filteredAdmins.length > 0" dense>
       <v-col v-for="admin in filteredAdmins" :key="admin.admin_id" cols="12" md="6" lg="4">
         <v-card class="mb-4 pa-4">
@@ -27,7 +29,7 @@
           </v-card-subtitle>
             <v-card-subtitle class="text-gray-600 d-flex align-center mb-2">
               <v-icon small class="mr-1">mdi-lock</v-icon>
-              <span>Permissions & Manage:</span>
+              <span>Can Manage:</span>
               <v-chip
               class="ma-1 ml-2"
               :color="admin.permissions.manage_users ? 'green' : 'red'"
@@ -112,13 +114,36 @@ export default {
   color: #0097A7; /* Custom color for highlighted text */
 }
 .v-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  /* Ensures all cards in the row have equal height */
   padding: 16px;
   margin-bottom: 16px;
+  border-radius: 8px;
+  /* Add a subtle shadow for better visual separation */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
+
 .v-card-title {
-  padding-bottom: 8px;
+  padding-bottom: 24px;
 }
+
 .v-card-subtitle {
   padding-bottom: 8px;
+}
+
+.v-card-text p {
+  margin: 0;
+  line-height: 1.5;
+}
+
+.v-avatar {
+  background-color: #e0f7fa;
+}
+
+.v-icon {
+  color: #0097A7;
 }
 </style>

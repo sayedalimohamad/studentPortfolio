@@ -65,7 +65,9 @@ class Student(db.Model):
         if self.user:
             student_dict.update({
                 "full_name": self.user.full_name,
-                "dob": self.user.dob
+                "dob": self.user.dob,
+                "email": self.user.email,
+                "username": self.user.username,
             })
         return student_dict
 
