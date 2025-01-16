@@ -66,6 +66,11 @@
           <v-list-item-content>Home</v-list-item-content>
         </v-list-item>
 
+        <v-list-item :to="`/user/${userRole}/${userId}`">
+          <v-list-item-icon><v-icon>mdi-account</v-icon></v-list-item-icon>
+          <v-list-item-content>Account</v-list-item-content>
+        </v-list-item>
+
         <!-- Students Link (Visible to Admins) -->
         <v-list-item v-if="userRole === 'admin'" to="/students">
           <v-list-item-icon><v-icon>mdi-account-group</v-icon></v-list-item-icon>
@@ -168,7 +173,7 @@ export default {
     }
     console.log('Stored User ID:', storedUserId);
   },
-  
+
 };
 </script>
 

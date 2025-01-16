@@ -5,19 +5,34 @@
         <v-card class="px-6 py-8">
           <h1 class="text-3xl font-bold mb-6 text-center">Register</h1>
           <v-form @submit.prevent="register" ref="form">
+            <!-- Username -->
             <v-text-field v-model="username" label="Username" :rules="[(v) => !!v || 'Username is required']" required
               outlined></v-text-field>
+
+            <!-- Email -->
             <v-text-field v-model="email" label="Email" type="email"
               :rules="[(v) => !!v || 'Email is required', (v) => /.+@.+\..+/.test(v) || 'Email must be valid',]"
               required outlined></v-text-field>
+
+            <!-- Password -->
             <v-text-field v-model="password" label="Password" :type="showPassword ? 'text' : 'password'"
               :append-inner-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
               :rules="[(v) => !!v || 'Password is required', (v) => v.length >= 8 || 'Password must be at least 8 characters',]"
               required outlined @click:append-inner="showPassword = !showPassword"></v-text-field>
+
+            <!-- Confirm Password -->
             <v-text-field v-model="confirmPassword" label="Confirm Password" :type="showPassword ? 'text' : 'password'"
               :append-inner-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
               :rules="[(v) => !!v || 'Confirm Password is required', (v) => v === password || 'Passwords must match',]"
               required outlined @click:append-inner="showPassword = !showPassword"></v-text-field>
+
+            <!-- Full Name (Required for all roles) -->
+            <v-text-field v-model="fullName" label="Full Name" :rules="[(v) => !!v || 'Full Name is required']" required
+              outlined></v-text-field>
+
+            <!-- Date of Birth (Required for all roles) -->
+            <v-text-field v-model="dob" label="Date of Birth" type="date"
+              :rules="[(v) => !!v || 'Date of Birth is required']" required outlined></v-text-field>
 
             <!-- Dynamic Row for Role and Code Input -->
             <v-row>
@@ -36,8 +51,13 @@
 
             <!-- Additional Fields for Admin -->
             <template v-if="role === 'admin'">
-              <v-text-field v-model="adminPermissions" label="Permissions"
-                :rules="[(v) => !!v || 'Permissions are required']" required outlined></v-text-field>
+              <v-card class="mb-4" outlined>
+                <v-card-title>Permissions</v-card-title>
+                <v-card-text>
+                  <v-checkbox v-for="(value, key) in permissions" :key="key" v-model="permissions[key]" :label="key"
+                    hide-details color="primary"></v-checkbox>
+                </v-card-text>
+              </v-card>
               <v-text-field v-model="createdBy" label="Created By (User ID)"
                 :rules="[(v) => !!v || 'Created By is required']" required outlined></v-text-field>
             </template>
@@ -53,10 +73,6 @@
 
             <!-- Additional Fields for Student -->
             <template v-if="role === 'student'">
-              <v-text-field v-model="fullName" label="Full Name" :rules="[(v) => !!v || 'Full Name is required']"
-                required outlined></v-text-field>
-              <v-text-field v-model="dob" label="Date of Birth" type="date"
-                :rules="[(v) => !!v || 'Date of Birth is required']" required outlined></v-text-field>
               <v-text-field v-model="institution" label="Institution" :rules="[(v) => !!v || 'Institution is required']"
                 required outlined></v-text-field>
               <v-text-field v-model="major" label="Major" :rules="[(v) => !!v || 'Major is required']" required
@@ -95,7 +111,10 @@ export default {
       showPassword: false,
 
       // Admin-specific fields
-      adminPermissions: '',
+      permissions: {
+        manage_users: false,
+        manage_content: false,
+      },
       createdBy: '',
 
       // Supervisor-specific fields
@@ -106,10 +125,8 @@ export default {
       // Student-specific fields
       fullName: '',
       dob: '',
-      institution: '',
       major: '',
       privacyLevel: '',
-      bio: '',
 
       // Privacy Levels
       privacyLevels: ['Public', 'Private', 'Restricted'],
@@ -128,12 +145,14 @@ export default {
       }
     },
     handleRoleChange() {
-      this.adminPermissions = '';
+      // Reset role-specific fields when the role changes
+      this.permissions = {
+        manage_users: false,
+        manage_content: false,
+      };
       this.createdBy = '';
       this.institution = '';
       this.department = '';
-      this.fullName = '';
-      this.dob = '';
       this.major = '';
       this.privacyLevel = '';
       this.bio = '';
@@ -147,52 +166,46 @@ export default {
         }
 
         try {
-          const userPayload = {
+          // Prepare the payload
+          const payload = {
             username: this.username,
             email: this.email,
             password: this.password,
             role: this.role,
+            full_name: this.fullName,
+            dob: this.dob,
+            status: 'active',
           };
 
-          const userResponse = await this.$axios.post('/api/users/register', userPayload);
-          const userId = userResponse.data.user_id;
-
-          // Handle role-specific registration
+          // Add role-specific fields
           if (this.role === 'admin') {
-            const adminPayload = {
-              user_id: userId,
-              permissions: this.adminPermissions,
-              created_by: this.createdBy,
-              role: this.role,
-            };
-            await this.$axios.post('/api/admins', adminPayload);
+            payload.permissions = this.permissions;
+            payload.created_by = this.createdBy;
           } else if (this.role === 'supervisor') {
-            const supervisorPayload = {
-              user_id: userId,
-              institution: this.institution,
-              department: this.department,
-              bio: this.bio,
-            };
-            await this.$axios.post('/api/supervisors', supervisorPayload);
+            payload.institution = this.institution;
+            payload.department = this.department;
+            payload.bio = this.bio;
           } else if (this.role === 'student') {
-            const studentPayload = {
-              user_id: userId,
-              full_name: this.fullName,
-              dob: this.dob,
-              institution: this.institution,
-              major: this.major,
-              privacy_level: this.privacyLevel,
-              bio: this.bio,
-            };
-            await this.$axios.post('/api/students', studentPayload);
+            payload.institution = this.institution;
+            payload.major = this.major;
+            payload.privacy_level = this.privacyLevel;
+            payload.bio = this.bio;
           }
-          console.log(userPayload)
+
+          console.log('Registration Payload:', payload);
+
+          // Send the payload to the backend
+          const response = await axios.post('/api/users/register', payload);
+          console.log('Registration Response:', response.data);
+
           toast.success('Registration successful!');
           this.$router.push('/login');
         } catch (error) {
-          toast.error('Registration failed. Please try again.');
-          console.error(error);
+          console.error('Registration Error:', error.response ? error.response.data : error.message);
+          toast.error(error.response?.data?.error || 'Registration failed. Please try again.');
         }
+      } else {
+        console.log('Form validation failed');
       }
     },
   },

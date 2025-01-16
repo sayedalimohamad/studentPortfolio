@@ -7,14 +7,14 @@ class User(db.Model):
     username = db.Column(db.String(255), unique=True, nullable=False)
     email = db.Column(db.String(255), unique=True, nullable=False)
     password_hash = db.Column(db.String(255), nullable=False)
-    role = db.Column(db.String(255), nullable=False)  # student, admin, supervisor
-    full_name = db.Column(db.String(255), nullable=False)  # Moved from Student
-    dob = db.Column(db.Date, nullable=False)  # Moved from Student
+    role = db.Column(db.String(255), nullable=False)  
+    full_name = db.Column(db.String(255), nullable=False)  
+    dob = db.Column(db.Date, nullable=False)  
     created_at = db.Column(db.TIMESTAMP, default=db.func.now())
     last_login = db.Column(db.TIMESTAMP, default=db.func.now())
     status = db.Column(db.String(255), nullable=False)
 
-    # Relationships
+    
     student = db.relationship("Student", backref="user", uselist=False, cascade="all, delete-orphan")
     supervisor = db.relationship("Supervisor", backref="user", uselist=False, cascade="all, delete-orphan")
     admin = db.relationship("Admin", backref="user", uselist=False, cascade="all, delete-orphan", foreign_keys="Admin.user_id")
@@ -61,7 +61,7 @@ class Student(db.Model):
             "privacy_level": self.privacy_level,
             "bio": self.bio
         }
-        # Add User-related data to the response (full_name and dob)
+        
         if self.user:
             student_dict.update({
                 "full_name": self.user.full_name,
