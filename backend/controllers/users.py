@@ -184,3 +184,27 @@ def register_routes(bp: Blueprint):
         db.session.delete(user)
         db.session.commit()
         return "", 204
+    
+    @bp.route("/verify-password", methods=["POST"])
+    @jwt_required()
+    def verify_password():
+        try:
+            data = request.get_json()
+            if not data or "password" not in data:
+                return jsonify({"isValid": False, "message": "Password is required."}), 400
+            
+            user_id = get_jwt_identity()  # Get the user ID from the JWT token
+            user = User.query.get(user_id)
+
+            if not user:
+                return jsonify({"isValid": False, "message": "User not found."}), 404
+
+            # Verify the password
+            if user.check_password(data["password"]):
+                return jsonify({"isValid": True, "message": "Password is correct."}), 200
+            else:
+                return jsonify({"isValid": False, "message": "Incorrect password."}), 401
+
+        except Exception as e:
+            print("Error verifying password:", str(e))
+            return jsonify({"isValid": False, "message": "Internal server error."}), 500
