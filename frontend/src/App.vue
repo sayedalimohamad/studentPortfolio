@@ -16,6 +16,12 @@
           Home
         </v-btn>
 
+        <v-btn v-if="!isAuthenticated" to="/login" class="text-white mx-2">
+          <v-icon left>mdi-login</v-icon>
+          Login
+        </v-btn>
+
+
         <!-- Students Link (Visible to Admins) -->
         <v-btn v-if="userRole === 'admin'" to="/students" class="text-white mx-2">
           <v-icon left>mdi-account-group</v-icon>

@@ -14,6 +14,10 @@
               :append-inner-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
               :rules="[(v) => !!v || 'Password is required', (v) => v.length >= 8 || 'Password must be at least 8 characters',]"
               required outlined @click:append-inner="showPassword = !showPassword"></v-text-field>
+            <v-text-field v-model="confirmPassword" label="Confirm Password" :type="showPassword ? 'text' : 'password'"
+              :append-inner-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+              :rules="[(v) => !!v || 'Confirm Password is required', (v) => v === password || 'Passwords must match',]"
+              required outlined @click:append-inner="showPassword = !showPassword"></v-text-field>
 
             <!-- Dynamic Row for Role and Code Input -->
             <v-row>
@@ -26,8 +30,7 @@
               <!-- Code/Password Input -->
               <v-col v-if="!rolesUnlocked" cols="6">
                 <v-text-field class="text-info font-bold" v-model="roleCode" label="Unlock Roles" type="password"
-                  :rules="[(v) => !!v || 'Code is required to unlock roles']" outlined dense
-                  @input="validateCode"></v-text-field>
+                  outlined dense @input="validateCode"></v-text-field>
               </v-col>
             </v-row>
 
@@ -72,6 +75,9 @@
 </template>
 
 <script>
+import { useToast } from 'vue-toastification';
+import axios from 'axios';
+
 export default {
   name: 'RegisterView',
   data() {
@@ -79,6 +85,7 @@ export default {
       username: '',
       email: '',
       password: '',
+      confirmPassword: '',
       roleCode: '',
       validCode: 'admin123',
       rolesUnlocked: false,
@@ -110,10 +117,11 @@ export default {
   },
   methods: {
     validateCode() {
+      const toast = useToast();
       if (this.roleCode === this.validCode) {
         this.filteredRoles = this.roles;
         this.rolesUnlocked = true;
-        alert('Roles unlocked successfully!');
+        toast.success('Roles unlocked successfully!');
       } else {
         this.filteredRoles = ['student'];
         this.rolesUnlocked = false;
@@ -131,7 +139,13 @@ export default {
       this.bio = '';
     },
     async register() {
+      const toast = useToast();
       if (this.$refs.form.validate()) {
+        if (this.password !== this.confirmPassword) {
+          toast.error('Passwords do not match.');
+          return;
+        }
+
         try {
           const userPayload = {
             username: this.username,
@@ -172,11 +186,11 @@ export default {
             };
             await this.$axios.post('/api/students', studentPayload);
           }
-
-          alert('Registration successful!');
+          console.log(userPayload)
+          toast.success('Registration successful!');
           this.$router.push('/login');
         } catch (error) {
-          alert('Registration failed. Please try again.');
+          toast.error('Registration failed. Please try again.');
           console.error(error);
         }
       }
