@@ -38,7 +38,8 @@
               </v-list-item-icon>
               <v-list-item-content>
                 <v-list-item-title class="font-bold">Date of Birth</v-list-item-title>
-                <v-list-item-subtitle class="text-gray-700">{{ new Date(user.dob).toDateString()  }}</v-list-item-subtitle>
+                <v-list-item-subtitle class="text-gray-700">{{ new Date(user.dob).toDateString()
+                  }}</v-list-item-subtitle>
               </v-list-item-content>
             </v-list-item>
           </v-col>
@@ -113,7 +114,19 @@
               </v-list-item-icon>
               <v-list-item-content>
                 <v-list-item-title class="font-bold">Permissions</v-list-item-title>
-                <v-list-item-subtitle class="text-gray-700">{{ adminInfo.permissions }}</v-list-item-subtitle>
+                <v-list-item-subtitle class="text-gray-700">
+                  <v-chip class="ma-1 ml-2" :color="adminInfo.permissions.manage_users ? 'green' : 'red'"
+                    text-color="white" small>
+                    <v-icon left small>mdi-account-multiple</v-icon>
+                    Mange Users
+                  </v-chip>
+                  <v-chip class="ma-1" :color="adminInfo.permissions.manage_content ? 'green' : 'red'"
+                    text-color="white" small>
+                    <v-icon left small>mdi-file-document</v-icon>
+                    Mange Content
+                  </v-chip>
+                </v-list-item-subtitle>
+
               </v-list-item-content>
             </v-list-item>
           </v-col>

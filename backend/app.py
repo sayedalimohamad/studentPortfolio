@@ -13,8 +13,8 @@ from controllers import (
     supervisors_bp,
     users_bp,
 )
-import os
-import socket
+# import os
+# import socket
 
 def create_app():
     app = Flask(__name__)

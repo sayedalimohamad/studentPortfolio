@@ -22,7 +22,7 @@
         </v-btn>
 
         <!-- Students Link (Visible to Admins) -->
-        <v-btn v-if="userRole === 'admin'" to="/students" class="text-white mx-2">
+        <v-btn v-if="userRole === 'admin' || userRole === 'supervisor'" to="/students" class="text-white mx-2">
           <v-icon left>mdi-account-group</v-icon>
           Students
         </v-btn>
@@ -71,7 +71,7 @@
         </v-list-item>
 
         <!-- Students Link (Visible to Admins) -->
-        <v-list-item v-if="userRole === 'admin'" to="/students">
+        <v-list-item v-if="userRole === 'admin' || userRole === 'supervisor'" to="/students">
           <v-list-item-icon><v-icon>mdi-account-group</v-icon></v-list-item-icon>
           <v-list-item-content>Students</v-list-item-content>
         </v-list-item>
