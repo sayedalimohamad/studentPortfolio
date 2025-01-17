@@ -79,6 +79,17 @@
               </v-list-item-content>
             </v-list-item>
           </v-col>
+          <v-col cols="12" md="6">
+            <v-list-item>
+              <v-list-item-icon>
+                <v-icon color="primary">mdi-information-outline</v-icon>
+              </v-list-item-icon>
+              <v-list-item-content>
+                <v-list-item-title class="font-bold">Bio</v-list-item-title>
+                <v-list-item-subtitle class="text-gray-700 text-justify">{{ studentInfo.bio }}</v-list-item-subtitle>
+              </v-list-item-content>
+            </v-list-item>
+          </v-col>
         </v-row>
         <!-- Supervisor Specific Information -->
         <v-row v-if="userRole === 'supervisor' && supervisorInfo">
@@ -101,6 +112,17 @@
               <v-list-item-content>
                 <v-list-item-title class="font-bold">Department</v-list-item-title>
                 <v-list-item-subtitle class="text-gray-700">{{ supervisorInfo.department }}</v-list-item-subtitle>
+              </v-list-item-content>
+            </v-list-item>
+          </v-col>
+          <v-col cols="12" md="6">
+            <v-list-item>
+              <v-list-item-icon>
+                <v-icon color="primary">mdi-information-outline</v-icon>
+              </v-list-item-icon>
+              <v-list-item-content>
+                <v-list-item-title class="font-bold">Bio</v-list-item-title>
+                <v-list-item-subtitle class="text-gray-700 text-justify">{{ supervisorInfo.bio }}</v-list-item-subtitle>
               </v-list-item-content>
             </v-list-item>
           </v-col>

@@ -42,6 +42,7 @@ class User(db.Model):
             "last_login": self.last_login,
             "status": self.status,
             "permissions": self.admin.permissions if self.admin else None,
+            "bio": self.student.bio if self.student else self.supervisor.bio if self.supervisor else None
         }
 
 class Student(db.Model):
