@@ -6,12 +6,18 @@ import LoginView from './views/LoginView.vue';
 import RegisterView from './views/RegisterView.vue';
 import ChatInterfaceView from './views/ChatInterfaceView.vue';
 import UserProfileView from './views/UserProfileView.vue'; 
+import AboutView from './views/AboutView.vue';
 
 const routes = [
   {
     path: '/',
     name: 'Home',
     component: HomeView,
+  },
+  {
+    path: '/about',
+    name: 'About',
+    component: AboutView,
   },
   {
     path: '/students',
