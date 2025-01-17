@@ -2,7 +2,7 @@
   <v-app>
     <!-- Navigation Bar -->
     <v-app-bar app :color="navbarColor" :dark="isDarkTheme">
-      <v-toolbar-title>Student Portfolio</v-toolbar-title>
+      <v-toolbar-title class="headline font-weight-bold text-uppercase">Student Portfolio</v-toolbar-title>
       <v-spacer></v-spacer>
 
       <!-- Hamburger Menu for Small Screens -->
@@ -20,7 +20,6 @@
           <v-icon left>mdi-login</v-icon>
           Login
         </v-btn>
-
 
         <!-- Students Link (Visible to Admins) -->
         <v-btn v-if="userRole === 'admin'" to="/students" class="text-white mx-2">
@@ -66,7 +65,7 @@
           <v-list-item-content>Home</v-list-item-content>
         </v-list-item>
 
-        <v-list-item :to="`/user/${userRole}/${userId}`">
+        <v-list-item v-if="isAuthenticated" :to="`/user/${userRole}/${userId}`">
           <v-list-item-icon><v-icon>mdi-account</v-icon></v-list-item-icon>
           <v-list-item-content>Account</v-list-item-content>
         </v-list-item>
@@ -109,13 +108,13 @@
     </v-navigation-drawer>
 
     <!-- Main Content -->
-    <v-main>
+    <v-main :style="{ backgroundColor: themeColors.background, color: themeColors.onBackground }">
       <router-view></router-view>
     </v-main>
 
     <!-- Footer -->
     <v-footer :color="footerColor" :dark="isDarkTheme" padless>
-      <v-col class="text-center" cols="12">
+      <v-col class="text-center headline font-weight-bold text-uppercase" cols="12"> 
         &copy; {{ new Date().getFullYear() }} — Student Portfolio
       </v-col>
     </v-footer>
@@ -141,16 +140,20 @@ export default {
       return this.$vuetify.theme.global.dark;
     },
     navbarColor() {
-      return this.isDarkTheme ? 'onBackground' : 'primary';
+      return this.isDarkTheme ? 'primary' : 'primary';
     },
     footerColor() {
-      return this.isDarkTheme ? 'onBackground' : 'primary';
+      return this.isDarkTheme ? 'primary' : 'primary';
+    },
+    themeColors() {
+      return this.$vuetify.theme.global.current.colors;
     },
   },
   methods: {
     toggleTheme() {
-      this.$vuetify.theme.global.dark = !this.$vuetify.theme.global.dark;
-    },
+    const currentTheme = this.$vuetify.theme.global.name;
+    this.$vuetify.theme.global.name = currentTheme === 'light' ? 'dark' : 'light';
+  },
     logout() {
       this.isAuthenticated = false;
       this.userRole = null;
@@ -173,7 +176,6 @@ export default {
     }
     console.log('Stored User ID:', storedUserId);
   },
-
 };
 </script>
 

@@ -42,7 +42,11 @@
             <v-icon small class="mr-1">mdi-lock</v-icon>
             <span>Privacy Level: <span class="word-color">{{ student.privacy_level }}</span></span>
           </v-card-subtitle>
-          <v-card-text class="text-gray-800 mt-4" style="background-color: #e0f7fa; border-radius: 8px;">
+            <v-card-text 
+  class="text-gray-800 mt-4" 
+  :style="{ backgroundColor: isDarkTheme ? $vuetify.theme.global.current.colors.background : $vuetify.theme.global.current.colors.onCard, 
+            borderRadius: '8px', 
+            color: $vuetify.theme.global.current.colors.primary }">
             <v-icon small class="mr-1">mdi-information-outline</v-icon>
             <span class="font-medium">Bio:</span>
             <p class="ml-5 mt-2 " style="text-align: justify;">{{ student.bio }}</p>

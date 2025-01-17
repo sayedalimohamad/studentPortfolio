@@ -25,6 +25,7 @@ export default createVuetify({
           onSecondary: '#000000', // Black text on secondary
           onBackground: '#000000', // Black text on background
           onSurface: '#000000', // Black text on surface
+          onCard:"#e0f7fa"
         },
       },
       dark: {
@@ -43,6 +44,7 @@ export default createVuetify({
           onSecondary: '#000000', // Black text on secondary
           onBackground: '#FFFFFF', // White text on background
           onSurface: '#FFFFFF', // White text on surface
+          onCard:"#e0f7fa",
         },
       },
     },
