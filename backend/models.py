@@ -40,7 +40,8 @@ class User(db.Model):
             "dob": self.dob,
             "created_at": self.created_at,
             "last_login": self.last_login,
-            "status": self.status
+            "status": self.status,
+            "permissions": self.admin.permissions if self.admin else None,
         }
 
 class Student(db.Model):
