@@ -8,13 +8,14 @@
                     alt="404 Illustration"
                     class="mx-auto d-block"
                     max-width="800"
+                    style="filter: grayscale(.2) invert(.2);"
                 ></v-img>
 
                 <!-- Title -->
-                <h1 class="text-h3 font-weight-bold mb-4">Oops! Page Not Found</h1>
+                <h1 class=" font-weight-bold mb-4" style="color: #00ACC1;">Oops! Page Not Found</h1>
 
                 <!-- Subtitle -->
-                <p class="text-body-1 mb-6">
+                <p class=" mb-6 ">
                     The page you're looking for doesn't exist or has been moved. Let's get you back on track.
                 </p>
 
@@ -46,17 +47,5 @@ export default {
 <style scoped>
 .fill-height {
     height: 100vh;
-}
-
-.text-h3 {
-    color: #2c3e50; /* Dark gray for better readability */
-}
-
-.text-body-1 {
-    color: #7f8c8d; /* Light gray for subtitles */
-}
-
-.v-btn {
-    text-transform: none; /* Keep button text in normal case */
 }
 </style>

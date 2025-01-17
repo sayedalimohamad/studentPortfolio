@@ -2,7 +2,8 @@
   <v-app>
     <!-- Navigation Bar -->
     <v-app-bar app :color="navbarColor" :dark="isDarkTheme">
-      <v-toolbar-title class="headline font-weight-bold text-uppercase">Student Portfolio</v-toolbar-title>
+      <v-toolbar-title class="headline font-weight-bold text-uppercase">
+        Student Portfolio</v-toolbar-title>
       <v-spacer></v-spacer>
 
       <!-- Hamburger Menu for Small Screens -->
@@ -14,6 +15,11 @@
         <v-btn to="/" class="text-white mx-2">
           <v-icon left>mdi-home</v-icon>
           Home
+        </v-btn>
+
+        <v-btn to="/about" class="text-white mx-2">
+          <v-icon left>mdi-book</v-icon>
+          About
         </v-btn>
 
         <v-btn v-if="!isAuthenticated" to="/login" class="text-white mx-2">
@@ -114,7 +120,7 @@
 
     <!-- Footer -->
     <v-footer :color="footerColor" :dark="isDarkTheme" padless>
-      <v-col class="text-center headline font-weight-bold text-uppercase" cols="12"> 
+      <v-col class="text-center headline font-weight-bold text-uppercase" cols="12">
         &copy; {{ new Date().getFullYear() }} — Student Portfolio
       </v-col>
     </v-footer>
@@ -151,9 +157,9 @@ export default {
   },
   methods: {
     toggleTheme() {
-    const currentTheme = this.$vuetify.theme.global.name;
-    this.$vuetify.theme.global.name = currentTheme === 'light' ? 'dark' : 'light';
-  },
+      const currentTheme = this.$vuetify.theme.global.name;
+      this.$vuetify.theme.global.name = currentTheme === 'light' ? 'dark' : 'light';
+    },
     logout() {
       this.isAuthenticated = false;
       this.userRole = null;

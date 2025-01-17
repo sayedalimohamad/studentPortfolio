@@ -146,4 +146,7 @@ export default {
 .word-color {
   color: #0097a7;
 }
+h3{
+  font-size: 1.4rem;
+}
 </style>

@@ -7,7 +7,7 @@ import RegisterView from './views/RegisterView.vue';
 import ChatInterfaceView from './views/ChatInterfaceView.vue';
 import UserProfileView from './views/UserProfileView.vue'; 
 import AboutView from './views/AboutView.vue';
-
+import NotFoundView from './views/NotFoundView.vue';
 const routes = [
   {
     path: '/',
@@ -23,13 +23,13 @@ const routes = [
     path: '/students',
     name: 'Students',
     component: StudentView,
-    meta: { requiresAuth: true },  // This route requires authentication
+    meta: { requiresAuth: true },  
   },
   {
     path: '/admins',
     name: 'Admins',
     component: AdminView,
-    meta: { requiresAuth: true },  // This route requires authentication
+    meta: { requiresAuth: true },  
   },
   {
     path: '/login',
@@ -45,38 +45,32 @@ const routes = [
     path: '/chat',
     name: 'Chat',
     component: ChatInterfaceView,
-    meta: { requiresAuth: true },  // This route requires authentication
+    meta: { requiresAuth: true },  
   },
   {
     path: '/user/:role/:id',
     name: 'UserProfile',
     component: UserProfileView,
     props: true,
-    meta: { requiresAuth: true },  // This route requires authentication
+    meta: { requiresAuth: true },  
   },
   {
-    path: '/:pathMatch(.*)*', // Catch-all route for 404 errors
+    path: '/:pathMatch(.*)*', 
     name: 'NotFound',
-    component: () => import('./views/NotFoundView.vue'), // Lazy load the 404 component
+    component:NotFoundView, 
     meta: { title: 'Page Not Found' },
   },
 ];
-
 const router = createRouter({
   history: createWebHistory(),
   routes,
 });
-
-// Add a global navigation guard to check authentication
 router.beforeEach((to, from, next) => {
-  const isAuthenticated = !!localStorage.getItem('token'); // Check if the user is authenticated (e.g., via token)
-
-  // If the route requires authentication and the user is not authenticated, redirect to login
+  const isAuthenticated = !!localStorage.getItem('token'); 
   if (to.meta.requiresAuth && !isAuthenticated) {
-    next({ name: 'Login' }); // Redirect to login page
+    next({ name: 'Login' }); 
   } else {
-    next(); // Proceed to the requested route
+    next(); 
   }
 });
-
 export default router;
