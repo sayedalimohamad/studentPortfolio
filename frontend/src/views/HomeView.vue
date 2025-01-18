@@ -85,26 +85,26 @@
       <v-col cols="12" md="4" class="d-flex">
       <v-card class="pa-6 text-center flex-grow-1">
         <v-avatar size="120" class="mb-4">
-        <v-img src="/man.svg" alt="User 1" style="background-color: #fbc531;"></v-img>
+        <v-img src="/student.svg" alt="User 1" style="background-color: #fbc531;"></v-img>
         </v-avatar>
-        <p class="text-gray-700 mb-4">
-        "StudentPortfolio has transformed how I manage my academic journey."
+        <p class="text-gray-700 mb-4 ">
+        "StudentPortfolio has transformed how I manage my academic journey. I love it!"
         </p>
-        <h3 class="text-lg font-bold word-color">John Doe</h3>
-        <p class="text-gray-600">Student </p>
+        <h3 class="text-lg font-bold word-color">Wendy Hawkins</h3>
+        <p class="text-gray-600 mb-4">Student </p>
         <v-chip color="warning" outlined >Idle</v-chip>
       </v-card>
       </v-col>
       <v-col cols="12" md="4" class="d-flex">
       <v-card class="pa-6 text-center flex-grow-1">
         <v-avatar size="120" class="mb-4">
-        <v-img src="/man.svg" alt="User 2" style="background-color: #e84118;"></v-img>
+        <v-img src="/woman.svg" alt="User 2" style="background-color: #e84118;"></v-img>
         </v-avatar>
         <p class="text-gray-700 mb-4">
         "As a supervisor, I find the platform incredibly helpful for guiding my students."
         </p>
-        <h3 class="text-lg font-bold word-color">Jane Smith</h3>
-        <p class="text-gray-600">Supervisor</p>
+        <h3 class="text-lg font-bold word-color">Stephanie Johnson</h3>
+        <p class="text-gray-600 mb-6">Supervisor</p>
         <v-chip color="error" outlined>Offline</v-chip>
       </v-card>
       </v-col>
@@ -116,8 +116,8 @@
         <p class="text-gray-700 mb-4">
         "The AI tools and collaboration features are game-changers for our institution."
         </p>
-        <h3 class="text-lg font-bold word-color">Michael Brown</h3>
-        <p class="text-gray-600">Administrator</p>
+        <h3 class="text-lg font-bold word-color">Jason Martin</h3>
+        <p class="text-gray-600 mb-4">Administrator</p>
         <v-chip color="success" outlined>Active</v-chip>
       </v-card>
       </v-col>
@@ -127,7 +127,7 @@
     <v-row class="mb-12">
       <v-col cols="12" class="text-center">
         <h2 class="text-3xl font-bold mb-6 word-color">Ready to Get Started?</h2>
-        <p class="text-lg text-gray-700 mb-6">
+        <p class="text-lg text-gray-700 mb-4">
           Join StudentPortfolio today and take control of your academic and professional growth.
         </p>
         <v-btn to="/register" color="primary" large>Sign Up Now</v-btn>
@@ -149,4 +149,5 @@ export default {
 h3{
   font-size: 1.4rem;
 }
+
 </style>

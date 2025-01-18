@@ -41,7 +41,7 @@
               </v-chip>
               <v-chip
               class="ma-1"
-              :color="admin.permissions.manage_content ? 'green' : 'red'"
+              :color="admin.permissions.manage_content ? 'success' : 'error'"
               text-color="white"
               small
               >
@@ -62,7 +62,15 @@
           </v-card-subtitle>
           <v-card-subtitle class="text-gray-600 d-flex align-center">
             <v-icon small class="mr-1">mdi-check-circle</v-icon>
-            <span>Status: <span class="word-color">{{ admin.user.status }}</span></span>
+            Status:
+            <v-chip
+              class="ma-1 ml-2"
+              :color=" admin.user.status==='active' ? 'success' : (admin.user.status === 'idle' ? 'warning' : 'error')"
+              text-color="white"
+              small
+              >
+              {{ admin.user.status }}
+              </v-chip>
           </v-card-subtitle>
         </v-card>
       </v-col>

@@ -36,7 +36,7 @@
     </div>
 
     <!-- Modal for viewing email -->
-    <v-dialog v-model="emailDialogVisible" max-width="600px">
+    <v-dialog v-model="emailDialogVisible" max-width="800px">
       <v-card class="modal-card">
         <v-card-title>
           <v-btn icon @click="closeEmailDialog" class="float-right close-btn" color="red">
