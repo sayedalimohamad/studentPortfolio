@@ -79,6 +79,7 @@ export default {
 
         // Store the user ID after fetching the profile
         localStorage.setItem('userId', user.user_id);
+        localStorage.setItem('email', user.email);
 
         // Step 4: Redirect the user
         this.$router

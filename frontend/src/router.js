@@ -7,7 +7,10 @@ import RegisterView from './views/RegisterView.vue';
 import ChatInterfaceView from './views/ChatInterfaceView.vue';
 import UserProfileView from './views/UserProfileView.vue'; 
 import AboutView from './views/AboutView.vue';
+import SendEmailView from './views/SendEmailView.vue';
+import InboxView from './views/InboxView.vue';
 import NotFoundView from './views/NotFoundView.vue';
+
 const routes = [
   {
     path: '/',
@@ -53,6 +56,18 @@ const routes = [
     component: UserProfileView,
     props: true,
     meta: { requiresAuth: true },  
+  },
+  {
+    path: '/inbox/:id',
+    name: 'Inbox',
+    component: InboxView,
+    meta: { requiresAuth: true },
+  },
+  {
+    path: '/send-email',
+    name: 'SendEmail',
+    component: SendEmailView,
+    meta: { requiresAuth: true },
   },
   {
     path: '/:pathMatch(.*)*', 

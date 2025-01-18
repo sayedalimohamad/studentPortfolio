@@ -49,6 +49,11 @@
           Account
         </v-btn>
 
+        <v-btn v-if="isAuthenticated && userEmail" :to="`/inbox/${userEmail}`" class="text-white mx-2">
+          <v-icon left>mdi-email</v-icon>
+          Inbox
+        </v-btn>
+
         <!-- Logout Button (Visible to Authenticated Users) -->
         <v-btn v-if="isAuthenticated" @click="logout" class="text-dark font-weight-bold mx-2" variant="flat">
           <v-icon left>mdi-logout</v-icon>
@@ -105,6 +110,11 @@
           <v-list-item-content>Register</v-list-item-content>
         </v-list-item>
 
+        <v-list-item v-if="isAuthenticated && userEmail" :to="`/inbox/${userEmail}`">
+          <v-list-item-icon><v-icon>mdi-email</v-icon></v-list-item-icon>
+          <v-list-item-content>Inbox</v-list-item-content>
+        </v-list-item>
+
         <!-- Logout Link (Visible to Authenticated Users) -->
         <v-list-item v-if="isAuthenticated" @click="logout">
           <v-list-item-icon><v-icon>mdi-logout</v-icon></v-list-item-icon>
@@ -136,6 +146,8 @@ export default {
       isAuthenticated: false,
       userRole: null,
       userId: null,
+      userEmail: null,
+
     };
   },
   computed: {
@@ -175,10 +187,12 @@ export default {
     const storedToken = localStorage.getItem('token');
     const storedRole = localStorage.getItem('userRole');
     const storedUserId = localStorage.getItem('userId');
+    const storedEmail = localStorage.getItem('email');
     if (storedToken && storedRole && storedUserId) {
       this.isAuthenticated = true;
       this.userRole = storedRole;
       this.userId = storedUserId;
+      this.userEmail = storedEmail;
     }
     console.log('Stored User ID:', storedUserId);
   },

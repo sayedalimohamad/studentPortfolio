@@ -3,17 +3,13 @@ import random
 from faker import Faker
 from app import create_app
 from extensions import db
-from models import User, Student, Supervisor, Admin, PrivacyLevel, FileType, EntityType, RecommendationStatus, File, Event, Notification, History, Recommendation
+from models import User, Student, Supervisor, Admin, PrivacyLevel, FileType, EntityType, RecommendationStatus, File, Event, Notification, History, Recommendation, Email
 
 def init_db():
     app = create_app()
     fake = Faker()
 
     with app.app_context():
-        # Remove the lines that drop and recreate the database tables
-        # db.drop_all()
-        # db.create_all()
-
         # Add privacy levels if they don't exist
         if not PrivacyLevel.query.first():
             privacy_levels = [
@@ -61,9 +57,9 @@ def init_db():
                 username=fake.user_name(),
                 email=fake.email(),
                 role=role,
-                full_name=fake.name(),  # Added full_name
-                dob=fake.date_of_birth(minimum_age=18, maximum_age=65),  # Added dob
-                status="active",
+                full_name=fake.name(),
+                dob=fake.date_of_birth(minimum_age=18, maximum_age=65),
+                status=random.choice(["active", "idle", "offline"]),
             )
             user.set_password(f"{role}pass")
             users.append(user)
@@ -71,7 +67,7 @@ def init_db():
         db.session.add_all(users)
         db.session.commit()
 
-        # Create profiles
+        # Create profiles for students, supervisors, and admins
         for user in users:
             if user.role == "student":
                 student = Student(
@@ -94,7 +90,10 @@ def init_db():
                 admin = Admin(
                     user_id=user.user_id,
                     created_by=random.choice([u.user_id for u in users if u.role == "admin"]),
-                    permissions={"manage_users": True, "manage_content": True},
+                    permissions={
+                        "manage_users": random.choice([True, False]),
+                        "manage_content": random.choice([True, False])
+                    },
                     role="admin",
                 )
                 db.session.add(admin)
@@ -102,14 +101,13 @@ def init_db():
         db.session.commit()
 
         # Create files
-        file_types = ["document", "image", "video"]
         for user in users:
-            for _ in range(random.randint(1, 5)):  # 1 to 5 files per user
+            for _ in range(random.randint(1, 5)):
                 file = File(
                     user_id=user.user_id,
                     file_name=fake.file_name(extension=random.choice(["pdf", "jpg", "mp4"])),
                     file_path=f"/path/to/{fake.file_path()}",
-                    file_type=random.choice(file_types),
+                    file_type=random.choice(["document", "image", "video"]),
                     file_type_id=random.randint(1, 3),
                     visibility=random.choice(["public", "private", "supervisors"]),
                 )
@@ -119,7 +117,7 @@ def init_db():
 
         # Create events
         for user in users:
-            for _ in range(random.randint(1, 3)):  # 1 to 3 events per user
+            for _ in range(random.randint(1, 3)):
                 event = Event(
                     user_id=user.user_id,
                     title=fake.sentence(),
@@ -133,7 +131,7 @@ def init_db():
 
         # Create notifications
         for user in users:
-            for _ in range(random.randint(1, 5)):  # 1 to 5 notifications per user
+            for _ in range(random.randint(1, 5)):
                 notification = Notification(
                     user_id=user.user_id,
                     message=fake.sentence(),
@@ -145,13 +143,13 @@ def init_db():
         # Create history entries
         actions = ["login", "logout", "file_upload", "event_create"]
         for user in users:
-            for _ in range(random.randint(1, 10)):  # 1 to 10 history entries per user
+            for _ in range(random.randint(1, 10)):
                 history = History(
                     user_id=user.user_id,
                     action_type=random.choice(actions),
                     action_details=fake.sentence(),
                     entity_type=random.choice(["user", "file", "event"]),
-                    entity_id=random.randint(1, 100),  # Random entity ID
+                    entity_id=random.randint(1, 100),
                 )
                 db.session.add(history)
 
@@ -160,13 +158,27 @@ def init_db():
         # Create recommendations
         events = Event.query.all()
         for event in events:
-            for _ in range(random.randint(1, 2)):  # 1 to 2 recommendations per event
+            for _ in range(random.randint(1, 2)):
                 recommendation = Recommendation(
                     user_id=random.choice([u.user_id for u in users]),
                     event_id=event.event_id,
                     status=random.choice(["pending", "accepted", "rejected"]),
                 )
                 db.session.add(recommendation)
+
+        db.session.commit()
+
+        # Create emails
+        for _ in range(20):
+            sender = random.choice(users)
+            recipient = random.choice([u for u in users if u != sender])
+            email = Email(
+                sender_id=sender.user_id,
+                recipient_id=recipient.user_id,
+                subject=fake.sentence(),
+                message=fake.text(),
+            )
+            db.session.add(email)
 
         db.session.commit()
 

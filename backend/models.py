@@ -42,8 +42,37 @@ class User(db.Model):
             "last_login": self.last_login,
             "status": self.status,
             "permissions": self.admin.permissions if self.admin else None,
-            "bio": self.student.bio if self.student else self.supervisor.bio if self.supervisor else None
+            "bio": self.student.bio if self.student else self.supervisor.bio if self.supervisor else None,
+            "major": self.student.major if self.student else None,
+            "institution": self.student.institution if self.student else self.supervisor.institution if self.supervisor else None,
+            "department": self.supervisor.department if self.supervisor else None,
+            
         }
+class Email(db.Model):
+    """
+    Represents an email sent from one user to another.
+    """
+    __tablename__ = "emails"
+    email_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    sender_id = db.Column(db.Integer, db.ForeignKey("users.user_id"), nullable=False, name="fk_sender_id")
+    recipient_id = db.Column(db.Integer, db.ForeignKey("users.user_id"), nullable=False, name="fk_recipient_id")
+    subject = db.Column(db.String(255), nullable=False)
+    message = db.Column(db.Text, nullable=False)
+    timestamp = db.Column(db.TIMESTAMP, default=db.func.now())
+
+    sender = db.relationship("User", foreign_keys=[sender_id])
+    recipient = db.relationship("User", foreign_keys=[recipient_id])
+
+    def to_dict(self):
+        return {
+            "email_id": self.email_id,
+            "sender_email": self.sender.email,  # This will fetch the email of the sender directly
+            "recipient_email": self.recipient.email,  # Same for recipient
+            "subject": self.subject,
+            "message": self.message,
+            "timestamp": self.timestamp
+        }
+
 
 class Student(db.Model):
     __tablename__ = "students"
@@ -247,3 +276,4 @@ class RecommendationStatus(db.Model):
             "status": self.status,
             "description": self.description
         }
+    

@@ -245,14 +245,14 @@ export default {
       console.log('User:', this.user);
       // Fetch role-specific information
       if (role === 'student') {
-        const studentResponse = await axios.get(`/api/students/${id}`, {
+        const studentResponse = await axios.get(`/api/users/${id}`, {
           headers: {
             Authorization: `Bearer ${storedAuth}`,
           },
         });
         this.studentInfo = studentResponse.data;
       } else if (role === 'supervisor') {
-        const supervisorResponse = await axios.get(`/api/supervisors/${id}`, {
+        const supervisorResponse = await axios.get(`/api/users/${id}`, {
           headers: {
             Authorization: `Bearer ${storedAuth}`,
           },
