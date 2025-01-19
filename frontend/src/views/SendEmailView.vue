@@ -8,33 +8,27 @@
           </v-card-title>
           <v-card-text>
             <v-form @submit.prevent="sendEmail" v-model="formValid">
-              <v-text-field
-                v-model="recipient"
-                label="To"
-                type="email"
-                required
-                :rules="[emailRule]"
-                :error-messages="recipientErrorMessage"
-              ></v-text-field>
-              <v-text-field
-                v-model="subject"
-                label="Subject"
-                required
-              ></v-text-field>
-              <v-textarea
-                v-model="message"
-                label="Message"
-                required
-                rows="6"
-              ></v-textarea>
-              <v-btn :disabled="!formValid" type="submit" color="primary" block>
-                Send
-              </v-btn>
+              <v-text-field v-model="recipient" label="To" type="email" required :rules="[emailRule]"
+                :error-messages="recipientErrorMessage"></v-text-field>
+              <v-text-field v-model="subject" label="Subject" required></v-text-field>
+              <v-textarea v-model="message" label="Message" required rows="6"></v-textarea>
+              <div block class="float-right mb-8 mt-4">
+                <v-btn @click="$router.go(-1)" color="light" tonal class="mr-4">
+                  <v-icon>mdi-keyboard-backspace</v-icon>
+                  Back
+                </v-btn>
+                <v-btn :disabled="!formValid" type="submit" color="primary" >
+                  <v-icon>mdi-email-fast</v-icon>
+                  Send
+                </v-btn>
+              </div>
             </v-form>
           </v-card-text>
         </v-card>
       </v-col>
     </v-row>
+
+
   </v-container>
 </template>
 
@@ -105,4 +99,3 @@ export default {
   },
 };
 </script>
-

@@ -140,3 +140,5 @@ def register_routes(bp: Blueprint):
         except Exception as e:
             current_app.logger.error(f"Error deleting email with ID {email_id}: {e}")
             return jsonify({"error": "Failed to delete email"}), 500
+
+    
