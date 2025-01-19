@@ -76,6 +76,14 @@
           <v-list-item-content>Home</v-list-item-content>
         </v-list-item>
 
+        <v-list-item to="/about">
+          <v-list-item-icon><v-icon left>mdi-book</v-icon>
+          </v-list-item-icon>
+          <v-list-item-content>About</v-list-item-content>
+
+
+        </v-list-item>
+
         <v-list-item v-if="isAuthenticated" :to="`/user/${userRole}/${userId}`">
           <v-list-item-icon><v-icon>mdi-account</v-icon></v-list-item-icon>
           <v-list-item-content>Account</v-list-item-content>

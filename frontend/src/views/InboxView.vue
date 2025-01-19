@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <!-- Navigation Drawer -->
-    <v-navigation-drawer v-model="drawer" :width="300" class="pa-6" temporary>
+    <v-navigation-drawer v-model="drawer" :width="400" class="pa-6" temporary>
       <v-list-item title="Inbox" :subtitle="storedEmail || 'No email provided'"></v-list-item>
       <v-divider></v-divider>
       <v-list-item v-if="!isAuthenticated" to="/send-email" class="mt-4">

@@ -1,5 +1,5 @@
 <template>
-  <v-container class="py-12">
+  <v-container class="py-12 mt-12">
     <v-row class="justify-center">
       <v-col cols="12" md="6">
         <v-card class="px-6 py-8 elevation-12">

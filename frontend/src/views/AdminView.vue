@@ -69,7 +69,8 @@
               text-color="white"
               small
               >
-              {{ admin.user.status }}
+              <v-icon left>{{ admin.user.status === 'active' ? 'mdi-check' : (admin.user.status === 'idle' ? 'mdi-clock' : 'mdi-close') }}</v-icon> 
+                <strong class="mx-2">{{ admin.user.status.toUpperCase() }}</strong>
               </v-chip>
           </v-card-subtitle>
         </v-card>

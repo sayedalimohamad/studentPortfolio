@@ -1,14 +1,8 @@
 <template>
   <v-container class="py-12">
     <h1 class="text-3xl font-bold mb-6 word-color">Students List ({{ filteredStudents.length }})</h1>
-    <v-text-field
-      v-model="searchQuery"
-      label="Search by name"
-      prepend-inner-icon="mdi-magnify"
-      class="mb-6"
-      outlined
-      dense
-    ></v-text-field>
+    <v-text-field v-model="searchQuery" label="Search by name" prepend-inner-icon="mdi-magnify" class="mb-6" outlined
+      dense></v-text-field>
     <v-row v-if="filteredStudents.length > 0" dense align="stretch">
       <v-col v-for="student in filteredStudents" :key="student.student_id" cols="12" md="6" lg="4">
         <v-card class="mb-4 pa-4 d-flex flex-column justify-space-between elevation-2">
@@ -40,13 +34,27 @@
           </v-card-subtitle>
           <v-card-subtitle class="text-gray-600 d-flex align-center mb-2">
             <v-icon small class="mr-1">mdi-lock</v-icon>
-            <span>Privacy Level: <span class="word-color">{{ student.privacy_level }}</span></span>
+            <span>Privacy Level:
+              <v-chip class="ma-1 ml-2"
+                :color="student.privacy_level === 'public' ? 'primary' : (student.privacy_level === 'supervisors' ? 'success' : 'error')"
+                text-color="white" small>
+                <strong class="mx-2">{{ student.privacy_level.toUpperCase() }}</strong>
+              </v-chip>
+              <v-chip
+                :color="student.privacy_level === 'public' ? 'primary' : (student.privacy_level === 'supervisors' ? 'success' : 'error')">
+                <v-icon left
+                  :color="student.privacy_level === 'public' ? 'primary' : (student.privacy_level === 'supervisors' ? 'success' : 'error')">{{
+                    student.privacy_level === 'public' ? 'mdi-earth' : (student.privacy_level ===
+                      'supervisors' ? 'mdi-account-supervisor' : 'mdi-lock') }}</v-icon>
+
+              </v-chip>
+            </span>
           </v-card-subtitle>
-            <v-card-text 
-  class="text-gray-800 mt-4" 
-  :style="{ backgroundColor: isDarkTheme ? $vuetify.theme.global.current.colors.background : $vuetify.theme.global.current.colors.onCard, 
-            borderRadius: '8px', 
-            color: $vuetify.theme.global.current.colors.primary }">
+          <v-card-text class="text-gray-800 mt-4" :style="{
+            backgroundColor: isDarkTheme ? $vuetify.theme.global.current.colors.background : $vuetify.theme.global.current.colors.onCard,
+            borderRadius: '8px',
+            color: $vuetify.theme.global.current.colors.primary
+          }">
             <v-icon small class="mr-1">mdi-information-outline</v-icon>
             <span class="font-medium">Bio:</span>
             <p class="ml-5 mt-2 " style="text-align: justify;">{{ student.bio }}</p>

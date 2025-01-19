@@ -1,10 +1,17 @@
 <template>
   <v-container>
-    <v-row justify="center">
+    <v-row justify="center mt-6">
       <v-col cols="12" md="8">
-        <v-card>
-          <v-card-title>
+        
+        <v-card class="mx-2 my-2">
+          <span>
+              <v-btn icon @click="$router.go(-1)" class="float-right  mx-2 my-2 " color="red" style="transform: scale(.6);">
+                <v-icon>mdi-close</v-icon>
+              </v-btn>
+            </span>
+          <v-card-title class="text-left headline font-weight-bold text-uppercase mt-6 mb-2">
             <span class="headline">Send Email</span>
+            
           </v-card-title>
           <v-card-text>
             <v-form @submit.prevent="sendEmail" v-model="formValid">
@@ -12,7 +19,7 @@
                 :error-messages="recipientErrorMessage"></v-text-field>
               <v-text-field v-model="subject" label="Subject" required></v-text-field>
               <v-textarea v-model="message" label="Message" required rows="6"></v-textarea>
-              <div block class="float-right mb-8 mt-4">
+              <div block class="float-right mb-4 mt-2">
                 <v-btn @click="$router.go(-1)" color="light" tonal class="mr-4">
                   <v-icon>mdi-keyboard-backspace</v-icon>
                   Back
