@@ -86,6 +86,7 @@ export default {
         if (response.status === 201) {
           toast.success('Email sent successfully!');
           this.resetForm();
+          this.$router.push(`/inbox/${userEmail}`);
         } else {
           toast.error('An error occurred while sending the email.');
         }

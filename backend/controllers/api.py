@@ -2,6 +2,7 @@ from flask import Blueprint, jsonify, request, current_app
 from models import db, Email, User  # Import necessary models
 from services.ai_service import ask_ai
 
+
 def register_routes(bp: Blueprint):
     @bp.route("/status", methods=["GET"])
     def status() -> None:
@@ -40,25 +41,40 @@ def register_routes(bp: Blueprint):
             message = data.get("message")
 
             if not (sender_email and recipient_email and subject and message):
-                return jsonify({"error": "All fields (sender_email, recipient_email, subject, message) are required"}), 400
+                return (
+                    jsonify(
+                        {
+                            "error": "All fields (sender_email, recipient_email, subject, message) are required"
+                        }
+                    ),
+                    400,
+                )
 
             sender = User.query.filter_by(email=sender_email).first()
             recipient = User.query.filter_by(email=recipient_email).first()
 
             if not sender or not recipient:
-                return jsonify({"error": "Sender or recipient email address is invalid"}), 404
+                return (
+                    jsonify({"error": "Sender or recipient email address is invalid"}),
+                    404,
+                )
 
             # Create and save the email
             email = Email(
                 sender_id=sender.user_id,  # Use sender_id instead of sender_email
                 recipient_id=recipient.user_id,  # Use recipient_id instead of recipient_email
                 subject=subject,
-                message=message
+                message=message,
             )
             db.session.add(email)
             db.session.commit()
 
-            return jsonify({"message": "Email sent successfully!", "email": email.to_dict()}), 201
+            return (
+                jsonify(
+                    {"message": "Email sent successfully!", "email": email.to_dict()}
+                ),
+                201,
+            )
         except Exception as e:
             current_app.logger.error(f"Error sending email: {e}")
             return jsonify({"error": "Failed to send email"}), 500
@@ -75,7 +91,11 @@ def register_routes(bp: Blueprint):
                 return jsonify({"error": "User not found"}), 404
 
             # Fetch emails where the recipient_id matches the user's ID
-            emails = Email.query.filter_by(recipient_id=user.user_id).order_by(Email.timestamp.desc()).all()
+            emails = (
+                Email.query.filter_by(recipient_id=user.user_id)
+                .order_by(Email.timestamp.desc())
+                .all()
+            )
             return jsonify([email.to_dict() for email in emails]), 200
         except Exception as e:
             current_app.logger.error(f"Error fetching inbox for {email}: {e}")
@@ -93,8 +113,30 @@ def register_routes(bp: Blueprint):
                 return jsonify({"error": "User not found"}), 404
 
             # Fetch emails where the sender_id matches the user's ID
-            emails = Email.query.filter_by(sender_id=user.user_id).order_by(Email.timestamp.desc()).all()
+            emails = (
+                Email.query.filter_by(sender_id=user.user_id)
+                .order_by(Email.timestamp.desc())
+                .all()
+            )
             return jsonify([email.to_dict() for email in emails]), 200
         except Exception as e:
             current_app.logger.error(f"Error fetching sent emails for {email}: {e}")
             return jsonify({"error": "Failed to fetch sent emails"}), 500
+
+    @bp.route("/email/delete/<int:email_id>", methods=["DELETE"])
+    def delete_email(email_id):
+        """
+        Endpoint to delete a specific email by its ID.
+        """
+        try:
+            email = Email.query.get(email_id)
+            if not email:
+                return jsonify({"error": "Email not found"}), 404
+
+            db.session.delete(email)
+            db.session.commit()
+
+            return jsonify({"message": "Email deleted successfully!"}), 200
+        except Exception as e:
+            current_app.logger.error(f"Error deleting email with ID {email_id}: {e}")
+            return jsonify({"error": "Failed to delete email"}), 500
