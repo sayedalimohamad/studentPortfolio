@@ -4,11 +4,20 @@
     <v-navigation-drawer v-model="drawer" :width="400" class="pa-6" temporary>
       <v-list-item title="Inbox" :subtitle="storedEmail || 'No email provided'"></v-list-item>
       <v-divider></v-divider>
-      <v-list-item v-if="!isAuthenticated" to="/send-email" class="mt-4">
+      <!-- Compose Email -->
+      <v-list-item v-if="!isAuthenticated" to="/send-email" class="mt-4" color="primary">
         <v-icon left>mdi-pencil</v-icon>
         Compose Email
       </v-list-item>
-      <v-list-item class="mt-4">
+
+      <!-- Navigate to Inbox -->
+      <v-list-item class="mt-4 clickable-list-item" @click="showInbox">
+        <v-icon left>mdi-email</v-icon>
+        Inbox
+      </v-list-item>
+
+      <!-- Navigate to Sent Emails -->
+      <v-list-item class="mt-4 clickable-list-item" @click="fetchSentEmails">
         <v-icon left>mdi-email-fast</v-icon>
         Sent Emails
       </v-list-item>
@@ -33,6 +42,10 @@
             </v-alert>
           </v-col>
 
+          <!-- Title for Inbox -->
+          <v-subheader class="mt-4 text-h4 font-weight-bold ml-auto">Inbox</v-subheader>
+          <v-divider class="mb-4"></v-divider>
+
           <!-- Display inbox email cards -->
           <v-col v-for="email in emails" :key="email.email_id" cols="12" sm="6" md="4">
             <v-card elevation="4" class="hover-card pa-3">
@@ -48,15 +61,17 @@
                 {{ email.message?.slice(0, 50) || "No preview available." }}...
               </v-card-text>
               <v-card-actions>
-                <v-btn @click="viewEmail(email)" color="primary" rounded><v-icon left>mdi-cube-scan</v-icon> View Email</v-btn>
-                <v-btn @click="showConfirmDeleteModal(email.email_id)" color="red" rounded><v-icon left>mdi-delete</v-icon> Delete</v-btn>
+                <v-btn @click="viewEmail(email)" color="primary" rounded><v-icon left>mdi-cube-scan</v-icon> View
+                  Email</v-btn>
+                <v-btn @click="showConfirmDeleteModal(email.email_id)" color="red" rounded><v-icon
+                    left>mdi-delete</v-icon> Delete</v-btn>
               </v-card-actions>
             </v-card>
           </v-col>
         </v-row>
 
         <!-- Sent Emails -->
-        <v-row v-if="showSentEmails" class="pa-3">
+        <v-row v-if="showSentEmails" class="pa-3 ">
           <!-- Empty state with an icon -->
           <v-col v-if="sentEmails.length === 0 && !loading" class="text-center">
             <v-alert type="info" border="left" prominent class="empty-state-alert">
@@ -65,9 +80,13 @@
             </v-alert>
           </v-col>
 
-          <!-- Display sent email cards -->
+          <!-- Title for Sent Emails -->
+          <v-subheader class="mt-4 text-h4 font-weight-bold ml-auto " >Sent Emails</v-subheader>
+          <v-divider class="mb-4"></v-divider>
+
+          <!-- Display sent email cards with custom color (onCard) -->
           <v-col v-for="email in sentEmails" :key="email.email_id" cols="12" sm="6" md="4">
-            <v-card elevation="4" class="hover-card pa-3">
+            <v-card elevation="4" class="hover-card pa-3" color="onCard">
               <v-card-title class="card-title">
                 <v-icon left>mdi-email</v-icon>
                 <span class="headline">{{ email.subject }}</span>
@@ -80,8 +99,10 @@
                 {{ email.message?.slice(0, 50) || "No preview available." }}...
               </v-card-text>
               <v-card-actions>
-                <v-btn @click="viewEmail(email)" color="primary" rounded><v-icon left>mdi-cube-scan</v-icon> View Email</v-btn>
-                <v-btn @click="showConfirmDeleteModal(email.email_id)" color="red" rounded><v-icon left>mdi-delete</v-icon> Delete</v-btn>
+                <v-btn @click="viewEmail(email)" color="primary" rounded><v-icon left>mdi-cube-scan</v-icon> View
+                  Email</v-btn>
+                <v-btn @click="showConfirmDeleteModal(email.email_id)" color="red" rounded><v-icon
+                    left>mdi-delete</v-icon> Delete</v-btn>
               </v-card-actions>
             </v-card>
           </v-col>
@@ -160,6 +181,37 @@ export default {
     this.getInboxEmails();
   },
   methods: {
+
+    async fetchSentEmails() {
+      this.showSentEmails = true; // Show sent emails section
+      this.loading = true;
+
+      const userEmail = this.$route.params.id; // Get user email from route
+      const storedAuth = localStorage.getItem("token"); // Retrieve the auth token
+
+      try {
+        const response = await axios.get(`/api/emails/sent/${userEmail}`, {
+          headers: {
+            Authorization: `Bearer ${storedAuth}`,
+          },
+        });
+
+        if (response.status === 200) {
+          this.sentEmails = response.data; // Populate the sentEmails array
+        } else {
+          this.toast.error("Failed to fetch sent emails.");
+        }
+      } catch (error) {
+        this.toast.error(`Error fetching sent emails: ${error.message}`);
+      } finally {
+        this.loading = false;
+      }
+    },
+    showInbox() {
+      this.showSentEmails = false; // Show the inbox section
+      this.getInboxEmails(); // Fetch the inbox emails
+    },
+
     async getInboxEmails() {
       const userEmail = this.$route.params.id;
       if (!userEmail) {
@@ -335,4 +387,8 @@ pre {
 .close-btn:hover {
   background-color: rgba(255, 0, 0, 0.1);
 }
+.clickable-list-item {
+    cursor: pointer;
+  }
+  
 </style>
