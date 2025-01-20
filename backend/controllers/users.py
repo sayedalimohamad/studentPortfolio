@@ -11,7 +11,7 @@ from models import User, Admin, Supervisor, Student
 from marshmallow import Schema, fields, ValidationError
 import smtplib
 from email.mime.text import MIMEText
-from datetime import datetime
+from datetime import datetime, timedelta
 
 
 def get_ip4_address():
@@ -112,7 +112,7 @@ def register_routes(bp: Blueprint):
             data = request.get_json()
             user = User.query.filter_by(email=data["email"]).first()
             if user and user.check_password(data["password"]):
-                access_token = create_access_token(identity=str(user.user_id))
+                access_token = create_access_token(identity=str(user.user_id), expires_delta=timedelta(hours=24))
                 return jsonify(access_token=access_token, role=user.role), 200
             else:
                 return jsonify({"error": "Invalid email or password"}), 401

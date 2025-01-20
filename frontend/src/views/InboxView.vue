@@ -81,7 +81,7 @@
           </v-col>
 
           <!-- Title for Sent Emails -->
-          <v-subheader class="mt-4 text-h4 font-weight-bold ml-auto " >Sent Emails</v-subheader>
+          <v-subheader  class="mt-4 text-h4 font-weight-bold ml-auto " >Sent Emails</v-subheader>
           <v-divider class="mb-4"></v-divider>
 
           <!-- Display sent email cards with custom color (onCard) -->
