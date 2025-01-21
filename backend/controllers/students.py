@@ -19,17 +19,15 @@ def register_routes(bp: Blueprint):
     @bp.route("/<int:student_id>", methods=["PUT"])
     @jwt_required()
     def update_student(student_id):
+        data = request.get_json()
         student = Student.query.get_or_404(student_id)
         current_user = get_jwt_identity()
         if student.user_id != current_user:
             return jsonify({"error": "Unauthorized"}), 403
-        data = request.get_json()
-        student.full_name = data.get("full_name", student.full_name)
-        student.dob = data.get("dob", student.dob)
         student.institution = data.get("institution", student.institution)
         student.major = data.get("major", student.major)
-        student.privacy_level = data.get("privacy_level", student.privacy_level)
         student.bio = data.get("bio", student.bio)
+        student.privacy_level= data.get("privacy_level", student.privacy_level)
         db.session.commit()
         return jsonify(student.to_dict())
 
@@ -43,3 +41,4 @@ def register_routes(bp: Blueprint):
         db.session.delete(student)
         db.session.commit()
         return "", 204
+

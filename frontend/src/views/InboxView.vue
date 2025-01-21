@@ -48,7 +48,7 @@
 
           <!-- Display inbox email cards -->
           <v-col v-for="email in emails" :key="email.email_id" cols="12" sm="6" md="4">
-            <v-card elevation="4" class="hover-card pa-3"  @click="viewEmail(email)">
+            <v-card elevation="4" class="hover-card pa-3">
               <v-card-title class="card-title">
                 <v-icon left>mdi-email</v-icon>
                 <span class="headline">{{ email.subject }}</span>

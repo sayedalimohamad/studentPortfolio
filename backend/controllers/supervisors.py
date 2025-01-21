@@ -58,6 +58,4 @@ def register_routes(bp: Blueprint):
         db.session.commit()
         return "", 204
 
-    @bp.route("/test", methods=["GET"])
-    def test():
-        return "<h1>Supervisor blueprint is working!</h1>"
+   
