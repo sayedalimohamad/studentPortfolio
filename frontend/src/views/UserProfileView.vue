@@ -364,7 +364,8 @@ export default {
         this.editedUser = { ...updatedUser }; // Reset editedUser to reflect changes
 
         useToast().success('Profile updated successfully.');
-        this.showEditModal = false;
+      this.showEditModal = false;
+      localStorage.setItem('email',editedUser.email);
     } catch (error) {
         this.error = 'Failed to update profile.';
         useToast().error(this.error);
