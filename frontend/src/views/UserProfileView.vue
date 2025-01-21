@@ -164,6 +164,17 @@
             </v-list-item>
           </v-col>
         </v-row>
+
+         <!-- Edit Profile Button -->
+         <v-row>
+            <v-col cols="12" class="text-right">
+              <v-btn color="primary" dark @click="showEditModal = true">
+                <v-icon left>mdi-pencil</v-icon>
+                Edit Profile
+              </v-btn>
+            </v-col>
+          </v-row>
+
         <!-- Delete Account Button -->
         <v-row>
           <v-col cols="12" class="text-right">
@@ -177,6 +188,54 @@
     </v-card>
     <v-alert v-if="loading" type="info" class="mt-6">Loading...</v-alert>
     <v-alert v-if="error" type="error" class="mt-6">{{ error }}</v-alert>
+
+     <!-- Edit Profile Modal -->
+     <v-dialog v-model="showEditModal" max-width="600">
+      <v-card>
+        <v-card-title class="headline">
+          <v-icon color="primary" left>mdi-pencil</v-icon>
+          Edit Profile
+        </v-card-title>
+        <v-card-text>
+          <v-form ref="form" v-model="formValid">
+            <v-text-field v-model="editedUser.full_name" label="Full Name" required outlined dense></v-text-field>
+            <v-text-field v-model="editedUser.email" label="Email" required outlined dense></v-text-field>
+            <v-text-field v-model="editedUser.username" label="Username" required outlined dense></v-text-field>
+
+            <!-- New Password Fields -->
+            <v-text-field
+              v-if="newPassword"
+              v-model="editedUser.password"
+              label="New Password"
+              type="password"
+              outlined
+              dense
+              :rules="[(v) => !!v || 'Password is required']"
+            />
+            <v-text-field
+              v-if="newPassword"
+              v-model="confirmPassword"
+              label="Confirm New Password"
+              type="password"
+              outlined
+              dense
+              :rules="[(v) => v === editedUser.password || 'Passwords must match']"
+            />
+          </v-form>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="blue darken-1" text @click="showEditModal = false">
+            <v-icon left>mdi-cancel</v-icon>
+            Cancel
+          </v-btn>
+          <v-btn color="green darken-1" text @click="confirmUpdateProfile">
+            <v-icon left>mdi-check</v-icon>
+            Save Changes
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
     <!-- Delete Confirmation Modal -->
     <v-dialog v-model="showDeleteModal" max-width="500">
       <v-card>
@@ -209,11 +268,18 @@
 <script>
 import axios from 'axios';
 import { useToast } from 'vue-toastification';
+
 export default {
   name: 'UserProfileView',
   data() {
     return {
       user: null,
+      editedUser: {
+        full_name: '',
+        email: '',
+        username: '',
+        password: '',
+      },
       studentInfo: null,
       supervisorInfo: null,
       adminInfo: null,
@@ -221,109 +287,139 @@ export default {
       error: null,
       userRole: null,
       showDeleteModal: false,
+      showEditModal: false,
+      newPassword: false,
+      confirmPassword: '',
       password: '',
       showPassword: false,
     };
   },
   async created() {
-    const { role, id } = this.$route.params; // Ensure these match the route params
+    const { role, id } = this.$route.params;
     const storedAuth = localStorage.getItem('token');
+    
     // Redirect to login if not authenticated
     if (!storedAuth) {
       this.$router.push('/login');
       return;
     }
+
     this.userRole = role;
     try {
       // Fetch user details from the backend
       const userResponse = await axios.get(`/api/users/${id}`, {
-        headers: {
-          Authorization: `Bearer ${storedAuth}`,
-        },
+        headers: { Authorization: `Bearer ${storedAuth}` },
       });
       this.user = userResponse.data;
-      console.log('User:', this.user);
+      this.editedUser = { ...this.user }; // Populate the edited user with current details
+
       // Fetch role-specific information
       if (role === 'student') {
-        const studentResponse = await axios.get(`/api/users/${id}`, {
-          headers: {
-            Authorization: `Bearer ${storedAuth}`,
-          },
-        });
-        this.studentInfo = studentResponse.data;
+        this.studentInfo = userResponse.data;  // Assuming `studentInfo` is part of user data
       } else if (role === 'supervisor') {
-        const supervisorResponse = await axios.get(`/api/users/${id}`, {
-          headers: {
-            Authorization: `Bearer ${storedAuth}`,
-          },
-        });
-        this.supervisorInfo = supervisorResponse.data;
+        this.supervisorInfo = userResponse.data; // Assuming `supervisorInfo` is part of user data
       } else if (role === 'admin') {
-        const adminResponse = await axios.get(`/api/users/${id}`, {
-          headers: {
-            Authorization: `Bearer ${storedAuth}`,
-          },
-        });
-        this.adminInfo = adminResponse.data;
+        this.adminInfo = userResponse.data;  // Assuming `adminInfo` is part of user data
       }
     } catch (error) {
-      console.error(`Error fetching ${role} data:`, error);
-      this.error = `Failed to load ${role} data.`;
+      console.error('Error fetching user data:', error);
+      this.error = 'Failed to load user data.';
       useToast().error(this.error);
     } finally {
       this.loading = false;
     }
   },
   methods: {
-    async confirmDeleteAccount() {
-      const { id } = this.$route.params;
-      const storedAuth = localStorage.getItem('token');
-      if (!this.password) {
-        this.error = 'Please enter your password.';
+    async confirmUpdateProfile() {
+    const { id } = this.$route.params;
+    const storedAuth = localStorage.getItem('token');
+    
+    if (!this.formValid) {
+        this.error = 'Please fill in all required fields.';
+        useToast().error(this.error);
+        return;
+    }
+
+    try {
+        const updatedUser = { ...this.editedUser };
+        if (this.newPassword && this.editedUser.password !== this.confirmPassword) {
+            this.error = 'Passwords must match.';
+            useToast().error(this.error);
+            return;
+        }
+
+        if (this.newPassword) {
+            updatedUser.password = this.editedUser.password;
+        }
+
+        // Send the update request to the API
+        await axios.put(`/api/users/${id}`, updatedUser, {
+            headers: {
+                Authorization: `Bearer ${storedAuth}`,
+            },
+        });
+
+        // Update the local user data without reloading the page
+        this.user = { ...this.user, ...updatedUser }; // Merge updated values with the current user data
+        this.editedUser = { ...updatedUser }; // Reset editedUser to reflect changes
+
+        useToast().success('Profile updated successfully.');
+        this.showEditModal = false;
+    } catch (error) {
+        this.error = 'Failed to update profile.';
+        useToast().error(this.error);
+    }
+    },
+
+async confirmDeleteAccount() {
+    const { id } = this.$route.params;
+    const storedAuth = localStorage.getItem('token');
+    if (!this.password) {
+      this.error = 'Please enter your password.';
+      useToast().error(this.error);
+      return;
+    }
+    try {
+      // Step 1: Verify the password
+      const verifyResponse = await axios.post('/api/users/verify-password', {
+        password: this.password,
+      }, {
+        headers: {
+          Authorization: `Bearer ${storedAuth}`,
+        },
+      });
+      if (!verifyResponse.data.isValid) {
+        this.error = 'Incorrect password. Please try again.';
         useToast().error(this.error);
         return;
       }
-      try {
-        // Step 1: Verify the password
-        const verifyResponse = await axios.post('/api/users/verify-password', {
+      // Step 2: Delete the account
+      await axios.delete(`/api/users/${id}`, {
+        headers: {
+          Authorization: `Bearer ${storedAuth}`,
+        },
+        data: {
           password: this.password,
-        }, {
-          headers: {
-            Authorization: `Bearer ${storedAuth}`,
-          },
-        });
-        if (!verifyResponse.data.isValid) {
-          this.error = 'Incorrect password. Please try again.';
-          useToast().error(this.error);
-          return;
-        }
-        // Step 2: Delete the account
-        await axios.delete(`/api/users/${id}`, {
-          headers: {
-            Authorization: `Bearer ${storedAuth}`,
-          },
-          data: {
-            password: this.password,
-          },
-        });
-        // Step 3: Force logout
-        localStorage.removeItem('token'); // Clear the token
-        this.$router.push('/login'); // Redirect to login page
-        location.reload(); // Reload the page
-        useToast().success('Account deleted successfully.');
-      } catch (error) {
-        console.error('Error deleting account:', error);
-        this.error = 'Failed to delete account. Please try again.';
-        useToast().error(this.error);
-      } finally {
-        this.showDeleteModal = false;
-      }
-    },
+        },
+      });
+      // Step 3: Force logout
+      localStorage.removeItem('token'); // Clear the token
+      this.$router.push('/login'); // Redirect to login page
+      location.reload(); // Reload the page
+      useToast().success('Account deleted successfully.');
+    } catch (error) {
+      console.error('Error deleting account:', error);
+      this.error = 'Failed to delete account. Please try again.';
+      useToast().error(this.error);
+    } finally {
+      this.showDeleteModal = false;
+    }
   },
+},
 };
 </script>
 <style scoped>
 .word-color {
-  color: #0097a7;
+color: #0097a7;
 }
 </style>
