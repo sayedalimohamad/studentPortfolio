@@ -38,8 +38,7 @@
               </v-list-item-icon>
               <v-list-item-content>
                 <v-list-item-title class="font-bold">Date of Birth</v-list-item-title>
-                <v-list-item-subtitle class="text-gray-700">{{ new Date(user.dob).toDateString()
-                  }}</v-list-item-subtitle>
+                <v-list-item-subtitle class="text-gray-700">{{ new Date(user.dob).toDateString() }}</v-list-item-subtitle>
               </v-list-item-content>
             </v-list-item>
           </v-col>
@@ -55,6 +54,7 @@
             </v-list-item>
           </v-col>
         </v-row>
+
         <!-- Student Specific Information -->
         <v-row v-if="userRole === 'student' && studentInfo">
           <v-col cols="12" md="6">
@@ -91,6 +91,7 @@
             </v-list-item>
           </v-col>
         </v-row>
+
         <!-- Supervisor Specific Information -->
         <v-row v-if="userRole === 'supervisor' && supervisorInfo">
           <v-col cols="12" md="6">
@@ -127,6 +128,7 @@
             </v-list-item>
           </v-col>
         </v-row>
+
         <!-- Admin Specific Information -->
         <v-row v-if="userRole === 'admin' && adminInfo">
           <v-col cols="12" md="6">
@@ -137,18 +139,15 @@
               <v-list-item-content>
                 <v-list-item-title class="font-bold">Permissions</v-list-item-title>
                 <v-list-item-subtitle class="text-gray-700">
-                  <v-chip class="ma-1 ml-2" :color="adminInfo.permissions.manage_users ? 'green' : 'red'"
-                    text-color="white" small>
+                  <v-chip class="ma-1 ml-2" :color="adminInfo.permissions.manage_users ? 'green' : 'red'" text-color="white" small>
                     <v-icon left small>mdi-account-multiple</v-icon>
-                    Mange Users
+                    Manage Users
                   </v-chip>
-                  <v-chip class="ma-1" :color="adminInfo.permissions.manage_content ? 'green' : 'red'"
-                    text-color="white" small>
+                  <v-chip class="ma-1" :color="adminInfo.permissions.manage_content ? 'green' : 'red'" text-color="white" small>
                     <v-icon left small>mdi-file-document</v-icon>
-                    Mange Content
+                    Manage Content
                   </v-chip>
                 </v-list-item-subtitle>
-
               </v-list-item-content>
             </v-list-item>
           </v-col>
@@ -165,15 +164,15 @@
           </v-col>
         </v-row>
 
-         <!-- Edit Profile Button -->
-         <v-row>
-            <v-col cols="12" class="text-right">
-              <v-btn color="primary" dark @click="showEditModal = true">
-                <v-icon left>mdi-pencil</v-icon>
-                Edit Profile
-              </v-btn>
-            </v-col>
-          </v-row>
+        <!-- Edit Profile Button -->
+        <v-row>
+          <v-col cols="12" class="text-right">
+            <v-btn color="primary" dark @click="showEditModal = true">
+              <v-icon left>mdi-pencil</v-icon>
+              Edit Profile
+            </v-btn>
+          </v-col>
+        </v-row>
 
         <!-- Delete Account Button -->
         <v-row>
@@ -189,8 +188,8 @@
     <v-alert v-if="loading" type="info" class="mt-6">Loading...</v-alert>
     <v-alert v-if="error" type="error" class="mt-6">{{ error }}</v-alert>
 
-     <!-- Edit Profile Modal -->
-     <v-dialog v-model="showEditModal" max-width="600">
+    <!-- Edit Profile Modal -->
+    <v-dialog v-model="showEditModal" max-width="600">
       <v-card>
         <v-card-title class="headline">
           <v-icon color="primary" left>mdi-pencil</v-icon>
@@ -198,9 +197,63 @@
         </v-card-title>
         <v-card-text>
           <v-form ref="form" v-model="formValid">
+            <!-- Common Fields -->
             <v-text-field v-model="editedUser.full_name" label="Full Name" required outlined dense></v-text-field>
             <v-text-field v-model="editedUser.email" label="Email" required outlined dense></v-text-field>
             <v-text-field v-model="editedUser.username" label="Username" required outlined dense></v-text-field>
+
+            <!-- Student-Specific Fields -->
+            <v-row v-if="userRole === 'student'">
+              <v-col cols="12" md="6">
+                <v-text-field v-model="editedUser.institution" label="Institution" outlined dense></v-text-field>
+              </v-col>
+              <v-col cols="12" md="6">
+                <v-text-field v-model="editedUser.major" label="Major" outlined dense></v-text-field>
+              </v-col>
+              <v-col cols="12">
+                <v-textarea v-model="editedUser.bio" label="Bio" outlined dense></v-textarea>
+              </v-col>
+            </v-row>
+
+            <!-- Supervisor-Specific Fields -->
+            <v-row v-if="userRole === 'supervisor'">
+              <v-col cols="12" md="6">
+                <v-text-field v-model="editedUser.institution" label="Institution" outlined dense></v-text-field>
+              </v-col>
+              <v-col cols="12" md="6">
+                <v-text-field v-model="editedUser.department" label="Department" outlined dense></v-text-field>
+              </v-col>
+              <v-col cols="12">
+                <v-textarea v-model="editedUser.bio" label="Bio" outlined dense></v-textarea>
+              </v-col>
+            </v-row>
+
+            <!-- Admin-Specific Fields -->
+            <v-row v-if="userRole === 'admin'">
+              <v-col cols="12">
+                <v-select
+                  v-model="editedUser.role"
+                  :items="['admin', 'student', 'supervisor']"
+                  label="Role"
+                  outlined
+                  dense
+                ></v-select>
+              </v-col>
+              <v-col cols="12">
+                <v-switch
+                  v-model="editedUser.permissions.manage_users"
+                  label="Manage Users"
+                  color="primary"
+                ></v-switch>
+              </v-col>
+              <v-col cols="12">
+                <v-switch
+                  v-model="editedUser.permissions.manage_content"
+                  label="Manage Content"
+                  color="primary"
+                ></v-switch>
+              </v-col>
+            </v-row>
 
             <!-- New Password Fields -->
             <v-text-field
@@ -236,6 +289,7 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+
     <!-- Delete Confirmation Modal -->
     <v-dialog v-model="showDeleteModal" max-width="500">
       <v-card>
@@ -245,10 +299,7 @@
         </v-card-title>
         <v-card-text>
           <p>Please enter your password to confirm account deletion:</p>
-          <v-text-field v-model="password" :type="showPassword ? 'text' : 'password'" label="Password" required outlined
-            dense :rules="[(v) => !!v || 'Password is required']"
-            append-inner-icon="showPassword ? 'mdi-eye-off' : 'mdi-eye'"
-            @click:append-inner="showPassword = !showPassword"></v-text-field>
+          <v-text-field v-model="password" :type="showPassword ? 'text' : 'password'" label="Password" required outlined dense :rules="[(v) => !!v || 'Password is required']" append-inner-icon="showPassword ? 'mdi-eye-off' : 'mdi-eye'" @click:append-inner="showPassword = !showPassword"></v-text-field>
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
@@ -265,6 +316,7 @@
     </v-dialog>
   </v-container>
 </template>
+
 <script>
 import axios from 'axios';
 import { useToast } from 'vue-toastification';
@@ -279,6 +331,15 @@ export default {
         email: '',
         username: '',
         password: '',
+        institution: '', // Student/Supervisor
+        major: '', // Student
+        department: '', // Supervisor
+        bio: '', // Student/Supervisor
+        role: '', // Admin
+        permissions: { // Admin
+          manage_users: false,
+          manage_content: false,
+        },
       },
       studentInfo: null,
       supervisorInfo: null,
@@ -292,12 +353,13 @@ export default {
       confirmPassword: '',
       password: '',
       showPassword: false,
+      formValid: false,
     };
   },
   async created() {
-    const { role, id } = this.$route.params;
+    const { role } = this.$route.params;
     const storedAuth = localStorage.getItem('token');
-    
+
     // Redirect to login if not authenticated
     if (!storedAuth) {
       this.$router.push('/login');
@@ -305,122 +367,157 @@ export default {
     }
 
     this.userRole = role;
-    try {
-      // Fetch user details from the backend
-      const userResponse = await axios.get(`/api/users/${id}`, {
-        headers: { Authorization: `Bearer ${storedAuth}` },
-      });
-      this.user = userResponse.data;
-      this.editedUser = { ...this.user }; // Populate the edited user with current details
-
-      // Fetch role-specific information
-      if (role === 'student') {
-        this.studentInfo = userResponse.data;  // Assuming `studentInfo` is part of user data
-      } else if (role === 'supervisor') {
-        this.supervisorInfo = userResponse.data; // Assuming `supervisorInfo` is part of user data
-      } else if (role === 'admin') {
-        this.adminInfo = userResponse.data;  // Assuming `adminInfo` is part of user data
-      }
-    } catch (error) {
-      console.error('Error fetching user data:', error);
-      this.error = 'Failed to load user data.';
-      useToast().error(this.error);
-    } finally {
-      this.loading = false;
-    }
+    await this.fetchUserData();
   },
   methods: {
+    async fetchUserData() {
+      const { id } = this.$route.params;
+      const storedAuth = localStorage.getItem('token');
+
+      try {
+        // Fetch user details from the backend
+        const userResponse = await axios.get(`/api/users/${id}`, {
+          headers: { Authorization: `Bearer ${storedAuth}` },
+        });
+        this.user = userResponse.data;
+        this.editedUser = { ...this.user }; // Populate the edited user with current details
+
+        // Fetch role-specific information
+        if (this.userRole === 'student') {
+          this.studentInfo = userResponse.data;
+          this.editedUser.institution = this.studentInfo.institution;
+          this.editedUser.major = this.studentInfo.major;
+          this.editedUser.bio = this.studentInfo.bio;
+        } else if (this.userRole === 'supervisor') {
+          this.supervisorInfo = userResponse.data;
+          this.editedUser.institution = this.supervisorInfo.institution;
+          this.editedUser.department = this.supervisorInfo.department;
+          this.editedUser.bio = this.supervisorInfo.bio;
+        } else if (this.userRole === 'admin') {
+          this.adminInfo = userResponse.data;
+          this.editedUser.role = this.adminInfo.role;
+          this.editedUser.permissions = this.adminInfo.permissions;
+        }
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+        this.error = 'Failed to load user data.';
+        useToast().error(this.error);
+      } finally {
+        this.loading = false;
+      }
+    },
+
     async confirmUpdateProfile() {
-    const { id } = this.$route.params;
-    const storedAuth = localStorage.getItem('token');
-    
-    if (!this.formValid) {
+      const { id } = this.$route.params;
+      const storedAuth = localStorage.getItem('token');
+
+      if (!this.formValid) {
         this.error = 'Please fill in all required fields.';
         useToast().error(this.error);
         return;
-    }
+      }
 
-    try {
+      try {
         const updatedUser = { ...this.editedUser };
+
+        // Include role-specific fields in the payload
+        if (this.userRole === 'student') {
+          updatedUser.institution = this.editedUser.institution;
+          updatedUser.major = this.editedUser.major;
+          updatedUser.bio = this.editedUser.bio;
+        } else if (this.userRole === 'supervisor') {
+          updatedUser.institution = this.editedUser.institution;
+          updatedUser.department = this.editedUser.department;
+          updatedUser.bio = this.editedUser.bio;
+        } else if (this.userRole === 'admin') {
+          updatedUser.role = this.editedUser.role;
+          updatedUser.permissions = {
+            manage_users: this.editedUser.permissions.manage_users,
+            manage_content: this.editedUser.permissions.manage_content,
+          };
+        }
+
+        // Handle password update
         if (this.newPassword && this.editedUser.password !== this.confirmPassword) {
-            this.error = 'Passwords must match.';
-            useToast().error(this.error);
-            return;
+          this.error = 'Passwords must match.';
+          useToast().error(this.error);
+          return;
         }
 
         if (this.newPassword) {
-            updatedUser.password = this.editedUser.password;
+          updatedUser.password = this.editedUser.password;
         }
 
         // Send the update request to the API
         await axios.put(`/api/users/${id}`, updatedUser, {
-            headers: {
-                Authorization: `Bearer ${storedAuth}`,
-            },
+          headers: {
+            Authorization: `Bearer ${storedAuth}`,
+          },
         });
 
-        // Update the local user data without reloading the page
-        this.user = { ...this.user, ...updatedUser }; // Merge updated values with the current user data
-        this.editedUser = { ...updatedUser }; // Reset editedUser to reflect changes
+        // Re-fetch the updated user data
+        await this.fetchUserData();
 
         useToast().success('Profile updated successfully.');
-      this.showEditModal = false;
-      localStorage.setItem('email',editedUser.email);
-    } catch (error) {
+        this.showEditModal = false;
+        localStorage.setItem('email', updatedUser.email);
+      } catch (error) {
+        console.error('Error updating profile:', error);
         this.error = 'Failed to update profile.';
         useToast().error(this.error);
-    }
+      }
     },
 
-async confirmDeleteAccount() {
-    const { id } = this.$route.params;
-    const storedAuth = localStorage.getItem('token');
-    if (!this.password) {
-      this.error = 'Please enter your password.';
-      useToast().error(this.error);
-      return;
-    }
-    try {
-      // Step 1: Verify the password
-      const verifyResponse = await axios.post('/api/users/verify-password', {
-        password: this.password,
-      }, {
-        headers: {
-          Authorization: `Bearer ${storedAuth}`,
-        },
-      });
-      if (!verifyResponse.data.isValid) {
-        this.error = 'Incorrect password. Please try again.';
+    async confirmDeleteAccount() {
+      const { id } = this.$route.params;
+      const storedAuth = localStorage.getItem('token');
+      if (!this.password) {
+        this.error = 'Please enter your password.';
         useToast().error(this.error);
         return;
       }
-      // Step 2: Delete the account
-      await axios.delete(`/api/users/${id}`, {
-        headers: {
-          Authorization: `Bearer ${storedAuth}`,
-        },
-        data: {
+      try {
+        // Step 1: Verify the password
+        const verifyResponse = await axios.post('/api/users/verify-password', {
           password: this.password,
-        },
-      });
-      // Step 3: Force logout
-      localStorage.removeItem('token'); // Clear the token
-      this.$router.push('/login'); // Redirect to login page
-      location.reload(); // Reload the page
-      useToast().success('Account deleted successfully.');
-    } catch (error) {
-      console.error('Error deleting account:', error);
-      this.error = 'Failed to delete account. Please try again.';
-      useToast().error(this.error);
-    } finally {
-      this.showDeleteModal = false;
-    }
+        }, {
+          headers: {
+            Authorization: `Bearer ${storedAuth}`,
+          },
+        });
+        if (!verifyResponse.data.isValid) {
+          this.error = 'Incorrect password. Please try again.';
+          useToast().error(this.error);
+          return;
+        }
+        // Step 2: Delete the account
+        await axios.delete(`/api/users/${id}`, {
+          headers: {
+            Authorization: `Bearer ${storedAuth}`,
+          },
+          data: {
+            password: this.password,
+          },
+        });
+        // Step 3: Force logout
+        localStorage.removeItem('token'); // Clear the token
+        this.$router.push('/login'); // Redirect to login page
+        location.reload(); // Reload the page
+        useToast().success('Account deleted successfully.');
+      } catch (error) {
+        console.error('Error deleting account:', error);
+        this.error = 'Failed to delete account. Please try again.';
+        useToast().error(this.error);
+      } finally {
+        this.showDeleteModal = false;
+      }
+    },
   },
-},
 };
 </script>
+
 <style scoped>
 .word-color {
-color: #0097a7;
+  color: #0097a7;
 }
 </style>

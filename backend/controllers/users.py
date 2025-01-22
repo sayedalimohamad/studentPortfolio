@@ -168,12 +168,33 @@ def register_routes(bp: Blueprint):
     def update_user(user_id):
         data = request.get_json()
         user = User.query.get_or_404(user_id)
+
+        # Update User fields
         user.username = data.get("username", user.username)
         user.email = data.get("email", user.email)
-        user.role = data.get("role", user.role)
-        user.status = data.get("status", user.status)
+        user.full_name = data.get("full_name", user.full_name)
         if "password" in data:
             user.set_password(data["password"])
+
+        # Update role-specific fields
+        if user.role == "student":
+            student = Student.query.filter_by(user_id=user_id).first()
+            if student:
+                student.institution = data.get("institution", student.institution)
+                student.major = data.get("major", student.major)
+                student.bio = data.get("bio", student.bio)
+        elif user.role == "supervisor":
+            supervisor = Supervisor.query.filter_by(user_id=user_id).first()
+            if supervisor:
+                supervisor.institution = data.get("institution", supervisor.institution)
+                supervisor.department = data.get("department", supervisor.department)
+                supervisor.bio = data.get("bio", supervisor.bio)
+        elif user.role == "admin":
+            admin = Admin.query.filter_by(user_id=user_id).first()
+            if admin:
+                admin.role = data.get("role", admin.role)
+                admin.permissions = data.get("permissions", admin.permissions)
+
         db.session.commit()
         return jsonify(user.to_dict())
 
