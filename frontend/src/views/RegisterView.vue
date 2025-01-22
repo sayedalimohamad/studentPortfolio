@@ -82,7 +82,13 @@
               <v-textarea v-model="bio" label="Bio" outlined></v-textarea>
             </template>
 
-            <v-btn type="submit" color="primary" block large>Register</v-btn>
+            <v-btn type="submit" color="primary" block large class="my-4">Register</v-btn>
+            <div class="d-block mb-2 text-muted py-4 text-center">
+              I have an account
+              <a href="/login" class="text-decoration-none text-primary font-weight-bold">
+                Login
+              </a>
+            </div>
           </v-form>
         </v-card>
       </v-col>
