@@ -201,6 +201,15 @@
             <v-text-field v-model="editedUser.full_name" label="Full Name" required outlined dense></v-text-field>
             <v-text-field v-model="editedUser.email" label="Email" required outlined dense></v-text-field>
             <v-text-field v-model="editedUser.username" label="Username" required outlined dense></v-text-field>
+            <v-text-field
+              v-model="editedUser.dob"
+              label="Date of Birth"
+              type="date"
+              required
+              outlined
+              dense
+              :rules="[(v) => !!v || 'Date of Birth is required']"
+            ></v-text-field>
 
             <!-- Student-Specific Fields -->
             <v-row v-if="userRole === 'student'">
@@ -330,6 +339,7 @@ export default {
         full_name: '',
         email: '',
         username: '',
+        dob: '',
         password: '',
         institution: '', // Student/Supervisor
         major: '', // Student
@@ -380,7 +390,7 @@ export default {
           headers: { Authorization: `Bearer ${storedAuth}` },
         });
         this.user = userResponse.data;
-        this.editedUser = { ...this.user }; // Populate the edited user with current details
+        this.editedUser = { ...this.user ,dob: this.user.dob ? new Date(this.user.dob).toISOString().split('T')[0] : '' };
 
         // Fetch role-specific information
         if (this.userRole === 'student') {

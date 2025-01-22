@@ -173,6 +173,7 @@ def register_routes(bp: Blueprint):
         user.username = data.get("username", user.username)
         user.email = data.get("email", user.email)
         user.full_name = data.get("full_name", user.full_name)
+        user.dob = datetime.strptime(data.get("dob", str(user.dob)), "%Y-%m-%d").date()
         if "password" in data:
             user.set_password(data["password"])
 
