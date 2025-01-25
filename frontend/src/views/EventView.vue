@@ -1,14 +1,14 @@
 <template>
   <v-container class="py-12">
-    <v-row class="mb-6">
+    <v-row class="mb-8">
       <v-col cols="12" class="text-center">
-        <h1 class="text-3xl font-bold">Events</h1>
-        <p class="text-lg text-gray-700">Manage and view events here.</p>
+        <h1 class="text-3xl font-bold word-color">Events</h1>
+        <p class="text-lg text-gray-700 mt-2">Manage and view events here.</p>
       </v-col>
     </v-row>
 
     <!-- Create Event Button (Only for Admins/Supervisors) -->
-    <v-row v-if="userRole === 'admin' || userRole === 'supervisor'">
+    <v-row v-if="userRole === 'admin' || userRole === 'supervisor'" class="mb-8">
       <v-col cols="12" class="text-right">
         <v-btn color="primary" dark @click="showCreateEventModal = true">
           <v-icon left>mdi-plus</v-icon>
@@ -17,58 +17,65 @@
       </v-col>
     </v-row>
 
-    <!-- Events List -->
-    <v-card v-if="events.length > 0" class="mx-auto" max-width="800">
-      <v-card-text>
-        <v-list>
-          <v-list-item v-for="event in events" :key="event.event_id" class="mb-4">
-            <v-list-item-content>
-              <v-list-item-title class="font-bold">{{ event.title }}</v-list-item-title>
-              <v-list-item-subtitle class="text-gray-700">{{ event.description }}</v-list-item-subtitle>
-              <v-list-item-subtitle class="text-gray-700">
+    <!-- Events Table -->
+    <v-card v-if="events.length > 0" class="mx-auto" max-width="1200">
+      <v-card-text class="pa-6">
+        <v-table>
+          <thead>
+            <tr>
+              <th class="text-left pa-4">Title</th>
+              <th class="text-left pa-4">Description</th>
+              <th class="text-left pa-4">Date</th>
+              <th class="text-left pa-4">Location</th>
+              <th class="text-left pa-4" v-if="userRole === 'admin' || userRole === 'supervisor'">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="event in events" :key="event.event_id">
+              <td class="font-bold word-color pa-4">{{ event.title }}</td>
+              <td class="text-gray-700 pa-4">{{ event.description }}</td>
+              <td class="text-gray-700 pa-4">
                 <v-icon small>mdi-calendar</v-icon>
                 {{ new Date(event.date).toDateString() }}
-              </v-list-item-subtitle>
-              <v-list-item-subtitle class="text-gray-700">
+              </td>
+              <td class="text-gray-700 pa-4">
                 <v-icon small>mdi-map-marker</v-icon>
                 {{ event.location }}
-              </v-list-item-subtitle>
-            </v-list-item-content>
-
-            <!-- Update and Delete Buttons (Only for Admins/Supervisors or Event Creator) -->
-            <v-list-item-action v-if="userRole === 'admin' || userRole === 'supervisor' || event.user_id === userId">
-              <v-btn icon @click="editEvent(event)">
-                <v-icon color="primary">mdi-pencil</v-icon>
-              </v-btn>
-              <v-btn icon @click="deleteEvent(event.event_id)">
-                <v-icon color="red">mdi-delete</v-icon>
-              </v-btn>
-            </v-list-item-action>
-          </v-list-item>
-        </v-list>
+              </td>
+              <td class="pa-4">
+                <v-btn v-if="userRole === 'admin' || userRole === 'supervisor' || event.user_id === userId" icon @click="editEvent(event)" class="mb-2">
+                  <v-icon color="primary">mdi-pencil</v-icon>
+                </v-btn>
+                <v-btn v-if="userRole === 'admin' || userRole === 'supervisor' || event.user_id === userId" icon @click="deleteEvent(event.event_id)">
+                  <v-icon color="red">mdi-delete</v-icon>
+                </v-btn>
+              </td>
+            </tr>
+          </tbody>
+        </v-table>
       </v-card-text>
     </v-card>
 
     <!-- Loading and Error Messages -->
-    <v-alert v-if="loading" type="info" class="mt-6">Loading events...</v-alert>
-    <v-alert v-if="error" type="error" class="mt-6">{{ error }}</v-alert>
+    <v-alert v-if="loading" type="info" class="mt-8">Loading events...</v-alert>
+    <v-alert v-if="error" type="error" class="mt-8">{{ error }}</v-alert>
 
     <!-- Create Event Modal -->
     <v-dialog v-model="showCreateEventModal" max-width="600">
       <v-card>
-        <v-card-title class="headline">
+        <v-card-title class="headline pa-6">
           <v-icon color="primary" left>mdi-plus</v-icon>
           Create Event
         </v-card-title>
-        <v-card-text>
+        <v-card-text class="pa-6">
           <v-form ref="createEventForm" v-model="createEventFormValid">
-            <v-text-field v-model="newEvent.title" label="Title" required outlined dense></v-text-field>
-            <v-text-field v-model="newEvent.description" label="Description" required outlined dense></v-text-field>
-            <v-text-field v-model="newEvent.date" label="Date" type="date" required outlined dense></v-text-field>
-            <v-text-field v-model="newEvent.location" label="Location" required outlined dense></v-text-field>
+            <v-text-field v-model="newEvent.title" label="Title" required outlined dense class="mb-4"></v-text-field>
+            <v-text-field v-model="newEvent.description" label="Description" required outlined dense class="mb-4"></v-text-field>
+            <v-text-field v-model="newEvent.date" label="Date" type="date" required outlined dense class="mb-4"></v-text-field>
+            <v-text-field v-model="newEvent.location" label="Location" required outlined dense class="mb-4"></v-text-field>
           </v-form>
         </v-card-text>
-        <v-card-actions>
+        <v-card-actions class="pa-6">
           <v-spacer></v-spacer>
           <v-btn color="blue darken-1" text @click="showCreateEventModal = false">
             <v-icon left>mdi-cancel</v-icon>
@@ -85,19 +92,19 @@
     <!-- Edit Event Modal -->
     <v-dialog v-model="showEditEventModal" max-width="600">
       <v-card>
-        <v-card-title class="headline">
+        <v-card-title class="headline pa-6">
           <v-icon color="primary" left>mdi-pencil</v-icon>
           Edit Event
         </v-card-title>
-        <v-card-text>
+        <v-card-text class="pa-6">
           <v-form ref="editEventForm" v-model="editEventFormValid">
-            <v-text-field v-model="editedEvent.title" label="Title" required outlined dense></v-text-field>
-            <v-text-field v-model="editedEvent.description" label="Description" required outlined dense></v-text-field>
-            <v-text-field v-model="editedEvent.date" label="Date" type="date" required outlined dense></v-text-field>
-            <v-text-field v-model="editedEvent.location" label="Location" required outlined dense></v-text-field>
+            <v-text-field v-model="editedEvent.title" label="Title" required outlined dense class="mb-4"></v-text-field>
+            <v-text-field v-model="editedEvent.description" label="Description" required outlined dense class="mb-4"></v-text-field>
+            <v-text-field v-model="editedEvent.date" label="Date" type="date" required outlined dense class="mb-4"></v-text-field>
+            <v-text-field v-model="editedEvent.location" label="Location" required outlined dense class="mb-4"></v-text-field>
           </v-form>
         </v-card-text>
-        <v-card-actions>
+        <v-card-actions class="pa-6">
           <v-spacer></v-spacer>
           <v-btn color="blue darken-1" text @click="showEditEventModal = false">
             <v-icon left>mdi-cancel</v-icon>
