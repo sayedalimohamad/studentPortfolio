@@ -10,6 +10,7 @@ import AboutView from './views/AboutView.vue';
 import SendEmailView from './views/SendEmailView.vue';
 import InboxView from './views/InboxView.vue';
 import NotFoundView from './views/NotFoundView.vue';
+import EventView from './views/EventView.vue';
 
 const routes = [
   {
@@ -21,6 +22,12 @@ const routes = [
     path: '/about',
     name: 'About',
     component: AboutView,
+  },
+  {
+    path: '/events',
+    name: 'Events',
+    component: EventView,
+    // meta: { requiresAuth: true },
   },
   {
     path: '/students',

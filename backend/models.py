@@ -189,6 +189,7 @@ class Event(db.Model):
     date = db.Column(db.Date, nullable=False)
     location = db.Column(db.String(255), nullable=False)
     created_at = db.Column(db.TIMESTAMP, default=db.func.now())
+    recommendations = db.relationship('Recommendation', backref='event', lazy=True)
 
     def to_dict(self):
         return {
@@ -198,7 +199,8 @@ class Event(db.Model):
             "description": self.description,
             "date": self.date,
             "location": self.location,
-            "created_at": self.created_at
+            "created_at": self.created_at,
+            "recommendations": [rec.to_dict() for rec in self.recommendations],
         }
 
 class Recommendation(db.Model):
