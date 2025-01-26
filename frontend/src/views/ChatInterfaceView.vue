@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <v-container class="fill-height">
-      <v-row justify="center" align="center">
+      <v-row justify="center" align="center" class="fill-height">
         <v-col cols="12" sm="10" md="8" lg="6">
           <v-card class="elevation-12 rounded-lg">
             <v-card-title class="text-h5 font-weight-bold text-center py-4 ai-chat-title d-flex align-center justify-center">
