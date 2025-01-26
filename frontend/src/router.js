@@ -11,6 +11,7 @@ import SendEmailView from './views/SendEmailView.vue';
 import InboxView from './views/InboxView.vue';
 import NotFoundView from './views/NotFoundView.vue';
 import EventView from './views/EventView.vue';
+import SupervisorView from './views/SupervisorView.vue';
 
 const routes = [
   {
@@ -33,6 +34,12 @@ const routes = [
     path: '/students',
     name: 'Students',
     component: StudentView,
+    meta: { requiresAuth: true },  
+  },
+  {
+    path: '/supervisors',
+    name: 'Supervisors',
+    component: SupervisorView,
     meta: { requiresAuth: true },  
   },
   {

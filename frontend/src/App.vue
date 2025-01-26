@@ -32,6 +32,10 @@
           <v-icon left>mdi-account-group</v-icon>
           Students
         </v-btn>
+        <v-btn v-if="userRole === 'admin' || userRole === 'supervisor'" to="/supervisors" class="text-white mx-2">
+          <v-icon left>mdi-account-tie</v-icon>
+          Supervisors
+        </v-btn>
         <v-btn v-if="userRole === 'admin'" to="/admins" class="text-white mx-2">
           <v-icon left>mdi-account-multiple</v-icon>
           Admins
@@ -43,15 +47,22 @@
           Chat
         </v-btn>
 
-        <!-- Account Button (Visible to Authenticated Users) -->
-        <v-btn v-if="isAuthenticated" :to="`/user/${userRole}/${userId}`" class="text-white mx-2">
-          <v-icon left>mdi-account</v-icon>
-          Account
-        </v-btn>
+        
 
         <v-btn v-if="isAuthenticated && userEmail" :to="`/inbox/${userEmail}`" class="text-white mx-2">
           <v-icon left>mdi-email</v-icon>
           Inbox
+        </v-btn>
+
+        <v-btn v-if="isAuthenticated" to="/events" class="text-white mx-2">
+          <v-icon left>mdi-party-popper</v-icon>
+          Events
+        </v-btn>
+
+        <!-- Account Button (Visible to Authenticated Users) -->
+        <v-btn v-if="isAuthenticated" :to="`/user/${userRole}/${userId}`" class="text-white mx-2">
+          <v-icon left>mdi-account</v-icon>
+          Account
         </v-btn>
 
         <!-- Logout Button (Visible to Authenticated Users) -->

@@ -82,7 +82,7 @@
           <v-col cols="12" md="6">
             <v-list-item>
               <v-list-item-icon>
-                <v-icon color="primary">mdi-information-outline</v-icon>
+                <v-icon color="primary">mdi-text</v-icon>
               </v-list-item-icon>
               <v-list-item-content>
                 <v-list-item-title class="font-bold">Bio</v-list-item-title>

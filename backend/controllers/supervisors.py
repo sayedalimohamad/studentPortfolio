@@ -6,7 +6,6 @@ from flask_jwt_extended import jwt_required, get_jwt_identity
 
 def register_routes(bp: Blueprint):
     @bp.route("/", methods=["GET"])
-    @jwt_required()
     def get_supervisors():
         supervisors = (
             db.session.query(Supervisor, User)

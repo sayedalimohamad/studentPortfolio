@@ -55,7 +55,7 @@
             borderRadius: '8px',
             color: $vuetify.theme.global.current.colors.primary
           }">
-            <v-icon small class="mr-1">mdi-information-outline</v-icon>
+            <v-icon small class="mr-1">mdi-text</v-icon>
             <span class="font-medium">Bio:</span>
             <p class="ml-5 mt-2 " style="text-align: justify;">{{ student.bio }}</p>
           </v-card-text>
