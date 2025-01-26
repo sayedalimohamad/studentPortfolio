@@ -3,7 +3,8 @@
     <!-- Navigation Bar -->
     <v-app-bar app :color="navbarColor" :dark="isDarkTheme">
       <v-toolbar-title class="headline font-weight-bold text-uppercase">
-        Student Portfolio</v-toolbar-title>
+        Student Portfolio
+      </v-toolbar-title>
       <v-spacer></v-spacer>
 
       <!-- Hamburger Menu for Small Screens -->
@@ -17,58 +18,78 @@
           Home
         </v-btn>
 
+        <!-- About Button -->
         <v-btn to="/about" class="text-white mx-2">
           <v-icon left>mdi-book</v-icon>
           About
         </v-btn>
 
-        <v-btn v-if="!isAuthenticated" to="/login" class="text-white mx-2">
-          <v-icon left>mdi-login</v-icon>
-          Login
-        </v-btn>
+        <!-- Admin Dropdown -->
+        <v-menu v-if="userRole === 'admin' || userRole === 'supervisor'" open-on-hover>
+          <template v-slot:activator="{ props }">
+            <v-btn v-bind="props" class="text-white mx-2">
+              <v-icon left>mdi-account-arrow-down</v-icon>
+              Manage
+              <v-icon right>mdi-menu-down</v-icon>
+            </v-btn>
+          </template>
+          <v-list>
+            <v-list-item to="/students">
+              <v-list-item-icon><v-icon>mdi-account-school</v-icon></v-list-item-icon>
+              <v-list-item-content> Students</v-list-item-content>
+            </v-list-item>
+            <v-list-item to="/supervisors">
+              <v-list-item-icon><v-icon>mdi-account-tie</v-icon></v-list-item-icon>
+              <v-list-item-content> Supervisors</v-list-item-content>
+            </v-list-item>
+            <v-list-item v-if="userRole === 'admin'" to="/admins">
+              <v-list-item-icon><v-icon>mdi-account-multiple</v-icon></v-list-item-icon>
+              <v-list-item-content> Admins</v-list-item-content>
+            </v-list-item>
+          </v-list>
+        </v-menu>
 
-        <!-- Students Link (Visible to Admins) -->
-        <v-btn v-if="userRole === 'admin' || userRole === 'supervisor'" to="/students" class="text-white mx-2">
-          <v-icon left>mdi-account-group</v-icon>
-          Students
-        </v-btn>
-        <v-btn v-if="userRole === 'admin' || userRole === 'supervisor'" to="/supervisors" class="text-white mx-2">
-          <v-icon left>mdi-account-tie</v-icon>
-          Supervisors
-        </v-btn>
-        <v-btn v-if="userRole === 'admin'" to="/admins" class="text-white mx-2">
-          <v-icon left>mdi-account-multiple</v-icon>
-          Admins
-        </v-btn>
-
-        <!-- Chat Link (Visible to Students) -->
+        <!-- Chat Button (Visible to Students) -->
         <v-btn v-if="userRole === 'student'" to="/chat" class="text-white mx-2">
           <v-icon left>mdi-chat</v-icon>
           Chat
         </v-btn>
 
-        
+        <!-- User Dropdown (Inbox, Events, Account) -->
+        <v-menu v-if="isAuthenticated" open-on-hover>
+          <template v-slot:activator="{ props }">
+            <v-btn v-bind="props" class="text-white mx-2">
+              <v-icon left>mdi-account-circle</v-icon>
+              Profile
+              <v-icon right>mdi-menu-down</v-icon>
+            </v-btn>
+          </template>
+          <v-list>
+            <v-list-item v-if="userEmail" :to="`/inbox/${userEmail}`">
+              <v-list-item-icon><v-icon>mdi-email</v-icon></v-list-item-icon>
+              <v-list-item-content> Inbox</v-list-item-content>
+            </v-list-item>
+            <v-list-item to="/events">
+              <v-list-item-icon><v-icon>mdi-party-popper</v-icon></v-list-item-icon>
+              <v-list-item-content> Events</v-list-item-content>
+            </v-list-item>
+            <v-list-item :to="`/user/${userRole}/${userId}`">
+              <v-list-item-icon><v-icon>mdi-account</v-icon></v-list-item-icon>
+              <v-list-item-content> Account</v-list-item-content>
+            </v-list-item>
+            <v-divider></v-divider>
+            <!-- Logout Button with Red Color and Pointer Cursor -->
+            <v-list-item v-if="isAuthenticated" @click="logout" class="logout-item">
+              <v-list-item-icon><v-icon>mdi-logout</v-icon></v-list-item-icon>
+              <v-list-item-content> Logout</v-list-item-content>
+            </v-list-item>
+          </v-list>
+        </v-menu>
 
-        <v-btn v-if="isAuthenticated && userEmail" :to="`/inbox/${userEmail}`" class="text-white mx-2">
-          <v-icon left>mdi-email</v-icon>
-          Inbox
-        </v-btn>
-
-        <v-btn v-if="isAuthenticated" to="/events" class="text-white mx-2">
-          <v-icon left>mdi-party-popper</v-icon>
-          Events
-        </v-btn>
-
-        <!-- Account Button (Visible to Authenticated Users) -->
-        <v-btn v-if="isAuthenticated" :to="`/user/${userRole}/${userId}`" class="text-white mx-2">
-          <v-icon left>mdi-account</v-icon>
-          Account
-        </v-btn>
-
-        <!-- Logout Button (Visible to Authenticated Users) -->
-        <v-btn v-if="isAuthenticated" @click="logout" class="text-dark font-weight-bold mx-2" variant="flat">
-          <v-icon left>mdi-logout</v-icon>
-          Logout
+        <!-- Login Button -->
+        <v-btn v-if="!isAuthenticated" to="/login" class="text-white mx-2">
+          <v-icon left>mdi-login</v-icon>
+          Login
         </v-btn>
       </div>
 
@@ -84,60 +105,71 @@
         <!-- Home Link -->
         <v-list-item to="/">
           <v-list-item-icon><v-icon>mdi-home</v-icon></v-list-item-icon>
-          <v-list-item-content>Home</v-list-item-content>
+          <v-list-item-content> Home</v-list-item-content>
         </v-list-item>
 
+        <!-- About Link -->
         <v-list-item to="/about">
-          <v-list-item-icon><v-icon left>mdi-book</v-icon>
-          </v-list-item-icon>
-          <v-list-item-content>About</v-list-item-content>
-
-
+          <v-list-item-icon><v-icon left>mdi-book</v-icon></v-list-item-icon>
+          <v-list-item-content> About</v-list-item-content>
         </v-list-item>
 
-        <v-list-item v-if="isAuthenticated" :to="`/user/${userRole}/${userId}`">
-          <v-list-item-icon><v-icon>mdi-account</v-icon></v-list-item-icon>
-          <v-list-item-content>Account</v-list-item-content>
-        </v-list-item>
+        
 
-        <!-- Students Link (Visible to Admins) -->
+        <!-- Admin Links -->
         <v-list-item v-if="userRole === 'admin' || userRole === 'supervisor'" to="/students">
-          <v-list-item-icon><v-icon>mdi-account-group</v-icon></v-list-item-icon>
-          <v-list-item-content>Students</v-list-item-content>
+          <v-list-item-icon><v-icon>mdi-account-school</v-icon></v-list-item-icon>
+          <v-list-item-content> Students</v-list-item-content>
+        </v-list-item>
+
+        <v-list-item v-if="userRole === 'admin' || userRole === 'supervisor'" to="/supervisors">
+          <v-list-item-icon><v-icon>mdi-account-tie</v-icon></v-list-item-icon>
+          <v-list-item-content> Supervisors</v-list-item-content>
         </v-list-item>
 
         <v-list-item v-if="userRole === 'admin'" to="/admins">
           <v-list-item-icon><v-icon>mdi-account-multiple</v-icon></v-list-item-icon>
-          <v-list-item-content>Admins</v-list-item-content>
+          <v-list-item-content> Admins</v-list-item-content>
         </v-list-item>
 
         <!-- Chat Link (Visible to Students) -->
         <v-list-item v-if="userRole === 'student'" to="/chat">
           <v-list-item-icon><v-icon>mdi-chat</v-icon></v-list-item-icon>
-          <v-list-item-content>Chat</v-list-item-content>
+          <v-list-item-content> Chat</v-list-item-content>
         </v-list-item>
 
-        <!-- Login Link (Visible to Unauthenticated Users) -->
+        <!-- Login/Register Links -->
         <v-list-item v-if="!isAuthenticated" to="/login">
           <v-list-item-icon><v-icon>mdi-login</v-icon></v-list-item-icon>
-          <v-list-item-content>Login</v-list-item-content>
+          <v-list-item-content> Login</v-list-item-content>
         </v-list-item>
-
-        <!-- Register Link (Visible to Unauthenticated Users) -->
         <v-list-item v-if="!isAuthenticated" to="/register">
           <v-list-item-icon><v-icon>mdi-account-plus</v-icon></v-list-item-icon>
-          <v-list-item-content>Register</v-list-item-content>
+          <v-list-item-content> Register</v-list-item-content>
         </v-list-item>
 
+        <!-- Inbox Link -->
         <v-list-item v-if="isAuthenticated && userEmail" :to="`/inbox/${userEmail}`">
           <v-list-item-icon><v-icon>mdi-email</v-icon></v-list-item-icon>
-          <v-list-item-content>Inbox</v-list-item-content>
+          <v-list-item-content> Inbox</v-list-item-content>
         </v-list-item>
 
-        <!-- Logout Link (Visible to Authenticated Users) -->
-        <v-list-item v-if="isAuthenticated" @click="logout">
+        <!-- Events Link -->
+        <v-list-item v-if="isAuthenticated" to="/events">
+          <v-list-item-icon><v-icon>mdi-party-popper</v-icon></v-list-item-icon>
+          <v-list-item-content> Events</v-list-item-content>
+        </v-list-item>
+
+        <!-- Account Link -->
+        <v-list-item v-if="isAuthenticated" :to="`/user/${userRole}/${userId}`">
+          <v-list-item-icon><v-icon>mdi-account</v-icon></v-list-item-icon>
+          <v-list-item-content> Account</v-list-item-content>
+        </v-list-item>
+        <v-divider></v-divider>
+        <!-- Logout Link -->
+        <v-list-item v-if="isAuthenticated" @click="logout" class="logout-item">
           <v-list-item-icon><v-icon>mdi-logout</v-icon></v-list-item-icon>
-          <v-list-item-content>Logout</v-list-item-content>
+          <v-list-item-content> Logout</v-list-item-content>
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
@@ -166,7 +198,6 @@ export default {
       userRole: null,
       userId: null,
       userEmail: null,
-
     };
   },
   computed: {
@@ -222,4 +253,22 @@ export default {
 .word-color {
   color: #0097a7;
 }
+
+/* Custom Styles for Logout Item */
+.logout-item {
+  cursor: pointer; /* Change cursor to pointer on hover */
+}
+
+.logout-item:hover {
+  background-color: #ffebee; /* Light red background on hover */
+}
+
+.logout-item .v-list-item__content {
+  color: #ff5252; /* Red text color */
+}
+
+.logout-item .v-icon {
+  color: #ff5252; /* Red icon color */
+}
+
 </style>

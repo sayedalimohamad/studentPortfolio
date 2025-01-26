@@ -86,7 +86,7 @@
 
           <!-- Display sent email cards with custom color (onCard) -->
           <v-col v-for="email in sentEmails" :key="email.email_id" cols="12" sm="6" md="4">
-            <v-card elevation="4" class="hover-card pa-3" color="onCard"  @click="viewEmail(email)">
+            <v-card elevation="4" class="hover-card pa-3" color="onCard"  >
               <v-card-title class="card-title">
                 <v-icon left>mdi-email</v-icon>
                 <span class="headline">{{ email.subject }}</span>
