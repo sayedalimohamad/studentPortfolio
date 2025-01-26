@@ -1,9 +1,10 @@
 from flask import Blueprint, request, jsonify
 from extensions import db
-from models import File
+from models import File, User
 from flask_jwt_extended import jwt_required, get_jwt_identity
 
 def register_routes(bp: Blueprint):
+    # Upload a new file
     @bp.route('/', methods=['POST'])
     @jwt_required()
     def upload_file():
@@ -15,17 +16,56 @@ def register_routes(bp: Blueprint):
             file_path=data['file_path'],
             file_type=data['file_type'],
             file_type_id=data['file_type_id'],
-            visibility=data['visibility']
+            visibility=data.get('visibility', 'public')  # Default to public if not provided
         )
         db.session.add(file)
         db.session.commit()
         return jsonify(file.to_dict()), 201
 
+    # Get all files (filtered by privacy and user role)
+    @bp.route('/all', methods=['GET'])
+    @jwt_required()
+    def get_all_files():
+        current_user = get_jwt_identity()
+        user = User.query.get(current_user)
+        files = File.query.all()
+        filtered_files = []
+
+        for file in files:
+            if file.visibility == 'public':
+                filtered_files.append(file.to_dict())
+            elif file.visibility == 'supervisors' and user.role in ['supervisor', 'admin']:
+                filtered_files.append(file.to_dict())
+            elif file.visibility == 'private' and file.user_id == current_user:
+                filtered_files.append(file.to_dict())
+
+        return jsonify(filtered_files)
+
+    # Get files uploaded by the current user
+    @bp.route('/my-files', methods=['GET'])
+    @jwt_required()
+    def get_my_files():
+        current_user = get_jwt_identity()
+        files = File.query.filter_by(user_id=current_user).all()
+        return jsonify([file.to_dict() for file in files])
+
+    # Get a specific file by ID
     @bp.route('/<int:file_id>', methods=['GET'])
+    @jwt_required()
     def get_file(file_id):
         file = File.query.get_or_404(file_id)
+        current_user = get_jwt_identity()
+        user = User.query.get(current_user)
+
+        # Check file visibility
+        if file.visibility == 'private' and file.user_id != current_user:
+            return jsonify({"error": "Unauthorized"}), 403
+        if file.visibility == 'supervisors' and user.role not in ['supervisor', 'admin']:
+            return jsonify({"error": "Unauthorized"}), 403
+
         return jsonify(file.to_dict())
 
+    # Update a file
     @bp.route('/<int:file_id>', methods=['PUT'])
     @jwt_required()
     def update_file(file_id):
@@ -43,6 +83,7 @@ def register_routes(bp: Blueprint):
         db.session.commit()
         return jsonify(file.to_dict())
 
+    # Delete a file
     @bp.route('/<int:file_id>', methods=['DELETE'])
     @jwt_required()
     def delete_file(file_id):

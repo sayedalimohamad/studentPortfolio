@@ -73,6 +73,10 @@
               <v-list-item-icon><v-icon>mdi-party-popper</v-icon></v-list-item-icon>
               <v-list-item-content> Events</v-list-item-content>
             </v-list-item>
+            <v-list-item to="/files">
+              <v-list-item-icon><v-icon>mdi-file</v-icon></v-list-item-icon>
+              <v-list-item-content> Files</v-list-item-content>
+            </v-list-item>
             <v-list-item :to="`/user/${userRole}/${userId}`">
               <v-list-item-icon><v-icon>mdi-account</v-icon></v-list-item-icon>
               <v-list-item-content> Account</v-list-item-content>
@@ -158,6 +162,12 @@
         <v-list-item v-if="isAuthenticated" to="/events">
           <v-list-item-icon><v-icon>mdi-party-popper</v-icon></v-list-item-icon>
           <v-list-item-content> Events</v-list-item-content>
+        </v-list-item>
+
+         <!-- Files Link  -->
+        <v-list-item v-if="isAuthenticated" to="/files">
+          <v-list-item-icon><v-icon>mdi-file</v-icon></v-list-item-icon>
+          <v-list-item-content> Files</v-list-item-content>
         </v-list-item>
 
         <!-- Account Link -->

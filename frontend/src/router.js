@@ -12,6 +12,7 @@ import InboxView from './views/InboxView.vue';
 import NotFoundView from './views/NotFoundView.vue';
 import EventView from './views/EventView.vue';
 import SupervisorView from './views/SupervisorView.vue';
+import FileView from './views/FileView.vue';
 
 const routes = [
   {
@@ -46,6 +47,12 @@ const routes = [
     path: '/admins',
     name: 'Admins',
     component: AdminView,
+    meta: { requiresAuth: true },  
+  },
+  {
+    path: '/files',
+    name: 'Files',
+    component: FileView,
     meta: { requiresAuth: true },  
   },
   {
