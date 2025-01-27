@@ -76,30 +76,15 @@
                 </v-chip>
               </td>
               <td class="pa-4">
-                <v-btn v-if="userRole === 'admin' || userRole === 'supervisor' || event.user_id === userId" icon @click="editEvent(event)" class="mb-2">
+                <v-btn v-if="userRole === 'admin' || userRole === 'supervisor'" icon @click="openStatusUpdateModal(event)" class="mb-2" title="Status Update">
+                  <v-icon color="warning">mdi-list-status</v-icon>
+                </v-btn>
+                <v-btn v-if="userRole === 'admin' || userRole === 'supervisor' || event.user_id === userId" icon @click="editEvent(event)" class="mb-2" title="Edit Event">
                   <v-icon color="primary">mdi-pencil</v-icon>
                 </v-btn>
-                <v-btn v-if="userRole === 'admin' || userRole === 'supervisor' || event.user_id === userId" icon @click="showDeleteConfirmation(event.event_id)" class="mb-2">
+                <v-btn v-if="userRole === 'admin' || userRole === 'supervisor' || event.user_id === userId" icon @click="showDeleteConfirmation(event.event_id)" title="Delete Event">
                   <v-icon color="red">mdi-delete</v-icon>
                 </v-btn>
-                <v-menu v-if="userRole === 'admin' || userRole === 'supervisor'">
-                  <template v-slot:activator="{ on }">
-                    <v-btn icon v-on="on">
-                      <v-icon color="warning">mdi-list-status</v-icon>
-                    </v-btn>
-                  </template>
-                  <v-list>
-                    <v-list-item @click="updateEventStatus(event.event_id, 'pending')">
-                      <v-list-item-title>Set as Pending</v-list-item-title>
-                    </v-list-item>
-                    <v-list-item @click="updateEventStatus(event.event_id, 'accepted')">
-                      <v-list-item-title>Set as Accepted</v-list-item-title>
-                    </v-list-item>
-                    <v-list-item @click="updateEventStatus(event.event_id, 'rejected')">
-                      <v-list-item-title>Set as Rejected</v-list-item-title>
-                    </v-list-item>
-                  </v-list>
-                </v-menu>
               </td>
             </tr>
           </tbody>
@@ -111,6 +96,11 @@
     <v-alert v-if="loading" type="info" class="mt-8">Loading events...</v-alert>
     <v-alert v-if="error" type="error" class="mt-8">{{ error }}</v-alert>
     <v-alert v-else-if="filteredEvents.length === 0" type="info" class="mt-8">No events found.</v-alert>
+
+    <!-- Add the Spinner Here -->
+    <div v-if="loading" class="loading-overlay">
+      <v-progress-circular indeterminate color="primary" size="64"></v-progress-circular>
+    </div>
 
     <!-- Create Event Modal -->
     <v-dialog v-model="showCreateEventModal" max-width="600">
@@ -190,6 +180,36 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+
+    <!-- Status Update Modal -->
+    <v-dialog v-model="showStatusUpdateModal" max-width="400">
+      <v-card>
+        <v-card-title class="headline pa-6">
+          <v-icon color="warning" left>mdi-list-status</v-icon>
+          Update Event Status
+        </v-card-title>
+        <v-card-text class="pa-6">
+          <v-select
+            v-model="selectedStatus"
+            :items="statusOptions"
+            label="Select Status"
+            outlined
+            dense
+          ></v-select>
+        </v-card-text>
+        <v-card-actions class="pa-6">
+          <v-spacer></v-spacer>
+          <v-btn color="blue darken-1" text @click="showStatusUpdateModal = false">
+            <v-icon left>mdi-cancel</v-icon>
+            Cancel
+          </v-btn>
+          <v-btn color="green darken-1" text @click="saveStatusUpdate">
+            <v-icon left>mdi-check</v-icon>
+            Save
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </v-container>
 </template>
 
@@ -203,8 +223,8 @@ export default {
     return {
       events: [],
       searchQuery: '',
-      statusFilter: null, // For filtering events by status
-      statusOptions: ['pending', 'accepted', 'rejected'], // Dropdown options for status filter
+      statusFilter: null,
+      statusOptions: ['pending', 'accepted', 'rejected'],
       loading: true,
       error: null,
       userRole: localStorage.getItem('userRole'),
@@ -212,7 +232,10 @@ export default {
       showCreateEventModal: false,
       showEditEventModal: false,
       showDeleteConfirmationModal: false,
+      showStatusUpdateModal: false,
       eventToDelete: null,
+      eventToUpdateStatus: null,
+      selectedStatus: null,
       createEventFormValid: false,
       editEventFormValid: false,
       newEvent: {
@@ -261,14 +284,30 @@ export default {
           return 'gray';
       }
     },
-    async updateEventStatus(eventId, status) {
+    openStatusUpdateModal(event) {
+      this.eventToUpdateStatus = event;
+      this.selectedStatus = event.status;
+      this.showStatusUpdateModal = true;
+    },
+    async saveStatusUpdate() {
+      if (!this.eventToUpdateStatus || !this.selectedStatus) {
+        this.error = 'Please select a status.';
+        useToast().error(this.error);
+        return;
+      }
+
+      const eventId = this.eventToUpdateStatus.event_id;
+      const status = this.selectedStatus;
+
       const storedAuth = localStorage.getItem('token');
       try {
-        await axios.put(`/api/events/${eventId}/status`, { status }, {
+        const response = await axios.put(`/api/events/${eventId}/status`, { status }, {
           headers: { Authorization: `Bearer ${storedAuth}` },
         });
+        console.log('Backend response:', response.data);
         await this.fetchEvents();
         useToast().success('Event status updated successfully.');
+        this.showStatusUpdateModal = false;
       } catch (error) {
         console.error('Error updating event status:', error);
         this.error = 'Failed to update event status.';
@@ -377,5 +416,19 @@ export default {
 <style scoped>
 .word-color {
   color: #0097a7;
+}
+
+/* Add the loading overlay styles */
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.8);
+  z-index: 9999;
 }
 </style>

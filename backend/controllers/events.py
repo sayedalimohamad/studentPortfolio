@@ -82,29 +82,37 @@ def register_routes(bp: Blueprint):
 
         return jsonify(event.to_dict()), 200
 
-
     @bp.route("/<int:event_id>/status", methods=["PUT"])
     @jwt_required()
     def update_recommendation_status(event_id):
         current_user = get_jwt_identity()
         user = User.query.get(current_user)
 
+        # Only admins and supervisors can update the status
         if user.role not in ["admin", "supervisor"]:
             return jsonify({"error": "Unauthorized"}), 403
 
+        # Find the recommendation associated with the event
         recommendation = Recommendation.query.filter_by(event_id=event_id).first()
         if not recommendation:
             return jsonify({"error": "Recommendation not found"}), 404
 
+        # Get the new status from the request body
         data = request.get_json()
         new_status = data.get("status")
         if new_status not in ["pending", "accepted", "rejected"]:
             return jsonify({"error": "Invalid status"}), 400
 
+        # Update the recommendation status
         recommendation.status = new_status
         db.session.commit()
 
-        return jsonify({"message": "Recommendation status updated"}), 200
+        # Return the updated event with the new status
+        event = Event.query.get(event_id)
+        event_dict = event.to_dict()
+        event_dict["status"] = recommendation.status
+
+        return jsonify(event_dict), 200
 
     @bp.route("/<int:event_id>", methods=["DELETE"])
     @jwt_required()
