@@ -118,7 +118,7 @@
           <v-list-item-content> About</v-list-item-content>
         </v-list-item>
 
-        
+        <v-divider></v-divider>
 
         <!-- Admin Links -->
         <v-list-item v-if="userRole === 'admin' || userRole === 'supervisor'" to="/students">
@@ -151,6 +151,8 @@
           <v-list-item-icon><v-icon>mdi-account-plus</v-icon></v-list-item-icon>
           <v-list-item-content> Register</v-list-item-content>
         </v-list-item>
+
+        <v-divider></v-divider>
 
         <!-- Inbox Link -->
         <v-list-item v-if="isAuthenticated && userEmail" :to="`/inbox/${userEmail}`">
