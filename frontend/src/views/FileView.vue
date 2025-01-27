@@ -68,8 +68,20 @@
 
         <!-- All Files Section -->
         <h2 class="text-2xl font-bold mb-6 word-color mt-8">All Files ({{ filteredAllFiles.length }})</h2>
-        <v-text-field v-model="search" label="Search by file name or type" prepend-inner-icon="mdi-magnify" class="mb-6"
+        <v-text-field v-model="search" label="Search by file name or type" prepend-inner-icon="mdi-magnify" class="mb-4"
             outlined dense></v-text-field>
+
+        <!-- File Type Navigation -->
+        <v-row class="mb-6">
+            <v-col cols="12">
+                <v-chip-group v-model="selectedFileType" mandatory active-class="primary--text">
+                    <v-chip @click="filterByFileType('')">All</v-chip>
+                    <v-chip v-for="type in fileTypes" :key="type" @click="filterByFileType(type)">
+                        {{ type.charAt(0).toUpperCase() + type.slice(1) }}
+                    </v-chip>
+                </v-chip-group>
+            </v-col>
+        </v-row>
 
         <v-row v-if="filteredAllFiles.length > 0" dense>
             <v-col v-for="file in filteredAllFiles" :key="file.file_id" cols="12" md="6" lg="4">
@@ -195,6 +207,7 @@ export default {
             myFiles: [], // Files uploaded by the current user
             allFiles: [], // All files (filtered by privacy)
             search: '',
+            selectedFileType: '', // Selected file type for filtering
             newFile: {
                 file_name: '',
                 file_path: '',
@@ -219,12 +232,13 @@ export default {
         };
     },
     computed: {
-        // Filter files for the "All Files" section based on search
+        // Filter files for the "All Files" section based on search and file type
         filteredAllFiles() {
             return this.allFiles.filter(file => {
                 const fileNameMatch = file.file_name.toLowerCase().includes(this.search.toLowerCase());
                 const fileTypeMatch = file.file_type.toLowerCase().includes(this.search.toLowerCase());
-                return fileNameMatch || fileTypeMatch;
+                const typeMatch = this.selectedFileType ? file.file_type === this.selectedFileType : true;
+                return (fileNameMatch || fileTypeMatch) && typeMatch;
             });
         },
     },
@@ -307,6 +321,9 @@ export default {
                 useToast().error('Failed to delete file. Please try again.');
             }
         },
+        filterByFileType(type) {
+            this.selectedFileType = type;
+        },
     },
 };
 </script>
@@ -347,4 +364,5 @@ export default {
 .v-icon {
     color: #0097A7;
 }
+
 </style>

@@ -166,7 +166,7 @@
           <v-list-item-content> Events</v-list-item-content>
         </v-list-item>
 
-         <!-- Files Link  -->
+        <!-- Files Link  -->
         <v-list-item v-if="isAuthenticated" to="/files">
           <v-list-item-icon><v-icon>mdi-file</v-icon></v-list-item-icon>
           <v-list-item-content> Files</v-list-item-content>
@@ -232,7 +232,9 @@ export default {
   methods: {
     toggleTheme() {
       const currentTheme = this.$vuetify.theme.global.name;
-      this.$vuetify.theme.global.name = currentTheme === 'light' ? 'dark' : 'light';
+      const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+      this.$vuetify.theme.global.name = newTheme;
+      localStorage.setItem('theme', newTheme);
     },
     logout() {
       this.isAuthenticated = false;
@@ -246,6 +248,13 @@ export default {
     },
   },
   mounted() {
+    const storedTheme = localStorage.getItem('theme');
+    if (storedTheme) {
+      this.$vuetify.theme.global.name = storedTheme; // Apply the saved theme
+    } else {
+      // Set a default theme if none is stored
+      this.$vuetify.theme.global.name = 'light';
+    }
     const storedToken = localStorage.getItem('token');
     const storedRole = localStorage.getItem('userRole');
     const storedUserId = localStorage.getItem('userId');
@@ -268,19 +277,22 @@ export default {
 
 /* Custom Styles for Logout Item */
 .logout-item {
-  cursor: pointer; /* Change cursor to pointer on hover */
+  cursor: pointer;
+  /* Change cursor to pointer on hover */
 }
 
 .logout-item:hover {
-  background-color: #ffebee; /* Light red background on hover */
+  background-color: #ffebee;
+  /* Light red background on hover */
 }
 
 .logout-item .v-list-item__content {
-  color: #ff5252; /* Red text color */
+  color: #ff5252;
+  /* Red text color */
 }
 
 .logout-item .v-icon {
-  color: #ff5252; /* Red icon color */
+  color: #ff5252;
+  /* Red icon color */
 }
-
 </style>
