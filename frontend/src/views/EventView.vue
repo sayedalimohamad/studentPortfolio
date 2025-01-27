@@ -1,9 +1,36 @@
 <template>
   <v-container class="py-12">
     <v-row class="mb-8">
-      <v-col cols="12" class="text-center">
-        <h1 class="text-3xl font-bold word-color">Events</h1>
-        <p class="text-lg text-gray-700 mt-2">Manage and view events here.</p>
+      <v-col cols="12" class="text-left">
+        <h1 class="text-3xl font-bold word-color">Events ({{ filteredEvents.length }})</h1>
+        <p class="text-lg text-gray-700 mt-2">
+          <span v-if="userRole === 'admin' || userRole === 'supervisor'">Manage and view events here.</span>
+          <span v-else>View upcoming events here.</span>
+        </p>
+      </v-col>
+    </v-row>
+
+    <!-- Search Bar and Status Filter (Only for Admins/Supervisors) -->
+    <v-row class="mb-6">
+      <v-col cols="12" md="6">
+        <v-text-field
+          v-model="searchQuery"
+          label="Search by title, description, location, or status"
+          prepend-inner-icon="mdi-magnify"
+          outlined
+          dense
+        ></v-text-field>
+      </v-col>
+      <v-col cols="12" md="6" v-if="userRole === 'admin' || userRole === 'supervisor'">
+        <v-select
+          v-model="statusFilter"
+          :items="statusOptions"
+          label="Filter by Status"
+          prepend-inner-icon="mdi-filter"
+          outlined
+          dense
+          clearable
+        ></v-select>
       </v-col>
     </v-row>
 
@@ -18,7 +45,7 @@
     </v-row>
 
     <!-- Events Table -->
-    <v-card v-if="events.length > 0" class="mx-auto" max-width="1200">
+    <v-card v-if="filteredEvents.length > 0" class="mx-auto" max-width="1200">
       <v-card-text class="pa-6">
         <v-table>
           <thead>
@@ -27,11 +54,12 @@
               <th class="text-left pa-4">Description</th>
               <th class="text-left pa-4">Date</th>
               <th class="text-left pa-4">Location</th>
+              <th class="text-left pa-4" v-if="userRole === 'admin' || userRole === 'supervisor'">Status</th>
               <th class="text-left pa-4" v-if="userRole === 'admin' || userRole === 'supervisor'">Actions</th>
             </tr>
           </thead>
           <tbody>
-            <tr v-for="event in events" :key="event.event_id">
+            <tr v-for="event in filteredEvents" :key="event.event_id">
               <td class="font-bold word-color pa-4">{{ event.title }}</td>
               <td class="text-gray-700 pa-4">{{ event.description }}</td>
               <td class="text-gray-700 pa-4">
@@ -42,13 +70,36 @@
                 <v-icon small>mdi-map-marker</v-icon>
                 {{ event.location }}
               </td>
+              <td class="text-gray-700 pa-4" v-if="userRole === 'admin' || userRole === 'supervisor'">
+                <v-chip :color="getStatusColor(event.status)" small>
+                  {{ event.status }}
+                </v-chip>
+              </td>
               <td class="pa-4">
                 <v-btn v-if="userRole === 'admin' || userRole === 'supervisor' || event.user_id === userId" icon @click="editEvent(event)" class="mb-2">
                   <v-icon color="primary">mdi-pencil</v-icon>
                 </v-btn>
-                <v-btn v-if="userRole === 'admin' || userRole === 'supervisor' || event.user_id === userId" icon @click="deleteEvent(event.event_id)">
+                <v-btn v-if="userRole === 'admin' || userRole === 'supervisor' || event.user_id === userId" icon @click="showDeleteConfirmation(event.event_id)" class="mb-2">
                   <v-icon color="red">mdi-delete</v-icon>
                 </v-btn>
+                <v-menu v-if="userRole === 'admin' || userRole === 'supervisor'">
+                  <template v-slot:activator="{ on }">
+                    <v-btn icon v-on="on">
+                      <v-icon color="warning">mdi-list-status</v-icon>
+                    </v-btn>
+                  </template>
+                  <v-list>
+                    <v-list-item @click="updateEventStatus(event.event_id, 'pending')">
+                      <v-list-item-title>Set as Pending</v-list-item-title>
+                    </v-list-item>
+                    <v-list-item @click="updateEventStatus(event.event_id, 'accepted')">
+                      <v-list-item-title>Set as Accepted</v-list-item-title>
+                    </v-list-item>
+                    <v-list-item @click="updateEventStatus(event.event_id, 'rejected')">
+                      <v-list-item-title>Set as Rejected</v-list-item-title>
+                    </v-list-item>
+                  </v-list>
+                </v-menu>
               </td>
             </tr>
           </tbody>
@@ -59,6 +110,7 @@
     <!-- Loading and Error Messages -->
     <v-alert v-if="loading" type="info" class="mt-8">Loading events...</v-alert>
     <v-alert v-if="error" type="error" class="mt-8">{{ error }}</v-alert>
+    <v-alert v-else-if="filteredEvents.length === 0" type="info" class="mt-8">No events found.</v-alert>
 
     <!-- Create Event Modal -->
     <v-dialog v-model="showCreateEventModal" max-width="600">
@@ -117,6 +169,27 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+
+    <!-- Delete Confirmation Modal -->
+    <v-dialog v-model="showDeleteConfirmationModal" max-width="400">
+      <v-card>
+        <v-card-title class="headline pa-6">Confirm Deletion</v-card-title>
+        <v-card-text class="pa-6">
+          Are you sure you want to delete this event?
+        </v-card-text>
+        <v-card-actions class="pa-6">
+          <v-spacer></v-spacer>
+          <v-btn color="blue darken-1" text @click="showDeleteConfirmationModal = false">
+            <v-icon left>mdi-cancel</v-icon>
+            Cancel
+          </v-btn>
+          <v-btn color="red darken-1" text @click="confirmDeleteEvent">
+            <v-icon left>mdi-delete</v-icon>
+            Delete
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </v-container>
 </template>
 
@@ -129,12 +202,17 @@ export default {
   data() {
     return {
       events: [],
+      searchQuery: '',
+      statusFilter: null, // For filtering events by status
+      statusOptions: ['pending', 'accepted', 'rejected'], // Dropdown options for status filter
       loading: true,
       error: null,
       userRole: localStorage.getItem('userRole'),
       userId: localStorage.getItem('userId'),
       showCreateEventModal: false,
       showEditEventModal: false,
+      showDeleteConfirmationModal: false,
+      eventToDelete: null,
       createEventFormValid: false,
       editEventFormValid: false,
       newEvent: {
@@ -169,6 +247,57 @@ export default {
         useToast().error(this.error);
       } finally {
         this.loading = false;
+      }
+    },
+    getStatusColor(status) {
+      switch (status) {
+        case 'pending':
+          return 'orange';
+        case 'accepted':
+          return 'green';
+        case 'rejected':
+          return 'red';
+        default:
+          return 'gray';
+      }
+    },
+    async updateEventStatus(eventId, status) {
+      const storedAuth = localStorage.getItem('token');
+      try {
+        await axios.put(`/api/events/${eventId}/status`, { status }, {
+          headers: { Authorization: `Bearer ${storedAuth}` },
+        });
+        await this.fetchEvents();
+        useToast().success('Event status updated successfully.');
+      } catch (error) {
+        console.error('Error updating event status:', error);
+        this.error = 'Failed to update event status.';
+        useToast().error(this.error);
+      }
+    },
+    showDeleteConfirmation(eventId) {
+      this.eventToDelete = eventId;
+      this.showDeleteConfirmationModal = true;
+    },
+    async confirmDeleteEvent() {
+      if (this.eventToDelete) {
+        await this.deleteEvent(this.eventToDelete);
+        this.showDeleteConfirmationModal = false;
+        this.eventToDelete = null;
+      }
+    },
+    async deleteEvent(eventId) {
+      const storedAuth = localStorage.getItem('token');
+      try {
+        await axios.delete(`/api/events/${eventId}`, {
+          headers: { Authorization: `Bearer ${storedAuth}` },
+        });
+        this.events = this.events.filter((event) => event.event_id !== eventId);
+        useToast().success('Event deleted successfully.');
+      } catch (error) {
+        console.error('Error deleting event:', error);
+        this.error = 'Failed to delete event.';
+        useToast().error(this.error);
       }
     },
     async createEvent() {
@@ -217,19 +346,29 @@ export default {
         useToast().error(this.error);
       }
     },
-    async deleteEvent(eventId) {
-      const storedAuth = localStorage.getItem('token');
-      try {
-        await axios.delete(`/api/events/${eventId}`, {
-          headers: { Authorization: `Bearer ${storedAuth}` },
-        });
-        this.events = this.events.filter((event) => event.event_id !== eventId);
-        useToast().success('Event deleted successfully.');
-      } catch (error) {
-        console.error('Error deleting event:', error);
-        this.error = 'Failed to delete event.';
-        useToast().error(this.error);
+  },
+  computed: {
+    filteredEvents() {
+      let events = this.events;
+
+      // Filter by status (only for admins/supervisors)
+      if (this.userRole === 'admin' || this.userRole === 'supervisor') {
+        if (this.statusFilter) {
+          events = events.filter(event => event.status === this.statusFilter);
+        }
+      } else {
+        // Students can only see accepted events
+        events = events.filter(event => event.status === 'accepted');
       }
+
+      // Search by title, description, location, or status
+      return events.filter(event => {
+        const titleMatch = event.title.toLowerCase().includes(this.searchQuery.toLowerCase());
+        const descriptionMatch = event.description.toLowerCase().includes(this.searchQuery.toLowerCase());
+        const locationMatch = event.location.toLowerCase().includes(this.searchQuery.toLowerCase());
+        const statusMatch = event.status.toLowerCase().includes(this.searchQuery.toLowerCase());
+        return titleMatch || descriptionMatch || locationMatch || statusMatch;
+      });
     },
   },
 };

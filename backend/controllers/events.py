@@ -46,7 +46,15 @@ def register_routes(bp: Blueprint):
             # Show all events for admins/supervisors
             events = Event.query.all()
 
-        return jsonify([event.to_dict() for event in events])
+        # Include recommendation status in the response
+        events_with_status = []
+        for event in events:
+            event_dict = event.to_dict()
+            recommendation = Recommendation.query.filter_by(event_id=event.event_id).first()
+            event_dict["status"] = recommendation.status if recommendation else "pending"
+            events_with_status.append(event_dict)
+
+        return jsonify(events_with_status)
     
     @bp.route("/<int:event_id>", methods=["PUT"])
     @jwt_required()
