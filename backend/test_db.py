@@ -1,4 +1,4 @@
-from datetime import date, timedelta
+from datetime import datetime, timedelta
 import random
 from faker import Faker
 from app import create_app
@@ -10,6 +10,10 @@ def init_db():
     fake = Faker()
 
     with app.app_context():
+        # Drop all tables before creating new ones
+        # db.drop_all()  # This will drop all tables in the database
+        # db.create_all()  # This will recreate all tables based on the models
+
         # Add privacy levels if they don't exist
         if not PrivacyLevel.query.first():
             privacy_levels = [
@@ -48,18 +52,39 @@ def init_db():
 
         db.session.commit()
 
-        # Create users
+        # Create users with random created_at times
         users = []
         roles = ["student", "supervisor", "admin"]
         for _ in range(12):  # 12 users
             role = random.choice(roles)
+
+            # Randomize user creation date between 1 and 2 years ago
+            random_creation_date = fake.date_between_dates(
+                date_start=datetime.now() - timedelta(days=730), date_end=datetime.now()
+            )
+            random_creation_date = datetime.combine(random_creation_date, datetime.min.time()) + timedelta(
+                seconds=random.randint(0, 86400)  # Random time within the day
+            )
+
+            # Set dob (Date of Birth) based on the role:
+            if role == "student":
+                # Students should be between 18 and 30 years old
+                dob = fake.date_of_birth(minimum_age=18, maximum_age=30)
+            elif role == "supervisor":
+                # Supervisors should be between 30 and 50 years old
+                dob = fake.date_of_birth(minimum_age=30, maximum_age=50)
+            else:
+                # Admins should be between 25 and 60 years old
+                dob = fake.date_of_birth(minimum_age=25, maximum_age=60)
+
             user = User(
                 username=fake.user_name(),
                 email=fake.email(),
                 role=role,
                 full_name=fake.name(),
-                dob=fake.date_of_birth(minimum_age=18, maximum_age=65),
+                dob=dob,  # Logical age based on role
                 status=random.choice(["active", "idle", "offline"]),
+                created_at=random_creation_date,  # Random creation date for user
             )
             user.set_password(f"{role}pass")
             users.append(user)
@@ -100,16 +125,54 @@ def init_db():
 
         db.session.commit()
 
-        # Create files
+        # Create files with more logical details (uploaded_at after user creation)
         for user in users:
             for _ in range(random.randint(1, 5)):
+                # Select file type and corresponding extension
+                file_type = random.choice(["document", "image", "video"])
+                if file_type == "image":
+                    extension = "jpg"
+                    directory = "images"
+                elif file_type == "video":
+                    extension = "mp4"
+                    directory = "videos"
+                else:
+                    extension = "pdf"
+                    directory = "documents"
+                
+                # Generate file name and path
+                file_name = f"{fake.word()}.{extension}"
+                file_path = f"/path/to/{directory}/{file_name}"
+                
+                # Generate a random uploaded_at date, ensuring it's after the user's creation date
+                user_creation_date = user.created_at  # Now, each user has a random 'created_at' date
+                min_date = user_creation_date  # Ensure the file's upload date is after user creation
+
+                # Generate random year between 1 and 3 years ago (for variety)
+                years_back = random.randint(1, 3)
+                random_year = datetime.now() - timedelta(days=365 * years_back)
+
+                # Generate random day and time for file upload after the user creation date
+                uploaded_at = fake.date_between_dates(
+                    date_start=random_year, date_end=datetime.now()
+                )
+                uploaded_at = datetime.combine(uploaded_at, datetime.min.time()) + timedelta(
+                    seconds=random.randint(0, 86400)  # Random time within the day
+                )
+                
+                # Ensure the uploaded_at is after the user's creation date
+                if uploaded_at < min_date:
+                    uploaded_at = min_date + timedelta(days=random.randint(1, 30))  # Add up to 30 days
+
+                # Create file with type, path, and random uploaded_at date
                 file = File(
                     user_id=user.user_id,
-                    file_name=fake.file_name(extension=random.choice(["pdf", "jpg", "mp4"])),
-                    file_path=f"/path/to/{fake.file_path()}",
-                    file_type=random.choice(["document", "image", "video"]),
+                    file_name=file_name,
+                    file_path=file_path,
+                    file_type=file_type,
                     file_type_id=random.randint(1, 3),
                     visibility=random.choice(["public", "private", "supervisors"]),
+                    uploaded_at=uploaded_at,
                 )
                 db.session.add(file)
 
