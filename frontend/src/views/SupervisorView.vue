@@ -14,10 +14,12 @@
       <v-col v-for="supervisor in filteredSupervisors" :key="supervisor.supervisor_id" cols="12" md="6" lg="4">
         <v-card class="mb-4 pa-4">
           <v-card-title class="d-flex align-center">
-            <v-avatar class="mr-3">
-              <v-icon color="primary">mdi-account</v-icon>
+            <v-avatar class="mr-3" size="60">
+              <v-icon color="primary" size="40">mdi-account</v-icon>
             </v-avatar>
-            <span class="text-lg font-bold word-color">{{ supervisor.user.full_name }}</span>
+            <span class="text-lg font-bold word-color">{{ supervisor.user.full_name }}
+              <h6 >{{ calculateAge(supervisor.user.dob) }} year-old</h6>
+            </span>
           </v-card-title>
           <v-card-subtitle class="text-gray-600 d-flex align-center mb-2">
             <v-icon small class="mr-1">mdi-account-circle</v-icon>
@@ -81,6 +83,21 @@ export default {
       supervisors: [],
       search: '',
     };
+  },
+  methods: {
+    calculateAge(dob) {
+      const birthDate = new Date(dob);
+      const today = new Date();
+      let age = today.getFullYear() - birthDate.getFullYear();
+      const month = today.getMonth();
+      const birthMonth = birthDate.getMonth();
+
+      if (month < birthMonth || (month === birthMonth && today.getDate() < birthDate.getDate())) {
+        age--;
+      }
+
+      return age;
+    },
   },
   computed: {
     filteredSupervisors() {

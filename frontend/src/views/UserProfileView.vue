@@ -38,7 +38,10 @@
               </v-list-item-icon>
               <v-list-item-content>
                 <v-list-item-title class="font-bold">Date of Birth</v-list-item-title>
-                <v-list-item-subtitle class="text-gray-700">{{ new Date(user.dob).toDateString() }}</v-list-item-subtitle>
+                <v-list-item-subtitle class="text-gray-700 ">{{ new Date(user.dob).toDateString() }}</v-list-item-subtitle>
+              </v-list-item-content>
+              <v-list-item-content>
+                <v-list-item-subtitle class="text-gray-700 ">{{ calculateAge(user.dob)  }} year-old</v-list-item-subtitle>
               </v-list-item-content>
             </v-list-item>
           </v-col>
@@ -380,6 +383,20 @@ export default {
     await this.fetchUserData();
   },
   methods: {
+    calculateAge(dob) {
+      const birthDate = new Date(dob);
+      const today = new Date();
+      let age = today.getFullYear() - birthDate.getFullYear();
+      const month = today.getMonth();
+      const birthMonth = birthDate.getMonth();
+
+      if (month < birthMonth || (month === birthMonth && today.getDate() < birthDate.getDate())) {
+        age--;
+      }
+
+      return age;
+    },
+  
     async fetchUserData() {
       const { id } = this.$route.params;
       const storedAuth = localStorage.getItem('token');
