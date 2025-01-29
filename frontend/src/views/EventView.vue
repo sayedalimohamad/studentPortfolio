@@ -12,7 +12,7 @@
 
     <!-- Search Bar and Status Filter (Only for Admins/Supervisors) -->
     <v-row class="mb-6">
-      <v-col cols="12" md="6">
+      <v-col cols="12" :md="userRole === 'admin' || userRole === 'supervisor' ? 6 : 12">
         <v-text-field
           v-model="searchQuery"
           label="Search by title, description, location, or status"
