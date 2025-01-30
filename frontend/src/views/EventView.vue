@@ -13,29 +13,17 @@
     <!-- Search Bar and Status Filter (Only for Admins/Supervisors) -->
     <v-row class="mb-6">
       <v-col cols="12" :md="userRole === 'admin' || userRole === 'supervisor' ? 6 : 12">
-        <v-text-field
-          v-model="searchQuery"
-          label="Search by title, description, location, or status"
-          prepend-inner-icon="mdi-magnify"
-          outlined
-          dense
-        ></v-text-field>
+        <v-text-field v-model="searchQuery" label="Search by title, description, location, or status"
+          prepend-inner-icon="mdi-magnify" outlined dense></v-text-field>
       </v-col>
       <v-col cols="12" md="6" v-if="userRole === 'admin' || userRole === 'supervisor'">
-        <v-select
-          v-model="statusFilter"
-          :items="statusOptions"
-          label="Filter by Status"
-          prepend-inner-icon="mdi-filter"
-          outlined
-          dense
-          clearable
-        ></v-select>
+        <v-select v-model="statusFilter" :items="statusOptions" label="Filter by Status" prepend-inner-icon="mdi-filter"
+          outlined dense clearable></v-select>
       </v-col>
     </v-row>
 
-    <!-- Create Event Button (Only for Admins/Supervisors) -->
-    <v-row v-if="userRole === 'admin' || userRole === 'supervisor'" class="mb-8">
+    <!-- Create Event Button  -->
+    <v-row  class="mb-8">
       <v-col cols="12" class="text-right">
         <v-btn color="primary" dark @click="showCreateEventModal = true">
           <v-icon left>mdi-plus</v-icon>
@@ -76,13 +64,16 @@
                 </v-chip>
               </td>
               <td class="pa-4">
-                <v-btn v-if="userRole === 'admin' || userRole === 'supervisor'" icon @click="openStatusUpdateModal(event)" class="mb-2" title="Status Update">
+                <v-btn v-if="userRole === 'admin' || userRole === 'supervisor'" icon
+                  @click="openStatusUpdateModal(event)" class="mb-2" title="Status Update">
                   <v-icon color="warning">mdi-list-status</v-icon>
                 </v-btn>
-                <v-btn v-if="userRole === 'admin' || userRole === 'supervisor' || event.user_id === userId" icon @click="editEvent(event)" class="mb-2" title="Edit Event">
+                <v-btn v-if="userRole === 'admin' || userRole === 'supervisor' || event.user_id === userId" icon
+                  @click="editEvent(event)" class="mb-2" title="Edit Event">
                   <v-icon color="primary">mdi-pencil</v-icon>
                 </v-btn>
-                <v-btn v-if="userRole === 'admin' || userRole === 'supervisor' || event.user_id === userId" icon @click="showDeleteConfirmation(event.event_id)" title="Delete Event">
+                <v-btn v-if="userRole === 'admin' || userRole === 'supervisor' || event.user_id === userId" icon
+                  @click="showDeleteConfirmation(event.event_id)" title="Delete Event">
                   <v-icon color="red">mdi-delete</v-icon>
                 </v-btn>
               </td>
@@ -112,9 +103,12 @@
         <v-card-text class="pa-6">
           <v-form ref="createEventForm" v-model="createEventFormValid">
             <v-text-field v-model="newEvent.title" label="Title" required outlined dense class="mb-4"></v-text-field>
-            <v-text-field v-model="newEvent.description" label="Description" required outlined dense class="mb-4"></v-text-field>
-            <v-text-field v-model="newEvent.date" label="Date" type="date" required outlined dense class="mb-4"></v-text-field>
-            <v-text-field v-model="newEvent.location" label="Location" required outlined dense class="mb-4"></v-text-field>
+            <v-text-field v-model="newEvent.description" label="Description" required outlined dense
+              class="mb-4"></v-text-field>
+            <v-text-field v-model="newEvent.date" label="Date" type="date" required outlined dense
+              class="mb-4"></v-text-field>
+            <v-text-field v-model="newEvent.location" label="Location" required outlined dense
+              class="mb-4"></v-text-field>
           </v-form>
         </v-card-text>
         <v-card-actions class="pa-6">
@@ -141,9 +135,12 @@
         <v-card-text class="pa-6">
           <v-form ref="editEventForm" v-model="editEventFormValid">
             <v-text-field v-model="editedEvent.title" label="Title" required outlined dense class="mb-4"></v-text-field>
-            <v-text-field v-model="editedEvent.description" label="Description" required outlined dense class="mb-4"></v-text-field>
-            <v-text-field v-model="editedEvent.date" label="Date" type="date" required outlined dense class="mb-4"></v-text-field>
-            <v-text-field v-model="editedEvent.location" label="Location" required outlined dense class="mb-4"></v-text-field>
+            <v-text-field v-model="editedEvent.description" label="Description" required outlined dense
+              class="mb-4"></v-text-field>
+            <v-text-field v-model="editedEvent.date" label="Date" type="date" required outlined dense
+              class="mb-4"></v-text-field>
+            <v-text-field v-model="editedEvent.location" label="Location" required outlined dense
+              class="mb-4"></v-text-field>
           </v-form>
         </v-card-text>
         <v-card-actions class="pa-6">
@@ -189,13 +186,7 @@
           Update Event Status
         </v-card-title>
         <v-card-text class="pa-6">
-          <v-select
-            v-model="selectedStatus"
-            :items="statusOptions"
-            label="Select Status"
-            outlined
-            dense
-          ></v-select>
+          <v-select v-model="selectedStatus" :items="statusOptions" label="Select Status" outlined dense></v-select>
         </v-card-text>
         <v-card-actions class="pa-6">
           <v-spacer></v-spacer>
@@ -388,7 +379,7 @@ export default {
   },
   computed: {
     filteredEvents() {
-      let events = this.events;
+      let events = this.events || [];
 
       // Filter by status (only for admins/supervisors)
       if (this.userRole === 'admin' || this.userRole === 'supervisor') {
@@ -400,13 +391,17 @@ export default {
         events = events.filter(event => event.status === 'accepted');
       }
 
-      // Search by title, description, location, or status
+      // Ensure searchQuery is not null or undefined
+      const query = this.searchQuery ? this.searchQuery.toLowerCase() : "";
+
       return events.filter(event => {
-        const titleMatch = event.title.toLowerCase().includes(this.searchQuery.toLowerCase());
-        const descriptionMatch = event.description.toLowerCase().includes(this.searchQuery.toLowerCase());
-        const locationMatch = event.location.toLowerCase().includes(this.searchQuery.toLowerCase());
-        const statusMatch = event.status.toLowerCase().includes(this.searchQuery.toLowerCase());
-        return titleMatch || descriptionMatch || locationMatch || statusMatch;
+        if (!event) return false; // Ensure event is not undefined/null
+        return (
+          (event.title && event.title.toLowerCase().includes(query)) ||
+          (event.description && event.description.toLowerCase().includes(query)) ||
+          (event.location && event.location.toLowerCase().includes(query)) ||
+          (event.status && event.status.toLowerCase().includes(query))
+        );
       });
     },
   },

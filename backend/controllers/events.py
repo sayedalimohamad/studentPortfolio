@@ -2,27 +2,37 @@ from flask import Blueprint, request, jsonify
 from extensions import db
 from models import Event, Recommendation, User
 from flask_jwt_extended import jwt_required, get_jwt_identity
-
+from datetime import datetime
 
 def register_routes(bp: Blueprint):
     @bp.route("/", methods=["POST"])
     @jwt_required()
     def create_event():
         current_user = get_jwt_identity()
+        user = User.query.get(current_user)
         data = request.get_json()
+        
+        try:
+            event_date = datetime.strptime(data["date"], "%Y-%m-%d").date()
+        except ValueError:
+            return jsonify({"error": "Invalid date format. Use YYYY-MM-DD"}), 400
+
+        # Set event status based on user role
+        event_status = "accepted" if user.role in ["admin", "supervisor"] else "pending"
+
         event = Event(
             user_id=current_user,
             title=data["title"],
             description=data["description"],
-            date=data["date"],
+            date=event_date,
             location=data["location"],
         )
         db.session.add(event)
         db.session.commit()
 
-        # Add a recommendation with 'pending' status
+        # Add a recommendation with the determined status
         recommendation = Recommendation(
-            user_id=current_user, event_id=event.event_id, status="pending"
+            user_id=current_user, event_id=event.event_id, status=event_status
         )
         db.session.add(recommendation)
         db.session.commit()
@@ -36,17 +46,14 @@ def register_routes(bp: Blueprint):
         user = User.query.get(current_user)
 
         if user.role == "student":
-            # Show only 'accepted' events for students
             events = (
                 Event.query.join(Recommendation)
                 .filter(Recommendation.status == "accepted")
                 .all()
             )
         else:
-            # Show all events for admins/supervisors
             events = Event.query.all()
 
-        # Include recommendation status in the response
         events_with_status = []
         for event in events:
             event_dict = event.to_dict()
@@ -62,22 +69,24 @@ def register_routes(bp: Blueprint):
         current_user = get_jwt_identity()
         user = User.query.get(current_user)
 
-        # Retrieve the event to ensure it exists
         event = Event.query.get(event_id)
         if not event:
             return jsonify({"error": "Event not found"}), 404
 
-        # Only allow the creator of the event or an admin/supervisor to update
         if user.role not in ["admin", "supervisor"] and event.user_id != current_user:
             return jsonify({"error": "Unauthorized"}), 403
 
-        # Update event details
         data = request.get_json()
         event.title = data.get("title", event.title)
         event.description = data.get("description", event.description)
-        event.date = data.get("date", event.date)
+        
+        if "date" in data:
+            try:
+                event.date = datetime.strptime(data["date"], "%Y-%m-%d").date()
+            except ValueError:
+                return jsonify({"error": "Invalid date format. Use YYYY-MM-DD"}), 400
+        
         event.location = data.get("location", event.location)
-
         db.session.commit()
 
         return jsonify(event.to_dict()), 200
@@ -88,26 +97,21 @@ def register_routes(bp: Blueprint):
         current_user = get_jwt_identity()
         user = User.query.get(current_user)
 
-        # Only admins and supervisors can update the status
         if user.role not in ["admin", "supervisor"]:
             return jsonify({"error": "Unauthorized"}), 403
 
-        # Find the recommendation associated with the event
         recommendation = Recommendation.query.filter_by(event_id=event_id).first()
         if not recommendation:
             return jsonify({"error": "Recommendation not found"}), 404
 
-        # Get the new status from the request body
         data = request.get_json()
         new_status = data.get("status")
         if new_status not in ["pending", "accepted", "rejected"]:
             return jsonify({"error": "Invalid status"}), 400
 
-        # Update the recommendation status
         recommendation.status = new_status
         db.session.commit()
 
-        # Return the updated event with the new status
         event = Event.query.get(event_id)
         event_dict = event.to_dict()
         event_dict["status"] = recommendation.status
@@ -120,19 +124,14 @@ def register_routes(bp: Blueprint):
         current_user = get_jwt_identity()
         user = User.query.get(current_user)
 
-        # Retrieve the event to ensure it exists
         event = Event.query.get(event_id)
         if not event:
             return jsonify({"error": "Event not found"}), 404
 
-        # Only allow the creator of the event or an admin/supervisor to delete
         if user.role not in ["admin", "supervisor"] and event.user_id != current_user:
             return jsonify({"error": "Unauthorized"}), 403
 
-        # Delete associated recommendations first
         Recommendation.query.filter_by(event_id=event_id).delete()
-
-        # Delete the event
         db.session.delete(event)
         db.session.commit()
 
