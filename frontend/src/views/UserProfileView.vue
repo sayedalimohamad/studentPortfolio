@@ -38,10 +38,12 @@
               </v-list-item-icon>
               <v-list-item-content>
                 <v-list-item-title class="font-bold">Date of Birth</v-list-item-title>
-                <v-list-item-subtitle class="text-gray-700 ">{{ new Date(user.dob).toDateString() }}</v-list-item-subtitle>
+                <v-list-item-subtitle class="text-gray-700 ">{{ new Date(user.dob).toDateString()
+                  }}</v-list-item-subtitle>
               </v-list-item-content>
               <v-list-item-content>
-                <v-list-item-subtitle class="text-gray-700 ">{{ calculateAge(user.dob)  }} year-old</v-list-item-subtitle>
+                <v-list-item-subtitle class="text-gray-700 ">{{ calculateAge(user.dob) }}
+                  year-old</v-list-item-subtitle>
               </v-list-item-content>
             </v-list-item>
           </v-col>
@@ -142,11 +144,13 @@
               <v-list-item-content>
                 <v-list-item-title class="font-bold">Permissions</v-list-item-title>
                 <v-list-item-subtitle class="text-gray-700">
-                  <v-chip class="ma-1 ml-2" :color="adminInfo.permissions.manage_users ? 'green' : 'red'" text-color="white" small>
+                  <v-chip class="ma-1 ml-2" :color="adminInfo.permissions.manage_users ? 'green' : 'red'"
+                    text-color="white" small>
                     <v-icon left small>mdi-account-multiple</v-icon>
                     Manage Users
                   </v-chip>
-                  <v-chip class="ma-1" :color="adminInfo.permissions.manage_content ? 'green' : 'red'" text-color="white" small>
+                  <v-chip class="ma-1" :color="adminInfo.permissions.manage_content ? 'green' : 'red'"
+                    text-color="white" small>
                     <v-icon left small>mdi-file-document</v-icon>
                     Manage Content
                   </v-chip>
@@ -167,25 +171,35 @@
           </v-col>
         </v-row>
 
-        <!-- Edit Profile Button -->
-        <v-row>
-          <v-col cols="12" class="text-right">
-            <v-btn color="primary" dark @click="showEditModal = true">
+        <v-row justify="end" class="mt-4">
+          <!-- Edit Profile Button -->
+          <v-col cols="12" md="4">
+            <v-btn color="primary" dark block  @click="showEditModal = true">
               <v-icon left>mdi-pencil</v-icon>
               Edit Profile
             </v-btn>
           </v-col>
+
+          <!-- Change Password Button -->
+          <v-col cols="12" md="4">
+            <v-btn color="primary" dark block @click="showChangePasswordModal = true">
+              <v-icon left>mdi-lock-reset</v-icon>
+              Change Password
+            </v-btn>
+          </v-col>
         </v-row>
 
-        <!-- Delete Account Button -->
-        <v-row>
-          <v-col cols="12" class="text-right">
-            <v-btn color="red" dark @click="showDeleteModal = true">
+        <!-- Delete Account Button (Separate Row, Double Width) -->
+        <v-row justify="end" class="mt-2">
+          <v-col cols="12" md="8">
+            <v-btn color="red darken-2" dark block @click="showDeleteModal = true">
               <v-icon left>mdi-delete</v-icon>
               Delete Account
             </v-btn>
           </v-col>
         </v-row>
+
+
       </v-card-text>
     </v-card>
     <v-alert v-if="loading" type="info" class="mt-6">Loading...</v-alert>
@@ -204,15 +218,8 @@
             <v-text-field v-model="editedUser.full_name" label="Full Name" required outlined dense></v-text-field>
             <v-text-field v-model="editedUser.email" label="Email" required outlined dense></v-text-field>
             <v-text-field v-model="editedUser.username" label="Username" required outlined dense></v-text-field>
-            <v-text-field
-              v-model="editedUser.dob"
-              label="Date of Birth"
-              type="date"
-              required
-              outlined
-              dense
-              :rules="[(v) => !!v || 'Date of Birth is required']"
-            ></v-text-field>
+            <v-text-field v-model="editedUser.dob" label="Date of Birth" type="date" required outlined dense
+              :rules="[(v) => !!v || 'Date of Birth is required']"></v-text-field>
 
             <!-- Student-Specific Fields -->
             <v-row v-if="userRole === 'student'">
@@ -243,49 +250,23 @@
             <!-- Admin-Specific Fields -->
             <v-row v-if="userRole === 'admin'">
               <v-col cols="12">
-                <v-select
-                  v-model="editedUser.role"
-                  :items="['admin', 'student', 'supervisor']"
-                  label="Role"
-                  outlined
-                  dense
-                ></v-select>
+                <v-select v-model="editedUser.role" :items="['admin', 'student', 'supervisor']" label="Role" outlined
+                  dense></v-select>
               </v-col>
               <v-col cols="12">
-                <v-switch
-                  v-model="editedUser.permissions.manage_users"
-                  label="Manage Users"
-                  color="primary"
-                ></v-switch>
+                <v-switch v-model="editedUser.permissions.manage_users" label="Manage Users" color="primary"></v-switch>
               </v-col>
               <v-col cols="12">
-                <v-switch
-                  v-model="editedUser.permissions.manage_content"
-                  label="Manage Content"
-                  color="primary"
-                ></v-switch>
+                <v-switch v-model="editedUser.permissions.manage_content" label="Manage Content"
+                  color="primary"></v-switch>
               </v-col>
             </v-row>
 
             <!-- New Password Fields -->
-            <v-text-field
-              v-if="newPassword"
-              v-model="editedUser.password"
-              label="New Password"
-              type="password"
-              outlined
-              dense
-              :rules="[(v) => !!v || 'Password is required']"
-            />
-            <v-text-field
-              v-if="newPassword"
-              v-model="confirmPassword"
-              label="Confirm New Password"
-              type="password"
-              outlined
-              dense
-              :rules="[(v) => v === editedUser.password || 'Passwords must match']"
-            />
+            <v-text-field v-if="newPassword" v-model="editedUser.password" label="New Password" type="password" outlined
+              dense :rules="[(v) => !!v || 'Password is required']" />
+            <v-text-field v-if="newPassword" v-model="confirmPassword" label="Confirm New Password" type="password"
+              outlined dense :rules="[(v) => v === editedUser.password || 'Passwords must match']" />
           </v-form>
         </v-card-text>
         <v-card-actions>
@@ -302,6 +283,44 @@
       </v-card>
     </v-dialog>
 
+    <!-- Change Password Modal -->
+    <v-dialog v-model="showChangePasswordModal" max-width="500">
+      <v-card>
+        <v-card-title class="headline">
+          <v-icon color="primary" left>mdi-lock-reset</v-icon>
+          Change Password
+        </v-card-title>
+        <v-card-text>
+          <v-form ref="changePasswordForm" v-model="changePasswordFormValid">
+            <v-text-field v-model="currentPassword" :type="showCurrentPassword ? 'text' : 'password'"
+              label="Current Password" required outlined dense :rules="[(v) => !!v || 'Current password is required']"
+              append-inner-icon="showCurrentPassword ? 'mdi-eye-off' : 'mdi-eye'"
+              @click:append-inner="showCurrentPassword = !showCurrentPassword"></v-text-field>
+            <v-text-field v-model="newPassword" :type="showNewPassword ? 'text' : 'password'" label="New Password"
+              required outlined dense :rules="[(v) => !!v || 'New password is required']"
+              append-inner-icon="showNewPassword ? 'mdi-eye-off' : 'mdi-eye'"
+              @click:append-inner="showNewPassword = !showNewPassword"></v-text-field>
+            <v-text-field v-model="confirmNewPassword" :type="showConfirmNewPassword ? 'text' : 'password'"
+              label="Confirm New Password" required outlined dense
+              :rules="[(v) => v === newPassword || 'Passwords must match']"
+              append-inner-icon="showConfirmNewPassword ? 'mdi-eye-off' : 'mdi-eye'"
+              @click:append-inner="showConfirmNewPassword = !showConfirmNewPassword"></v-text-field>
+          </v-form>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="blue darken-1" text @click="showChangePasswordModal = false">
+            <v-icon left>mdi-cancel</v-icon>
+            Cancel
+          </v-btn>
+          <v-btn color="green darken-1" text @click="confirmChangePassword">
+            <v-icon left>mdi-check</v-icon>
+            Change Password
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
     <!-- Delete Confirmation Modal -->
     <v-dialog v-model="showDeleteModal" max-width="500">
       <v-card>
@@ -311,7 +330,10 @@
         </v-card-title>
         <v-card-text>
           <p>Please enter your password to confirm account deletion:</p>
-          <v-text-field v-model="password" :type="showPassword ? 'text' : 'password'" label="Password" required outlined dense :rules="[(v) => !!v || 'Password is required']" append-inner-icon="showPassword ? 'mdi-eye-off' : 'mdi-eye'" @click:append-inner="showPassword = !showPassword"></v-text-field>
+          <v-text-field v-model="password" :type="showPassword ? 'text' : 'password'" label="Password" required outlined
+            dense :rules="[(v) => !!v || 'Password is required']"
+            append-inner-icon="showPassword ? 'mdi-eye-off' : 'mdi-eye'"
+            @click:append-inner="showPassword = !showPassword"></v-text-field>
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
@@ -362,11 +384,19 @@ export default {
       userRole: null,
       showDeleteModal: false,
       showEditModal: false,
+      showChangePasswordModal: false, // New modal for changing password
       newPassword: false,
       confirmPassword: '',
       password: '',
       showPassword: false,
       formValid: false,
+      currentPassword: '', // For change password
+      newPassword: '', // For change password
+      confirmNewPassword: '', // For change password
+      showCurrentPassword: false, // For change password
+      showNewPassword: false, // For change password
+      showConfirmNewPassword: false, // For change password
+      changePasswordFormValid: false, // For change password form validation
     };
   },
   async created() {
@@ -396,7 +426,7 @@ export default {
 
       return age;
     },
-  
+
     async fetchUserData() {
       const { id } = this.$route.params;
       const storedAuth = localStorage.getItem('token');
@@ -407,7 +437,7 @@ export default {
           headers: { Authorization: `Bearer ${storedAuth}` },
         });
         this.user = userResponse.data;
-        this.editedUser = { ...this.user ,dob: this.user.dob ? new Date(this.user.dob).toISOString().split('T')[0] : '' };
+        this.editedUser = { ...this.user, dob: this.user.dob ? new Date(this.user.dob).toISOString().split('T')[0] : '' };
 
         // Fetch role-specific information
         if (this.userRole === 'student') {
@@ -537,6 +567,59 @@ export default {
         useToast().error(this.error);
       } finally {
         this.showDeleteModal = false;
+      }
+    },
+
+    async confirmChangePassword() {
+      const { id } = this.$route.params;
+      const storedAuth = localStorage.getItem('token');
+
+      if (!this.changePasswordFormValid) {
+        this.error = 'Please fill in all required fields.';
+        useToast().error(this.error);
+        return;
+      }
+
+      if (this.newPassword !== this.confirmNewPassword) {
+        this.error = 'New passwords must match.';
+        useToast().error(this.error);
+        return;
+      }
+
+      try {
+        // Step 1: Verify the current password
+        const verifyResponse = await axios.post('/api/users/verify-password', {
+          password: this.currentPassword,
+        }, {
+          headers: {
+            Authorization: `Bearer ${storedAuth}`,
+          },
+        });
+
+        if (!verifyResponse.data.isValid) {
+          this.error = 'Incorrect current password. Please try again.';
+          useToast().error(this.error);
+          return;
+        }
+
+        // Step 2: Update the password
+        await axios.put(`/api/users/${id}`, {
+          password: this.newPassword,
+        }, {
+          headers: {
+            Authorization: `Bearer ${storedAuth}`,
+          },
+        });
+
+        useToast().success('Password changed successfully.');
+        this.showChangePasswordModal = false;
+        this.currentPassword = '';
+        this.newPassword = '';
+        this.confirmNewPassword = '';
+      } catch (error) {
+        console.error('Error changing password:', error);
+        this.error = 'Failed to change password. Please try again.';
+        useToast().error(this.error);
       }
     },
   },
