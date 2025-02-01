@@ -21,62 +21,62 @@
         <h2 class="text-2xl font-bold mb-6 word-color">My Files ({{ myFiles.length }})</h2>
         <v-row v-if="myFiles.length > 0" dense>
             <v-col v-for="file in myFiles" :key="file.file_id" cols="12" md="6" lg="4">
-                <v-card class="mb-4 pa-4">
-                    <v-row>
-                        <v-col cols="8">
-                            <v-card-title class="d-flex align-center">
-                                <v-avatar class="mr-3">
-                                    <v-icon color="primary">mdi-file</v-icon>
-                                </v-avatar>
-                                <span class="text-lg font-bold word-color">{{ file.file_name }}</span>
-                            </v-card-title>
-                            <v-card-subtitle class="text-gray-600 d-flex align-center mb-2">
-                                <v-icon small class="mr-1">mdi-folder</v-icon>
-                                <span>File Path: <span class="word-color">{{ file.file_path }}</span></span>
-                            </v-card-subtitle>
-                            <v-card-subtitle class="text-gray-600 d-flex align-center mb-2">
-                                <v-icon small class="mr-1">mdi-file-find</v-icon>
-                                <span>File Type: <span class="word-color">{{ file.file_type }}</span></span>
-                            </v-card-subtitle>
-                            <v-card-subtitle class="text-gray-600 d-flex align-center mb-2">
-                                <v-icon small class="mr-1">mdi-eye</v-icon>
-                                <span>Visibility: <span>
-                                        <v-chip class="ma-1 ml-2"
-                                            :color="file.visibility === 'public' ? 'primary' : (file.visibility === 'supervisors' ? 'success' : 'error')"
-                                            text-color="white" small>
-                                            <strong class="mx-2">{{ file.visibility.toUpperCase() }}</strong>
-                                        </v-chip>
-                                    </span></span>
-                            </v-card-subtitle>
-                            <v-card-subtitle class="text-gray-600 d-flex align-center mb-2">
-                                <v-icon small class="mr-1">mdi-calendar</v-icon>
-                                <span>Uploaded At: <span class="word-color">{{ new
-                                    Date(file.uploaded_at).toLocaleString()
-                                        }}</span></span>
-                            </v-card-subtitle>
-                        </v-col>
-                        <v-col cols="4" class="d-flex align-center justify-center">
-                            <v-img :src="getFileImage(file.file_type)" max-width="300" max-height="300"></v-img>
-                        </v-col>
-                    </v-row>
-                    <v-card-actions>
-                        <v-btn color="primary" @click="editFile(file)">
-                            <v-icon left>mdi-pencil</v-icon>
-                            Edit
-                        </v-btn>
-                        <v-btn color="red" @click="deleteFile(file.file_id)">
-                            <v-icon left>mdi-delete</v-icon>
-                            Delete
-                        </v-btn>
-                    </v-card-actions>
-                </v-card>
+            <v-card class="mb-4 pa-4">
+                <v-row>
+                <v-col cols="12" md="8">
+                    <v-card-title class="d-flex align-center">
+                    <v-avatar class="mr-3">
+                        <v-icon color="primary">mdi-file</v-icon>
+                    </v-avatar>
+                    <span class="text-lg font-bold word-color">{{ file.file_name }}</span>
+                    </v-card-title>
+                    <v-card-subtitle class="text-gray-600 d-flex align-center mb-2">
+                    <v-icon small class="mr-1">mdi-folder</v-icon>
+                    <span>File Path: <span class="word-color">{{ file.file_path }}</span></span>
+                    </v-card-subtitle>
+                    <v-card-subtitle class="text-gray-600 d-flex align-center mb-2">
+                    <v-icon small class="mr-1">mdi-file-find</v-icon>
+                    <span>File Type: <span class="word-color">{{ file.file_type }}</span></span>
+                    </v-card-subtitle>
+                    <v-card-subtitle class="text-gray-600 d-flex align-center mb-2">
+                    <v-icon small class="mr-1">mdi-eye</v-icon>
+                    <span>Visibility: <span>
+                        <v-chip class="ma-1 ml-2"
+                            :color="file.visibility === 'public' ? 'primary' : (file.visibility === 'supervisors' ? 'success' : 'error')"
+                            text-color="white" small>
+                            <strong class="mx-2">{{ file.visibility.toUpperCase() }}</strong>
+                        </v-chip>
+                        </span></span>
+                    </v-card-subtitle>
+                    <v-card-subtitle class="text-gray-600 d-flex align-center mb-2">
+                    <v-icon small class="mr-1">mdi-calendar</v-icon>
+                    <span>Uploaded At: <span class="word-color">{{ new
+                        Date(file.uploaded_at).toLocaleString()
+                        }}</span></span>
+                    </v-card-subtitle>
+                </v-col>
+                <v-col cols="12" md="4" class="d-flex align-center justify-center">
+                    <v-img :src="getFileImage(file.file_type)" max-width="300" max-height="300"></v-img>
+                </v-col>
+                </v-row>
+                <v-card-actions>
+                <v-btn color="primary" @click="editFile(file)">
+                    <v-icon left>mdi-pencil</v-icon>
+                    Edit
+                </v-btn>
+                <v-btn color="red" @click="deleteFile(file.file_id)">
+                    <v-icon left>mdi-delete</v-icon>
+                    Delete
+                </v-btn>
+                </v-card-actions>
+            </v-card>
             </v-col>
         </v-row>
         <v-alert v-else type="info" class="mt-6">You have no files uploaded yet.</v-alert>
 
         <!-- All Files Section -->
         <h2 class="text-2xl font-bold mb-6 word-color mt-8">All Files ({{ filteredAllFiles.length }})</h2>
-        <v-text-field v-model="search" label="Search by file name or type" prepend-inner-icon="mdi-magnify" class="mb-4"
+        <v-text-field v-model="search" label="Search by file name or username or type" prepend-inner-icon="mdi-magnify" class="mb-4"
             outlined dense></v-text-field>
 
         <!-- File Type Navigation -->
@@ -93,45 +93,49 @@
 
         <v-row v-if="filteredAllFiles.length > 0" dense>
             <v-col v-for="file in filteredAllFiles" :key="file.file_id" cols="12" md="6" lg="4">
-                <v-card class="mb-4 pa-4">
-                    <v-row>
-                        <v-col cols="8">
-                            <v-card-title class="d-flex align-center">
-                                <v-avatar class="mr-3">
-                                    <v-icon color="primary">mdi-file</v-icon>
-                                </v-avatar>
-                                <span class="text-lg font-bold word-color">{{ file.file_name }}</span>
-                            </v-card-title>
-                            <v-card-subtitle class="text-gray-600 d-flex align-center mb-2">
-                                <v-icon small class="mr-1">mdi-folder</v-icon>
-                                <span>File Path: <span class="word-color">{{ file.file_path }}</span></span>
-                            </v-card-subtitle>
-                            <v-card-subtitle class="text-gray-600 d-flex align-center mb-2">
-                                <v-icon small class="mr-1">mdi-file-find</v-icon>
-                                <span>File Type: <span class="word-color">{{ file.file_type }}</span></span>
-                            </v-card-subtitle>
-                            <v-card-subtitle class="text-gray-600 d-flex align-center mb-2">
-                                <v-icon small class="mr-1">mdi-eye</v-icon>
-                                <span>Visibility: <span>
-                                        <v-chip class="ma-1 ml-2"
-                                            :color="file.visibility === 'public' ? 'primary' : (file.visibility === 'supervisors' ? 'success' : 'error')"
-                                            text-color="white" small>
-                                            <strong class="mx-2">{{ file.visibility.toUpperCase() }}</strong>
-                                        </v-chip>
-                                    </span></span>
-                            </v-card-subtitle>
-                            <v-card-subtitle class="text-gray-600 d-flex align-center mb-2">
-                                <v-icon small class="mr-1">mdi-calendar</v-icon>
-                                <span>Uploaded At: <span class="word-color">{{ new
-                                    Date(file.uploaded_at).toLocaleString()
-                                        }}</span></span>
-                            </v-card-subtitle>
-                        </v-col>
-                        <v-col cols="4" class="d-flex align-center justify-center">
-                            <v-img :src="getFileImage(file.file_type)" max-width="300" max-height="300"></v-img>
-                        </v-col>
-                    </v-row>
-                </v-card>
+            <v-card class="mb-4 pa-4">
+                <v-row>
+                <v-col cols="12" md="8">
+                    <v-card-title class="d-flex align-center">
+                    <v-avatar class="mr-3">
+                        <v-icon color="primary">mdi-file</v-icon>
+                    </v-avatar>
+                    <span class="text-lg font-bold word-color">{{ file.file_name }}</span>
+                    </v-card-title>
+                    <v-card-subtitle class="text-gray-600 d-flex align-center mb-2">
+                    <v-icon small class="mr-1">mdi-folder</v-icon>
+                    <span>File Path: <span class="word-color">{{ file.file_path }}</span></span>
+                    </v-card-subtitle>
+                    <v-card-subtitle class="text-gray-600 d-flex align-center mb-2">
+                    <v-icon small class="mr-1">mdi-file-find</v-icon>
+                    <span>File Type: <span class="word-color">{{ file.file_type }}</span></span>
+                    </v-card-subtitle>
+                    <v-card-subtitle class="text-gray-600 d-flex align-center mb-2">
+                    <v-icon small class="mr-1">mdi-eye</v-icon>
+                    <span>Visibility: <span>
+                        <v-chip class="ma-1 ml-2"
+                            :color="file.visibility === 'public' ? 'primary' : (file.visibility === 'supervisors' ? 'success' : 'error')"
+                            text-color="white" small>
+                            <strong class="mx-2">{{ file.visibility.toUpperCase() }}</strong>
+                        </v-chip>
+                        </span></span>
+                    </v-card-subtitle>
+                    <v-card-subtitle class="text-gray-600 d-flex align-center mb-2">
+                    <v-icon small class="mr-1">mdi-calendar</v-icon>
+                    <span>Uploaded At: <span class="word-color">{{ new
+                        Date(file.uploaded_at).toLocaleString()
+                        }}</span></span>
+                    </v-card-subtitle>
+                    <v-card-subtitle class="text-gray-600 d-flex align-center mb-2">
+                    <v-icon small class="mr-1">mdi-account</v-icon>
+                    <span>Username: <span class="word-color">{{ file.username }}</span></span>
+                    </v-card-subtitle>
+                </v-col>
+                <v-col cols="12" md="4" class="d-flex align-center justify-center">
+                    <v-img :src="getFileImage(file.file_type)" max-width="300" max-height="300"></v-img>
+                </v-col>
+                </v-row>
+            </v-card>
             </v-col>
         </v-row>
         <v-alert v-else type="info" class="mt-6">No files found.</v-alert>
@@ -251,10 +255,12 @@ export default {
         // Filter files for the "All Files" section based on search and file type
         filteredAllFiles() {
             return this.allFiles.filter(file => {
-                const fileNameMatch = file.file_name.toLowerCase().includes(this.search.toLowerCase());
-                const fileTypeMatch = file.file_type.toLowerCase().includes(this.search.toLowerCase());
+                const searchLower = this.search.toLowerCase();
+                const fileNameMatch = file.file_name.toLowerCase().includes(searchLower);
+                const fileTypeMatch = file.file_type.toLowerCase().includes(searchLower);
+                const usernameMatch = file.username.toLowerCase().includes(searchLower);
                 const typeMatch = this.selectedFileType ? file.file_type === this.selectedFileType : true;
-                return (fileNameMatch || fileTypeMatch) && typeMatch;
+                return (fileNameMatch || fileTypeMatch || usernameMatch) && typeMatch;
             });
         },
     },
@@ -342,9 +348,25 @@ export default {
         },
         getFileImage(fileType) {
             const images = {
-                document: ['/files/documents/document-01.svg', '/files/documents/document-02.svg', '/files/documents/document-03.svg'],
-                image: ['/files/images/image-01.svg','/files/images/image-02.svg','/files/images/image-03.svg'],
-                video: ['/files/videos/video-01.svg', '/files/videos/video-02.svg', '/files/videos/video-03.svg'],
+                document: [
+                    '/files/documents/document-01.svg',
+                    '/files/documents/document-02.svg',
+                    '/files/documents/document-03.svg',
+                ],
+                image: [
+                    '/files/images/image-01.svg',
+                    '/files/images/image-02.svg',
+                    '/files/images/image-03.svg',
+                    '/files/images/image-04.svg',
+                    '/files/images/image-05.svg',
+                    '/files/images/image-06.svg',
+                ],
+                video: [
+                    '/files/videos/video-01.svg',
+                    '/files/videos/video-02.svg',
+                    '/files/videos/video-03.svg',
+                    '/files/videos/video-04.svg',
+                ],
                 default: ['/files/unknown-file-type.svg']
             };
 

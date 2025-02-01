@@ -156,7 +156,8 @@ class File(db.Model):
             "file_type": self.file_type,
             "file_type_id": self.file_type_id,
             "visibility": self.visibility,
-            "uploaded_at": self.uploaded_at
+            "uploaded_at": self.uploaded_at,
+            "username": self.user.username if self.user else None
         }
 
 class History(db.Model):
