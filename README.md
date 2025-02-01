@@ -78,7 +78,6 @@ The platform aims to streamline the process of showcasing skills, managing acade
   "question": "Velocity from Earth",
   "response": "Sure! Here's what I found: 11.2 km/s.\n\nHere's the full information:\nThe escape velocity from Earth is approximately 11.2 km/s.\n\nHere are some recommended topics based on your question:\n1. Hubble's law states that the velocity of a galaxy is proportional to its distance from us.\n2. The moon is moving away from Earth at a rate of about 3.8 cm per year.\n3. Momentum is the product of mass and velocity, p = mv.\n4. Angular velocity is measured in radians per second."
 }
-
 ```
 
 ```
@@ -92,7 +91,6 @@ Here are some recommended topics based on your question:
   2. The moon is moving away from Earth at a rate of about 3.8 cm per year.
   3. Momentum is the product of mass and velocity, p = mv.
   4. Angular velocity is measured in radians per second.
-
 ```
 
 ### Collaboration Tools
@@ -143,6 +141,33 @@ Here are some recommended topics based on your question:
   - Generate personalized recommendations to enhance learning.
 - **Benefits:**
   - Makes the platform more interactive and value-driven.
+
+---
+
+## Technologies Used
+
+### Backend
+
+- **Flask:** Lightweight web framework for building the backend.
+- **SQLite:** Database for storing user data, portfolios, and events.
+- **Flask-JWT-Extended:** For secure user authentication and authorization.
+- **Flask-CORS:** To handle Cross-Origin Resource Sharing.
+- **Flask-Migrate:** For handling database migrations.
+
+### Frontend
+
+- **Vue.js:** JavaScript framework for building the user interface.
+- **Vuetify:** UI library for Vue.js to create a responsive and visually appealing design.
+- **Vue Router:** For handling client-side routing.
+- **Axios:** For making HTTP requests to the backend.
+- **Vue Toastification:** For displaying toast notifications.
+
+### Development Tools
+
+- **Git:** Version control system for tracking changes and collaborating with team members.
+- **Vite:** Build tool for optimizing and bundling frontend assets.
+- **ESLint:** Linting tool for maintaining code quality and consistency.
+- **Prettier:** Code formatter for ensuring a consistent code style.
 
 ---
 
@@ -399,6 +424,12 @@ Provides a detailed log of user actions for audit and traceability.
 ### Growth-Ready Architecture
 
 - Additional roles (e.g., industry sponsors) and features (e.g., performance analytics) can be seamlessly integrated.
+
+---
+
+## Database Schema
+
+![Database Schema](./markdown-image/databaseSchema.png)
 
 ---
 
