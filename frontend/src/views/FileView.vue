@@ -50,12 +50,13 @@
                             </v-card-subtitle>
                             <v-card-subtitle class="text-gray-600 d-flex align-center mb-2">
                                 <v-icon small class="mr-1">mdi-calendar</v-icon>
-                                <span>Uploaded At: <span class="word-color">{{ new Date(file.uploaded_at).toLocaleString()
+                                <span>Uploaded At: <span class="word-color">{{ new
+                                    Date(file.uploaded_at).toLocaleString()
                                         }}</span></span>
                             </v-card-subtitle>
                         </v-col>
                         <v-col cols="4" class="d-flex align-center justify-center">
-                            <v-img :src="getFileImage(file.file_type)" max-width="300" max-height="300" ></v-img>
+                            <v-img :src="getFileImage(file.file_type)" max-width="300" max-height="300"></v-img>
                         </v-col>
                     </v-row>
                     <v-card-actions>
@@ -121,12 +122,13 @@
                             </v-card-subtitle>
                             <v-card-subtitle class="text-gray-600 d-flex align-center mb-2">
                                 <v-icon small class="mr-1">mdi-calendar</v-icon>
-                                <span>Uploaded At: <span class="word-color">{{ new Date(file.uploaded_at).toLocaleString()
+                                <span>Uploaded At: <span class="word-color">{{ new
+                                    Date(file.uploaded_at).toLocaleString()
                                         }}</span></span>
                             </v-card-subtitle>
                         </v-col>
                         <v-col cols="4" class="d-flex align-center justify-center">
-                            <v-img :src="getFileImage(file.file_type)" max-width="300" max-height="300" ></v-img>
+                            <v-img :src="getFileImage(file.file_type)" max-width="300" max-height="300"></v-img>
                         </v-col>
                     </v-row>
                 </v-card>
@@ -339,17 +341,15 @@ export default {
             this.selectedFileType = type;
         },
         getFileImage(fileType) {
-            // Return different images based on file type
-            switch (fileType) {
-                case 'document':
-                    return '/document.svg';
-                case 'image':
-                    return '/image.svg';
-                case 'video':
-                    return '/video.svg';
-                default:
-                    return '/alert.svg';
-            }
+            const images = {
+                document: ['/files/documents/document-01.svg', '/files/documents/document-02.svg', '/files/documents/document-03.svg'],
+                image: ['/files/images/image-01.svg','/files/images/image-02.svg','/files/images/image-03.svg'],
+                video: ['/files/videos/video-01.svg', '/files/videos/video-02.svg', '/files/videos/video-03.svg'],
+                default: ['/files/unknown-file-type.svg']
+            };
+
+            const fileList = images[fileType] || images.default;
+            return fileList[Math.floor(Math.random() * fileList.length)];
         },
     },
 };
@@ -391,6 +391,4 @@ export default {
 .v-icon {
     color: #0097A7;
 }
-
-
 </style>
