@@ -355,23 +355,6 @@
 import axios from 'axios';
 import { useToast } from 'vue-toastification';
 
-// Axios interceptor to handle 401 Unauthorized responses
-axios.interceptors.response.use(
-  response => response,
-  error => {
-    if (error.response && error.response.status === 401) {
-      useToast().error("Session expired. Please log in again.");
-      localStorage.removeItem("token");
-      setTimeout(() => {
-        location.reload().then(() => {
-          this.$router.push("/login");
-        });
-      }, 4000);
-    }
-    return Promise.reject(error);
-  }
-);
-
 export default {
   name: 'UserProfileView',
   data() {
@@ -476,6 +459,15 @@ export default {
         console.error('Error fetching user data:', error);
         this.error = 'Failed to load user data.';
         useToast().error(this.error);
+        if (error.response && error.response.status === 401) {
+          useToast().error("Session expired. Please log in again.");
+          localStorage.removeItem("token");
+          setTimeout(() => {
+            location.reload().then(() => {
+              this.$router.push("/login");
+            });
+          }, 4000);
+        }
       } finally {
         this.loading = false;
       }
