@@ -1,0 +1,477 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 1180.1 959.4">
+  <defs>
+    <style>
+      .cls-1, .cls-2, .cls-3 {
+        fill: #6f6f6f;
+      }
+
+      .cls-2, .cls-4, .cls-5, .cls-6, .cls-3 {
+        font-size: 13px;
+      }
+
+      .cls-2, .cls-4, .cls-5, .cls-6, .cls-3, .cls-7 {
+        isolation: isolate;
+      }
+
+      .cls-2, .cls-5, .cls-7 {
+        font-family: OpenSans, 'Open Sans';
+      }
+
+      .cls-4, .cls-5 {
+        fill: #999;
+      }
+
+      .cls-4, .cls-6, .cls-3 {
+        font-family: OpenSans-Bold, 'Open Sans';
+        font-weight: 700;
+      }
+
+      .cls-8 {
+        fill: #f2f2f2;
+      }
+
+      .cls-6 {
+        fill: #fff;
+      }
+
+      .cls-9 {
+        fill: #d6e3e5;
+      }
+
+      .cls-7 {
+        font-size: 14px;
+      }
+
+      .cls-10 {
+        fill: #dedede;
+      }
+
+      .cls-11 {
+        fill: none;
+        stroke: #5aa2ae;
+        stroke-width: 2px;
+      }
+
+      .cls-12 {
+        fill: #5aa2ae;
+      }
+    </style>
+  </defs>
+  <!-- Generator: Adobe Illustrator 28.6.0, SVG Export Plug-In . SVG Version: 1.2.0 Build 709)  -->
+  <g>
+    <g id="Layer_1">
+      <path class="cls-11" d="M271.4,67.7h28.2c5.5,0,8.2,2.7,8.2,8.2v15.6c0,5.5,2.7,8.2,8.2,8.2h28.2-28.2c-5.5,0-8.2-2.7-8.2-8.2v-15.6c0-5.5-2.7-8.2-8.2-8.2h-28.2ZM281.4,63.7v8M344.3,95.7l-10,4,10,4"/>
+      <text class="cls-7" transform="translate(274.4 64.7)"><tspan x="0" y="0">1</tspan></text>
+      <text class="cls-7" transform="translate(333.5 96.7)"><tspan x="0" y="0">*</tspan></text>
+      <path class="cls-11" d="M271.4,67.7h28.2c5.5,0,8.2,2.7,8.2,8.2v47.6c0,5.5,2.7,8.2,8.2,8.2h28.2-28.2c-5.5,0-8.2-2.7-8.2-8.2v-47.6c0-5.5-2.7-8.2-8.2-8.2h-28.2ZM281.4,63.7v8M344.3,127.7l-10,4,10,4"/>
+      <text class="cls-7" transform="translate(274.4 64.7)"><tspan x="0" y="0">1</tspan></text>
+      <text class="cls-7" transform="translate(333.5 128.7)"><tspan x="0" y="0">*</tspan></text>
+      <path class="cls-11" d="M271.4,67.7h166.4c6.7,0,10,3.3,10,10v12c0,6.7,3.3,10,10,10h166.4-166.4c-6.7,0-10-3.3-10-10v-12c0-6.7-3.3-10-10-10h-166.4ZM281.4,63.7v8M624.3,95.7l-10,4,10,4"/>
+      <text class="cls-7" transform="translate(274.4 64.7)"><tspan x="0" y="0">1</tspan></text>
+      <text class="cls-7" transform="translate(613.5 96.7)"><tspan x="0" y="0">*</tspan></text>
+      <path class="cls-11" d="M928.2,686h-28.1c-5.4,0-8.1-2.7-8.1-8.1V203.8c0-5.4-2.7-8.1-8.1-8.1h-28.1,28.1c5.4,0,8.1,2.7,8.1,8.1v474.1c0,5.4,2.7,8.1,8.1,8.1h28.1ZM918.2,682v8M855.8,191.7l10,4-10,4"/>
+      <text class="cls-7" transform="translate(917.5 683)"><tspan x="0" y="0">1</tspan></text>
+      <text class="cls-7" transform="translate(858.8 192.7)"><tspan x="0" y="0">*</tspan></text>
+      <path class="cls-11" d="M271.4,67.7h316.5c6.7,0,10,3.3,10,10v12c0,6.7,3.3,10,10,10h316.5-316.5c-6.7,0-10-3.3-10-10v-12c0-6.7-3.3-10-10-10h-316.5ZM281.4,63.7v8M924.5,95.7l-10,4,10,4"/>
+      <text class="cls-7" transform="translate(274.4 64.7)"><tspan x="0" y="0">1</tspan></text>
+      <text class="cls-7" transform="translate(913.8 96.7)"><tspan x="0" y="0">*</tspan></text>
+      <path class="cls-11" d="M271.4,67.7h10c6.7,0,10,3.3,10,10v412c0,6.7-3.3,10-10,10h-53.7,53.7c6.7,0,10-3.3,10-10V77.7c0-6.7-3.3-10-10-10h-10ZM281.4,63.7v8M227.8,495.7l10,4-10,4"/>
+      <text class="cls-7" transform="translate(274.4 64.7)"><tspan x="0" y="0">1</tspan></text>
+      <text class="cls-7" transform="translate(230.8 496.7)"><tspan x="0" y="0">*</tspan></text>
+      <path class="cls-11" d="M271.4,67.7h10c6.7,0,10,3.3,10,10v444c0,6.7-3.3,10-10,10h-53.7,53.7c6.7,0,10-3.3,10-10V77.7c0-6.7-3.3-10-10-10h-10ZM281.4,63.7v8M227.8,527.7l10,4-10,4"/>
+      <text class="cls-7" transform="translate(274.4 64.7)"><tspan x="0" y="0">1</tspan></text>
+      <text class="cls-7" transform="translate(230.8 528.7)"><tspan x="0" y="0">*</tspan></text>
+      <path class="cls-11" d="M271.4,67.7h28.2c5.5,0,8.2,2.7,8.2,8.2v287.6c0,5.5,2.7,8.2,8.2,8.2h28.2-28.2c-5.5,0-8.2-2.7-8.2-8.2V75.9c0-5.5-2.7-8.2-8.2-8.2h-28.2ZM281.4,63.7v8M344.3,367.7l-10,4,10,4"/>
+      <text class="cls-7" transform="translate(274.4 64.7)"><tspan x="0" y="0">1</tspan></text>
+      <text class="cls-7" transform="translate(333.5 368.7)"><tspan x="0" y="0">*</tspan></text>
+      <path class="cls-11" d="M643,683.7h-25.9c-3.9,0-5.9-2-5.9-5.9v-172.2c0-3.9-2-5.9-5.9-5.9h-25.9,25.9c3.9,0,5.9,2,5.9,5.9v172.2c0,3.9,2,5.9,5.9,5.9h25.9ZM633,679.7v8M579.4,495.7l10,4-10,4"/>
+      <text class="cls-7" transform="translate(632.3 680.7)"><tspan x="0" y="0">1</tspan></text>
+      <text class="cls-7" transform="translate(582.4 496.7)"><tspan x="0" y="0">*</tspan></text>
+      <path class="cls-11" d="M271.4,67.7h166.4c6.7,0,10,3.3,10,10v284c0,6.7,3.3,10,10,10h166.4-166.4c-6.7,0-10-3.3-10-10V77.7c0-6.7-3.3-10-10-10h-166.4ZM281.4,63.7v8M624.3,367.7l-10,4,10,4"/>
+      <text class="cls-7" transform="translate(274.4 64.7)"><tspan x="0" y="0">1</tspan></text>
+      <text class="cls-7" transform="translate(613.5 368.7)"><tspan x="0" y="0">*</tspan></text>
+      <path class="cls-11" d="M849.4,889.7h26.4c4.3,0,6.4-2.1,6.4-6.4v-405.6c0-6.7-3.3-10-10-10h-10,10c6.7,0,10,3.3,10,10v405.6c0,4.3-2.1,6.4-6.4,6.4h-26.4ZM859.4,885.7v8M862.3,463.7l10,4-10,4"/>
+      <text class="cls-7" transform="translate(852.4 886.7)"><tspan x="0" y="0">1</tspan></text>
+      <text class="cls-7" transform="translate(865.3 464.7)"><tspan x="0" y="0">*</tspan></text>
+      <path class="cls-11" d="M271.4,67.7h317.1c6.7,0,10,3.3,10,10v284c0,6.7,3.3,10,10,10h317.1-317.1c-6.7,0-10-3.3-10-10V77.7c0-6.7-3.3-10-10-10h-317.1ZM281.4,63.7v8M925.7,367.7l-10,4,10,4"/>
+      <text class="cls-7" transform="translate(274.4 64.7)"><tspan x="0" y="0">1</tspan></text>
+      <text class="cls-7" transform="translate(914.9 368.7)"><tspan x="0" y="0">*</tspan></text>
+      <path class="cls-11" d="M271.4,67.7h31.4c6.7,0,10,3.3,10,10v660c0,6.7-3.3,10-10,10h-10,10c6.7,0,10-3.3,10-10V77.7c0-6.7-3.3-10-10-10h-31.4ZM281.4,63.7v8M292.8,743.7l10,4-10,4"/>
+      <text class="cls-7" transform="translate(274.4 64.7)"><tspan x="0" y="0">1</tspan></text>
+      <text class="cls-7" transform="translate(295.8 744.7)"><tspan x="0" y="0">*</tspan></text>
+      <path class="cls-11" d="M925.7,339.7h-306.4c-6.7,0-10,3.3-10,10v420c0,6.7-3.3,10-10,10h-306.4,306.4c6.7,0,10-3.3,10-10v-420c0-6.7,3.3-10,10-10h306.4ZM915.7,335.7v8M292.8,775.7l10,4-10,4"/>
+      <text class="cls-7" transform="translate(914.9 336.7)"><tspan x="0" y="0">1</tspan></text>
+      <text class="cls-7" transform="translate(295.8 776.7)"><tspan x="0" y="0">*</tspan></text>
+      <path class="cls-11" d="M344.3,891.7h-22.9c-1.9,0-2.9-1-2.9-2.9v-42.3c0-1.9-1-2.9-2.9-2.9h-22.9,22.9c1.9,0,2.9,1,2.9,2.9v42.3c0,1.9,1,2.9,2.9,2.9h22.9ZM334.3,887.7v8M292.8,839.7l10,4-10,4"/>
+      <text class="cls-7" transform="translate(333.5 888.7)"><tspan x="0" y="0">1</tspan></text>
+      <text class="cls-7" transform="translate(295.8 840.7)"><tspan x="0" y="0">*</tspan></text>
+      <path class="cls-11" d="M271.4,67.7h28.2c5.5,0,8.2,2.7,8.2,8.2v631.6c0,5.5,2.7,8.2,8.2,8.2h28.2-28.2c-5.5,0-8.2-2.7-8.2-8.2V75.9c0-5.5-2.7-8.2-8.2-8.2h-28.2ZM281.4,63.7v8M344.3,711.7l-10,4,10,4"/>
+      <text class="cls-7" transform="translate(274.4 64.7)"><tspan x="0" y="0">1</tspan></text>
+      <text class="cls-7" transform="translate(333.5 712.7)"><tspan x="0" y="0">*</tspan></text>
+      <rect class="cls-12" x="24.3" y="19.7" width="247.2" height="32"/>
+      <text class="cls-6" transform="translate(34.3 39)"><tspan x="0" y="0">users</tspan></text>
+      <rect class="cls-9" x="24.3" y="51.7" width="247.2" height="32"/>
+      <text class="cls-3" transform="translate(34.3 71)"><tspan x="0" y="0">user_id</tspan></text>
+      <path class="cls-1" d="M90.9,62c1.6,0,3,1.3,3,3s-1.3,3-3,3-.8,0-1.1-.2l-.9.9h-.7v1h-1v1h-2v-2l2.8-2.8c0-.3-.1-.6-.1-.9,0-1.6,1.3-3,3-3ZM90.9,61c-2.2,0-3.9,1.8-3.9,3.9s0,.4,0,.5l-2.5,2.5c0,0-.1.2-.1.3v2.7c0,.3.2.5.5.5h3c.3,0,.5-.2.5-.5v-.5h.5c.3,0,.5-.2.5-.5v-.4l.8-.8c.3,0,.5,0,.8,0,2.2,0,3.9-1.8,3.9-3.9s-1.8-3.9-3.9-3.9ZM90.9,63.9c0,.5.4,1,1,1s1-.4,1-1-.4-1-1-1-1,.4-1,1Z"/>
+      <text class="cls-4" transform="translate(243.3 71)"><tspan x="0" y="0">int</tspan></text>
+      <rect class="cls-8" x="24.3" y="83.7" width="247.2" height="32"/>
+      <text class="cls-2" transform="translate(34.3 103)"><tspan x="0" y="0">username</tspan></text>
+      <path class="cls-10" d="M239.4,90.2h20s2,0,2,2v12s0,2-2,2h-20s-2,0-2-2v-12s0-2,2-2"/>
+      <path class="cls-1" d="M248.3,102.7h-1.2l-4.7-7.6h0c0,.2,0,.4,0,.7,0,.3,0,.5,0,.8,0,.3,0,.6,0,.9v5.2h-.9v-9h1.2l4.7,7.5h0c0-.1,0-.3,0-.6,0-.3,0-.6,0-.9,0-.3,0-.6,0-.9v-5.2h1v9Z"/>
+      <path class="cls-1" d="M257.4,102.7h-1.2l-4.7-7.6h0c0,.2,0,.4,0,.7,0,.3,0,.5,0,.8,0,.3,0,.6,0,.9v5.2h-.9v-9h1.2l4.7,7.5h0c0-.1,0-.3,0-.6,0-.3,0-.6,0-.9,0-.3,0-.6,0-.9v-5.2h1v9Z"/>
+      <text class="cls-5" transform="translate(187.7 103)"><tspan x="0" y="0">varchar</tspan></text>
+      <rect class="cls-8" x="24.3" y="115.7" width="247.2" height="32"/>
+      <text class="cls-2" transform="translate(34.3 135)"><tspan x="0" y="0">email</tspan></text>
+      <path class="cls-10" d="M239.4,122.2h20s2,0,2,2v12s0,2-2,2h-20s-2,0-2-2v-12s0-2,2-2"/>
+      <path class="cls-1" d="M248.3,134.7h-1.2l-4.7-7.6h0c0,.2,0,.4,0,.7,0,.3,0,.5,0,.8,0,.3,0,.6,0,.9v5.2h-.9v-9h1.2l4.7,7.5h0c0-.1,0-.3,0-.6,0-.3,0-.6,0-.9,0-.3,0-.6,0-.9v-5.2h1v9Z"/>
+      <path class="cls-1" d="M257.4,134.7h-1.2l-4.7-7.6h0c0,.2,0,.4,0,.7,0,.3,0,.5,0,.8,0,.3,0,.6,0,.9v5.2h-.9v-9h1.2l4.7,7.5h0c0-.1,0-.3,0-.6,0-.3,0-.6,0-.9,0-.3,0-.6,0-.9v-5.2h1v9Z"/>
+      <text class="cls-5" transform="translate(187.7 135)"><tspan x="0" y="0">varchar</tspan></text>
+      <rect class="cls-8" x="24.3" y="147.7" width="247.2" height="32"/>
+      <text class="cls-2" transform="translate(34.3 167)"><tspan x="0" y="0">password_hash</tspan></text>
+      <path class="cls-10" d="M239.4,154.2h20s2,0,2,2v12s0,2-2,2h-20s-2,0-2-2v-12s0-2,2-2"/>
+      <path class="cls-1" d="M248.3,166.7h-1.2l-4.7-7.6h0c0,.2,0,.4,0,.7,0,.3,0,.5,0,.8,0,.3,0,.6,0,.9v5.2h-.9v-9h1.2l4.7,7.5h0c0-.1,0-.3,0-.6,0-.3,0-.6,0-.9,0-.3,0-.6,0-.9v-5.2h1v9Z"/>
+      <path class="cls-1" d="M257.4,166.7h-1.2l-4.7-7.6h0c0,.2,0,.4,0,.7,0,.3,0,.5,0,.8,0,.3,0,.6,0,.9v5.2h-.9v-9h1.2l4.7,7.5h0c0-.1,0-.3,0-.6,0-.3,0-.6,0-.9,0-.3,0-.6,0-.9v-5.2h1v9Z"/>
+      <text class="cls-5" transform="translate(187.7 167)"><tspan x="0" y="0">varchar</tspan></text>
+      <rect class="cls-8" x="24.3" y="179.7" width="247.2" height="32"/>
+      <text class="cls-2" transform="translate(34.3 199)"><tspan x="0" y="0">role</tspan></text>
+      <path class="cls-10" d="M239.4,186.2h20s2,0,2,2v12s0,2-2,2h-20s-2,0-2-2v-12s0-2,2-2"/>
+      <path class="cls-1" d="M248.3,198.7h-1.2l-4.7-7.6h0c0,.2,0,.4,0,.7,0,.3,0,.5,0,.8,0,.3,0,.6,0,.9v5.2h-.9v-9h1.2l4.7,7.5h0c0-.1,0-.3,0-.6,0-.3,0-.6,0-.9,0-.3,0-.6,0-.9v-5.2h1v9Z"/>
+      <path class="cls-1" d="M257.4,198.7h-1.2l-4.7-7.6h0c0,.2,0,.4,0,.7,0,.3,0,.5,0,.8,0,.3,0,.6,0,.9v5.2h-.9v-9h1.2l4.7,7.5h0c0-.1,0-.3,0-.6,0-.3,0-.6,0-.9,0-.3,0-.6,0-.9v-5.2h1v9Z"/>
+      <text class="cls-5" transform="translate(187.7 199)"><tspan x="0" y="0">varchar</tspan></text>
+      <rect class="cls-8" x="24.3" y="211.7" width="247.2" height="32"/>
+      <text class="cls-2" transform="translate(34.3 231)"><tspan x="0" y="0">full_name</tspan></text>
+      <path class="cls-10" d="M239.4,218.2h20s2,0,2,2v12s0,2-2,2h-20s-2,0-2-2v-12s0-2,2-2"/>
+      <path class="cls-1" d="M248.3,230.7h-1.2l-4.7-7.6h0c0,.2,0,.4,0,.7,0,.3,0,.5,0,.8,0,.3,0,.6,0,.9v5.2h-.9v-9h1.2l4.7,7.5h0c0-.1,0-.3,0-.6,0-.3,0-.6,0-.9,0-.3,0-.6,0-.9v-5.2h1v9Z"/>
+      <path class="cls-1" d="M257.4,230.7h-1.2l-4.7-7.6h0c0,.2,0,.4,0,.7,0,.3,0,.5,0,.8,0,.3,0,.6,0,.9v5.2h-.9v-9h1.2l4.7,7.5h0c0-.1,0-.3,0-.6,0-.3,0-.6,0-.9,0-.3,0-.6,0-.9v-5.2h1v9Z"/>
+      <text class="cls-5" transform="translate(187.7 231)"><tspan x="0" y="0">varchar</tspan></text>
+      <rect class="cls-8" x="24.3" y="243.7" width="247.2" height="32"/>
+      <text class="cls-2" transform="translate(34.3 263)"><tspan x="0" y="0">dob</tspan></text>
+      <path class="cls-10" d="M239.4,250.2h20s2,0,2,2v12s0,2-2,2h-20s-2,0-2-2v-12s0-2,2-2"/>
+      <path class="cls-1" d="M248.3,262.7h-1.2l-4.7-7.6h0c0,.2,0,.4,0,.7,0,.3,0,.5,0,.8,0,.3,0,.6,0,.9v5.2h-.9v-9h1.2l4.7,7.5h0c0-.1,0-.3,0-.6,0-.3,0-.6,0-.9,0-.3,0-.6,0-.9v-5.2h1v9Z"/>
+      <path class="cls-1" d="M257.4,262.7h-1.2l-4.7-7.6h0c0,.2,0,.4,0,.7,0,.3,0,.5,0,.8,0,.3,0,.6,0,.9v5.2h-.9v-9h1.2l4.7,7.5h0c0-.1,0-.3,0-.6,0-.3,0-.6,0-.9,0-.3,0-.6,0-.9v-5.2h1v9Z"/>
+      <text class="cls-5" transform="translate(206.3 263)"><tspan x="0" y="0">date</tspan></text>
+      <rect class="cls-8" x="24.3" y="275.7" width="247.2" height="32"/>
+      <text class="cls-2" transform="translate(34.3 295)"><tspan x="0" y="0">created_at</tspan></text>
+      <text class="cls-5" transform="translate(196.2 295)"><tspan x="0" y="0">timestamp</tspan></text>
+      <rect class="cls-8" x="24.3" y="307.7" width="247.2" height="32"/>
+      <text class="cls-2" transform="translate(34.3 327)"><tspan x="0" y="0">last_login</tspan></text>
+      <text class="cls-5" transform="translate(196.2 327)"><tspan x="0" y="0">timestamp</tspan></text>
+      <rect class="cls-8" x="24.3" y="339.7" width="247.2" height="32"/>
+      <text class="cls-2" transform="translate(34.3 359)"><tspan x="0" y="0">status</tspan></text>
+      <path class="cls-10" d="M239.4,346.2h20s2,0,2,2v12s0,2-2,2h-20s-2,0-2-2v-12s0-2,2-2"/>
+      <path class="cls-1" d="M248.3,358.7h-1.2l-4.7-7.6h0c0,.2,0,.4,0,.7,0,.3,0,.5,0,.8,0,.3,0,.6,0,.9v5.2h-.9v-9h1.2l4.7,7.5h0c0-.1,0-.3,0-.6,0-.3,0-.6,0-.9,0-.3,0-.6,0-.9v-5.2h1v9Z"/>
+      <path class="cls-1" d="M257.4,358.7h-1.2l-4.7-7.6h0c0,.2,0,.4,0,.7,0,.3,0,.5,0,.8,0,.3,0,.6,0,.9v5.2h-.9v-9h1.2l4.7,7.5h0c0-.1,0-.3,0-.6,0-.3,0-.6,0-.9,0-.3,0-.6,0-.9v-5.2h1v9Z"/>
+      <text class="cls-5" transform="translate(187.7 359)"><tspan x="0" y="0">varchar</tspan></text>
+      <rect class="cls-12" x="344.3" y="19.7" width="226.5" height="32"/>
+      <text class="cls-6" transform="translate(354.3 39)"><tspan x="0" y="0">emails</tspan></text>
+      <rect class="cls-8" x="344.3" y="51.7" width="226.5" height="32"/>
+      <text class="cls-3" transform="translate(354.3 71)"><tspan x="0" y="0">email_id</tspan></text>
+      <path class="cls-1" d="M418.6,62c1.6,0,3,1.3,3,3s-1.3,3-3,3-.8,0-1.1-.2l-.9.9h-.7v1h-1v1h-2v-2l2.8-2.8c0-.3-.1-.6-.1-.9,0-1.6,1.3-3,3-3ZM418.6,61c-2.2,0-3.9,1.8-3.9,3.9s0,.4,0,.5l-2.5,2.5c0,0-.1.2-.1.3v2.7c0,.3.2.5.5.5h3c.3,0,.5-.2.5-.5v-.5h.5c.3,0,.5-.2.5-.5v-.4l.8-.8c.3,0,.5,0,.8,0,2.2,0,3.9-1.8,3.9-3.9s-1.8-3.9-3.9-3.9ZM418.6,63.9c0,.5.4,1,1,1s1-.4,1-1-.4-1-1-1-1,.4-1,1Z"/>
+      <text class="cls-4" transform="translate(542.6 71)"><tspan x="0" y="0">int</tspan></text>
+      <rect class="cls-9" x="344.3" y="83.7" width="226.5" height="32"/>
+      <text class="cls-2" transform="translate(354.3 103)"><tspan x="0" y="0">sender_id</tspan></text>
+      <path class="cls-10" d="M538.8,90.2h20s2,0,2,2v12s0,2-2,2h-20s-2,0-2-2v-12s0-2,2-2"/>
+      <path class="cls-1" d="M547.6,102.7h-1.2l-4.7-7.6h0c0,.2,0,.4,0,.7,0,.3,0,.5,0,.8,0,.3,0,.6,0,.9v5.2h-.9v-9h1.2l4.7,7.5h0c0-.1,0-.3,0-.6,0-.3,0-.6,0-.9,0-.3,0-.6,0-.9v-5.2h1v9Z"/>
+      <path class="cls-1" d="M556.8,102.7h-1.2l-4.7-7.6h0c0,.2,0,.4,0,.7,0,.3,0,.5,0,.8,0,.3,0,.6,0,.9v5.2h-.9v-9h1.2l4.7,7.5h0c0-.1,0-.3,0-.6,0-.3,0-.6,0-.9,0-.3,0-.6,0-.9v-5.2h1v9Z"/>
+      <text class="cls-5" transform="translate(516.9 103)"><tspan x="0" y="0">int</tspan></text>
+      <rect class="cls-9" x="344.3" y="115.7" width="226.5" height="32"/>
+      <text class="cls-2" transform="translate(354.3 135)"><tspan x="0" y="0">recipient_id</tspan></text>
+      <path class="cls-10" d="M538.8,122.2h20s2,0,2,2v12s0,2-2,2h-20s-2,0-2-2v-12s0-2,2-2"/>
+      <path class="cls-1" d="M547.6,134.7h-1.2l-4.7-7.6h0c0,.2,0,.4,0,.7,0,.3,0,.5,0,.8,0,.3,0,.6,0,.9v5.2h-.9v-9h1.2l4.7,7.5h0c0-.1,0-.3,0-.6,0-.3,0-.6,0-.9,0-.3,0-.6,0-.9v-5.2h1v9Z"/>
+      <path class="cls-1" d="M556.8,134.7h-1.2l-4.7-7.6h0c0,.2,0,.4,0,.7,0,.3,0,.5,0,.8,0,.3,0,.6,0,.9v5.2h-.9v-9h1.2l4.7,7.5h0c0-.1,0-.3,0-.6,0-.3,0-.6,0-.9,0-.3,0-.6,0-.9v-5.2h1v9Z"/>
+      <text class="cls-5" transform="translate(516.9 135)"><tspan x="0" y="0">int</tspan></text>
+      <rect class="cls-8" x="344.3" y="147.7" width="226.5" height="32"/>
+      <text class="cls-2" transform="translate(354.3 167)"><tspan x="0" y="0">subject</tspan></text>
+      <path class="cls-10" d="M538.8,154.2h20s2,0,2,2v12s0,2-2,2h-20s-2,0-2-2v-12s0-2,2-2"/>
+      <path class="cls-1" d="M547.6,166.7h-1.2l-4.7-7.6h0c0,.2,0,.4,0,.7,0,.3,0,.5,0,.8,0,.3,0,.6,0,.9v5.2h-.9v-9h1.2l4.7,7.5h0c0-.1,0-.3,0-.6,0-.3,0-.6,0-.9,0-.3,0-.6,0-.9v-5.2h1v9Z"/>
+      <path class="cls-1" d="M556.8,166.7h-1.2l-4.7-7.6h0c0,.2,0,.4,0,.7,0,.3,0,.5,0,.8,0,.3,0,.6,0,.9v5.2h-.9v-9h1.2l4.7,7.5h0c0-.1,0-.3,0-.6,0-.3,0-.6,0-.9,0-.3,0-.6,0-.9v-5.2h1v9Z"/>
+      <text class="cls-5" transform="translate(487 167)"><tspan x="0" y="0">varchar</tspan></text>
+      <rect class="cls-8" x="344.3" y="179.7" width="226.5" height="32"/>
+      <text class="cls-2" transform="translate(354.3 199)"><tspan x="0" y="0">message</tspan></text>
+      <path class="cls-10" d="M538.8,186.2h20s2,0,2,2v12s0,2-2,2h-20s-2,0-2-2v-12s0-2,2-2"/>
+      <path class="cls-1" d="M547.6,198.7h-1.2l-4.7-7.6h0c0,.2,0,.4,0,.7,0,.3,0,.5,0,.8,0,.3,0,.6,0,.9v5.2h-.9v-9h1.2l4.7,7.5h0c0-.1,0-.3,0-.6,0-.3,0-.6,0-.9,0-.3,0-.6,0-.9v-5.2h1v9Z"/>
+      <path class="cls-1" d="M556.8,198.7h-1.2l-4.7-7.6h0c0,.2,0,.4,0,.7,0,.3,0,.5,0,.8,0,.3,0,.6,0,.9v5.2h-.9v-9h1.2l4.7,7.5h0c0-.1,0-.3,0-.6,0-.3,0-.6,0-.9,0-.3,0-.6,0-.9v-5.2h1v9Z"/>
+      <text class="cls-5" transform="translate(509.4 199)"><tspan x="0" y="0">text</tspan></text>
+      <rect class="cls-8" x="344.3" y="211.7" width="226.5" height="32"/>
+      <text class="cls-2" transform="translate(354.3 231)"><tspan x="0" y="0">timestamp</tspan></text>
+      <text class="cls-5" transform="translate(495.5 231)"><tspan x="0" y="0">timestamp</tspan></text>
+      <rect class="cls-12" x="624.3" y="19.7" width="231.6" height="32"/>
+      <text class="cls-6" transform="translate(634.3 39)"><tspan x="0" y="0">students</tspan></text>
+      <rect class="cls-8" x="624.3" y="51.7" width="231.6" height="32"/>
+      <text class="cls-3" transform="translate(634.3 71)"><tspan x="0" y="0">student_id</tspan></text>
+      <path class="cls-1" d="M713.1,62c1.6,0,3,1.3,3,3s-1.3,3-3,3-.8,0-1.1-.2l-.9.9h-.7v1h-1v1h-2v-2l2.8-2.8c0-.3-.1-.6-.1-.9,0-1.6,1.3-3,3-3ZM713.1,61c-2.2,0-3.9,1.8-3.9,3.9s0,.4,0,.5l-2.5,2.5c0,0-.1.2-.1.3v2.7c0,.3.2.5.5.5h3c.3,0,.5-.2.5-.5v-.5h.5c.3,0,.5-.2.5-.5v-.4l.8-.8c.3,0,.5,0,.8,0,2.2,0,3.9-1.8,3.9-3.9s-1.8-3.9-3.9-3.9ZM713.1,63.9c0,.5.4,1,1,1s1-.4,1-1-.4-1-1-1-1,.4-1,1Z"/>
+      <text class="cls-4" transform="translate(827.7 71)"><tspan x="0" y="0">int</tspan></text>
+      <rect class="cls-9" x="624.3" y="83.7" width="231.6" height="32"/>
+      <text class="cls-2" transform="translate(634.3 103)"><tspan x="0" y="0">user_id</tspan></text>
+      <text class="cls-5" transform="translate(830 103)"><tspan x="0" y="0">int</tspan></text>
+      <rect class="cls-8" x="624.3" y="115.7" width="231.6" height="32"/>
+      <text class="cls-2" transform="translate(634.3 135)"><tspan x="0" y="0">institution</tspan></text>
+      <path class="cls-10" d="M823.8,122.2h20s2,0,2,2v12s0,2-2,2h-20s-2,0-2-2v-12s0-2,2-2"/>
+      <path class="cls-1" d="M832.7,134.7h-1.2l-4.7-7.6h0c0,.2,0,.4,0,.7,0,.3,0,.5,0,.8,0,.3,0,.6,0,.9v5.2h-.9v-9h1.2l4.7,7.5h0c0-.1,0-.3,0-.6,0-.3,0-.6,0-.9,0-.3,0-.6,0-.9v-5.2h1v9Z"/>
+      <path class="cls-1" d="M841.8,134.7h-1.2l-4.7-7.6h0c0,.2,0,.4,0,.7,0,.3,0,.5,0,.8,0,.3,0,.6,0,.9v5.2h-.9v-9h1.2l4.7,7.5h0c0-.1,0-.3,0-.6,0-.3,0-.6,0-.9,0-.3,0-.6,0-.9v-5.2h1v9Z"/>
+      <text class="cls-5" transform="translate(772.1 135)"><tspan x="0" y="0">varchar</tspan></text>
+      <rect class="cls-8" x="624.3" y="147.7" width="231.6" height="32"/>
+      <text class="cls-2" transform="translate(634.3 167)"><tspan x="0" y="0">major</tspan></text>
+      <path class="cls-10" d="M823.8,154.2h20s2,0,2,2v12s0,2-2,2h-20s-2,0-2-2v-12s0-2,2-2"/>
+      <path class="cls-1" d="M832.7,166.7h-1.2l-4.7-7.6h0c0,.2,0,.4,0,.7,0,.3,0,.5,0,.8,0,.3,0,.6,0,.9v5.2h-.9v-9h1.2l4.7,7.5h0c0-.1,0-.3,0-.6,0-.3,0-.6,0-.9,0-.3,0-.6,0-.9v-5.2h1v9Z"/>
+      <path class="cls-1" d="M841.8,166.7h-1.2l-4.7-7.6h0c0,.2,0,.4,0,.7,0,.3,0,.5,0,.8,0,.3,0,.6,0,.9v5.2h-.9v-9h1.2l4.7,7.5h0c0-.1,0-.3,0-.6,0-.3,0-.6,0-.9,0-.3,0-.6,0-.9v-5.2h1v9Z"/>
+      <text class="cls-5" transform="translate(772.1 167)"><tspan x="0" y="0">varchar</tspan></text>
+      <rect class="cls-9" x="624.3" y="179.7" width="231.6" height="32"/>
+      <text class="cls-2" transform="translate(634.3 199)"><tspan x="0" y="0">privacy_level</tspan></text>
+      <path class="cls-10" d="M823.8,186.2h20s2,0,2,2v12s0,2-2,2h-20s-2,0-2-2v-12s0-2,2-2"/>
+      <path class="cls-1" d="M832.7,198.7h-1.2l-4.7-7.6h0c0,.2,0,.4,0,.7,0,.3,0,.5,0,.8,0,.3,0,.6,0,.9v5.2h-.9v-9h1.2l4.7,7.5h0c0-.1,0-.3,0-.6,0-.3,0-.6,0-.9,0-.3,0-.6,0-.9v-5.2h1v9Z"/>
+      <path class="cls-1" d="M841.8,198.7h-1.2l-4.7-7.6h0c0,.2,0,.4,0,.7,0,.3,0,.5,0,.8,0,.3,0,.6,0,.9v5.2h-.9v-9h1.2l4.7,7.5h0c0-.1,0-.3,0-.6,0-.3,0-.6,0-.9,0-.3,0-.6,0-.9v-5.2h1v9Z"/>
+      <text class="cls-5" transform="translate(772.1 199)"><tspan x="0" y="0">varchar</tspan></text>
+      <rect class="cls-8" x="624.3" y="211.7" width="231.6" height="32"/>
+      <text class="cls-2" transform="translate(634.3 231)"><tspan x="0" y="0">bio</tspan></text>
+      <text class="cls-5" transform="translate(822.5 231)"><tspan x="0" y="0">text</tspan></text>
+      <rect class="cls-12" x="924.5" y="19.7" width="226.3" height="32"/>
+      <text class="cls-6" transform="translate(934.5 39)"><tspan x="0" y="0">supervisors</tspan></text>
+      <rect class="cls-8" x="924.5" y="51.7" width="226.3" height="32"/>
+      <text class="cls-3" transform="translate(934.5 71)"><tspan x="0" y="0">supervisor_id</tspan></text>
+      <path class="cls-1" d="M1031.2,62c1.6,0,3,1.3,3,3s-1.3,3-3,3-.8,0-1.1-.2l-.9.9h-.7v1h-1v1h-2v-2l2.8-2.8c0-.3-.1-.6-.1-.9,0-1.6,1.3-3,3-3ZM1031.2,61c-2.2,0-3.9,1.8-3.9,3.9s0,.4,0,.5l-2.5,2.5c0,0-.1.2-.1.3v2.7c0,.3.2.5.5.5h3c.3,0,.5-.2.5-.5v-.5h.5c.3,0,.5-.2.5-.5v-.4l.8-.8c.3,0,.5,0,.8,0,2.2,0,3.9-1.8,3.9-3.9s-1.8-3.9-3.9-3.9ZM1031.2,63.9c0,.5.4,1,1,1s1-.4,1-1-.4-1-1-1-1,.4-1,1Z"/>
+      <text class="cls-4" transform="translate(1122.7 71)"><tspan x="0" y="0">int</tspan></text>
+      <rect class="cls-9" x="924.5" y="83.7" width="226.3" height="32"/>
+      <text class="cls-2" transform="translate(934.5 103)"><tspan x="0" y="0">user_id</tspan></text>
+      <text class="cls-5" transform="translate(1124.9 103)"><tspan x="0" y="0">int</tspan></text>
+      <rect class="cls-8" x="924.5" y="115.7" width="226.3" height="32"/>
+      <text class="cls-2" transform="translate(934.5 135)"><tspan x="0" y="0">institution</tspan></text>
+      <path class="cls-10" d="M1118.8,122.2h20s2,0,2,2v12s0,2-2,2h-20s-2,0-2-2v-12s0-2,2-2"/>
+      <path class="cls-1" d="M1127.6,134.7h-1.2l-4.7-7.6h0c0,.2,0,.4,0,.7,0,.3,0,.5,0,.8,0,.3,0,.6,0,.9v5.2h-.9v-9h1.2l4.7,7.5h0c0-.1,0-.3,0-.6,0-.3,0-.6,0-.9,0-.3,0-.6,0-.9v-5.2h1v9Z"/>
+      <path class="cls-1" d="M1136.8,134.7h-1.2l-4.7-7.6h0c0,.2,0,.4,0,.7,0,.3,0,.5,0,.8,0,.3,0,.6,0,.9v5.2h-.9v-9h1.2l4.7,7.5h0c0-.1,0-.3,0-.6,0-.3,0-.6,0-.9,0-.3,0-.6,0-.9v-5.2h1v9Z"/>
+      <text class="cls-5" transform="translate(1067 135)"><tspan x="0" y="0">varchar</tspan></text>
+      <rect class="cls-8" x="924.5" y="147.7" width="226.3" height="32"/>
+      <text class="cls-2" transform="translate(934.5 167)"><tspan x="0" y="0">department</tspan></text>
+      <path class="cls-10" d="M1118.8,154.2h20s2,0,2,2v12s0,2-2,2h-20s-2,0-2-2v-12s0-2,2-2"/>
+      <path class="cls-1" d="M1127.6,166.7h-1.2l-4.7-7.6h0c0,.2,0,.4,0,.7,0,.3,0,.5,0,.8,0,.3,0,.6,0,.9v5.2h-.9v-9h1.2l4.7,7.5h0c0-.1,0-.3,0-.6,0-.3,0-.6,0-.9,0-.3,0-.6,0-.9v-5.2h1v9Z"/>
+      <path class="cls-1" d="M1136.8,166.7h-1.2l-4.7-7.6h0c0,.2,0,.4,0,.7,0,.3,0,.5,0,.8,0,.3,0,.6,0,.9v5.2h-.9v-9h1.2l4.7,7.5h0c0-.1,0-.3,0-.6,0-.3,0-.6,0-.9,0-.3,0-.6,0-.9v-5.2h1v9Z"/>
+      <text class="cls-5" transform="translate(1067 167)"><tspan x="0" y="0">varchar</tspan></text>
+      <rect class="cls-8" x="924.5" y="179.7" width="226.3" height="32"/>
+      <text class="cls-2" transform="translate(934.5 199)"><tspan x="0" y="0">bio</tspan></text>
+      <text class="cls-5" transform="translate(1117.4 199)"><tspan x="0" y="0">text</tspan></text>
+      <rect class="cls-12" x="24.3" y="419.7" width="203.5" height="32"/>
+      <text class="cls-6" transform="translate(34.3 439)"><tspan x="0" y="0">admins</tspan></text>
+      <rect class="cls-8" x="24.3" y="451.7" width="203.5" height="32"/>
+      <text class="cls-3" transform="translate(34.3 471)"><tspan x="0" y="0">admin_id</tspan></text>
+      <path class="cls-1" d="M103.7,462c1.6,0,3,1.3,3,3s-1.3,3-3,3-.8,0-1.1-.2l-.9.9h-.7v1h-1v1h-2v-2l2.8-2.8c0-.3-.1-.6-.1-.9,0-1.6,1.3-3,3-3ZM103.7,461c-2.2,0-3.9,1.8-3.9,3.9s0,.4,0,.5l-2.5,2.5c0,0-.1.2-.1.3v2.7c0,.3.2.5.5.5h3c.3,0,.5-.2.5-.5v-.5h.5c.3,0,.5-.2.5-.5v-.4l.8-.8c.3,0,.5,0,.8,0,2.2,0,3.9-1.8,3.9-3.9s-1.8-3.9-3.9-3.9ZM103.7,463.9c0,.5.4,1,1,1s1-.4,1-1-.4-1-1-1-1,.4-1,1Z"/>
+      <text class="cls-4" transform="translate(199.6 471)"><tspan x="0" y="0">int</tspan></text>
+      <rect class="cls-9" x="24.3" y="483.7" width="203.5" height="32"/>
+      <text class="cls-2" transform="translate(34.3 503)"><tspan x="0" y="0">user_id</tspan></text>
+      <text class="cls-5" transform="translate(201.9 503)"><tspan x="0" y="0">int</tspan></text>
+      <rect class="cls-9" x="24.3" y="515.7" width="203.5" height="32"/>
+      <text class="cls-2" transform="translate(34.3 535)"><tspan x="0" y="0">created_by</tspan></text>
+      <text class="cls-5" transform="translate(201.9 535)"><tspan x="0" y="0">int</tspan></text>
+      <rect class="cls-8" x="24.3" y="547.7" width="203.5" height="32"/>
+      <text class="cls-2" transform="translate(34.3 567)"><tspan x="0" y="0">permissions</tspan></text>
+      <path class="cls-10" d="M195.8,554.2h20s2,0,2,2v12s0,2-2,2h-20s-2,0-2-2v-12s0-2,2-2"/>
+      <path class="cls-1" d="M204.6,566.7h-1.2l-4.7-7.6h0c0,.2,0,.4,0,.7,0,.3,0,.5,0,.8,0,.3,0,.6,0,.9v5.2h-.9v-9h1.2l4.7,7.5h0c0-.1,0-.3,0-.6,0-.3,0-.6,0-.9,0-.3,0-.6,0-.9v-5.2h1v9Z"/>
+      <path class="cls-1" d="M213.8,566.7h-1.2l-4.7-7.6h0c0,.2,0,.4,0,.7,0,.3,0,.5,0,.8,0,.3,0,.6,0,.9v5.2h-.9v-9h1.2l4.7,7.5h0c0-.1,0-.3,0-.6,0-.3,0-.6,0-.9,0-.3,0-.6,0-.9v-5.2h1v9Z"/>
+      <text class="cls-5" transform="translate(164.5 567)"><tspan x="0" y="0">json</tspan></text>
+      <rect class="cls-8" x="24.3" y="579.7" width="203.5" height="32"/>
+      <text class="cls-2" transform="translate(34.3 599)"><tspan x="0" y="0">role</tspan></text>
+      <path class="cls-10" d="M195.8,586.2h20s2,0,2,2v12s0,2-2,2h-20s-2,0-2-2v-12s0-2,2-2"/>
+      <path class="cls-1" d="M204.6,598.7h-1.2l-4.7-7.6h0c0,.2,0,.4,0,.7,0,.3,0,.5,0,.8,0,.3,0,.6,0,.9v5.2h-.9v-9h1.2l4.7,7.5h0c0-.1,0-.3,0-.6,0-.3,0-.6,0-.9,0-.3,0-.6,0-.9v-5.2h1v9Z"/>
+      <path class="cls-1" d="M213.8,598.7h-1.2l-4.7-7.6h0c0,.2,0,.4,0,.7,0,.3,0,.5,0,.8,0,.3,0,.6,0,.9v5.2h-.9v-9h1.2l4.7,7.5h0c0-.1,0-.3,0-.6,0-.3,0-.6,0-.9,0-.3,0-.6,0-.9v-5.2h1v9Z"/>
+      <text class="cls-5" transform="translate(144 599)"><tspan x="0" y="0">varchar</tspan></text>
+      <rect class="cls-12" x="344.3" y="291.7" width="235.1" height="32"/>
+      <text class="cls-6" transform="translate(354.3 311)"><tspan x="0" y="0">files</tspan></text>
+      <rect class="cls-8" x="344.3" y="323.7" width="235.1" height="32"/>
+      <text class="cls-3" transform="translate(354.3 343)"><tspan x="0" y="0">file_id</tspan></text>
+      <path class="cls-1" d="M403,334c1.6,0,3,1.3,3,3s-1.3,3-3,3-.8,0-1.1-.2l-.9.9h-.7v1h-1v1h-2v-2l2.8-2.8c0-.3-.1-.6-.1-.9,0-1.6,1.3-3,3-3ZM403,333c-2.2,0-3.9,1.8-3.9,3.9s0,.4,0,.5l-2.5,2.5c0,0-.1.2-.1.3v2.7c0,.3.2.5.5.5h3c.3,0,.5-.2.5-.5v-.5h.5c.3,0,.5-.2.5-.5v-.4l.8-.8c.3,0,.5,0,.8,0,2.2,0,3.9-1.8,3.9-3.9s-1.8-3.9-3.9-3.9ZM403,335.9c0,.5.4,1,1,1s1-.4,1-1-.4-1-1-1-1,.4-1,1Z"/>
+      <text class="cls-4" transform="translate(551.2 343)"><tspan x="0" y="0">int</tspan></text>
+      <rect class="cls-9" x="344.3" y="355.7" width="235.1" height="32"/>
+      <text class="cls-2" transform="translate(354.3 375)"><tspan x="0" y="0">user_id</tspan></text>
+      <text class="cls-5" transform="translate(553.5 375)"><tspan x="0" y="0">int</tspan></text>
+      <rect class="cls-8" x="344.3" y="387.7" width="235.1" height="32"/>
+      <text class="cls-2" transform="translate(354.3 407)"><tspan x="0" y="0">file_name</tspan></text>
+      <path class="cls-10" d="M547.4,394.2h20s2,0,2,2v12s0,2-2,2h-20s-2,0-2-2v-12s0-2,2-2"/>
+      <path class="cls-1" d="M556.2,406.7h-1.2l-4.7-7.6h0c0,.2,0,.4,0,.7,0,.3,0,.5,0,.8,0,.3,0,.6,0,.9v5.2h-.9v-9h1.2l4.7,7.5h0c0-.1,0-.3,0-.6,0-.3,0-.6,0-.9,0-.3,0-.6,0-.9v-5.2h1v9Z"/>
+      <path class="cls-1" d="M565.4,406.7h-1.2l-4.7-7.6h0c0,.2,0,.4,0,.7,0,.3,0,.5,0,.8,0,.3,0,.6,0,.9v5.2h-.9v-9h1.2l4.7,7.5h0c0-.1,0-.3,0-.6,0-.3,0-.6,0-.9,0-.3,0-.6,0-.9v-5.2h1v9Z"/>
+      <text class="cls-5" transform="translate(495.6 407)"><tspan x="0" y="0">varchar</tspan></text>
+      <rect class="cls-8" x="344.3" y="419.7" width="235.1" height="32"/>
+      <text class="cls-2" transform="translate(354.3 439)"><tspan x="0" y="0">file_path</tspan></text>
+      <path class="cls-10" d="M547.4,426.2h20s2,0,2,2v12s0,2-2,2h-20s-2,0-2-2v-12s0-2,2-2"/>
+      <path class="cls-1" d="M556.2,438.7h-1.2l-4.7-7.6h0c0,.2,0,.4,0,.7,0,.3,0,.5,0,.8,0,.3,0,.6,0,.9v5.2h-.9v-9h1.2l4.7,7.5h0c0-.1,0-.3,0-.6,0-.3,0-.6,0-.9,0-.3,0-.6,0-.9v-5.2h1v9Z"/>
+      <path class="cls-1" d="M565.4,438.7h-1.2l-4.7-7.6h0c0,.2,0,.4,0,.7,0,.3,0,.5,0,.8,0,.3,0,.6,0,.9v5.2h-.9v-9h1.2l4.7,7.5h0c0-.1,0-.3,0-.6,0-.3,0-.6,0-.9,0-.3,0-.6,0-.9v-5.2h1v9Z"/>
+      <text class="cls-5" transform="translate(495.6 439)"><tspan x="0" y="0">varchar</tspan></text>
+      <rect class="cls-8" x="344.3" y="451.7" width="235.1" height="32"/>
+      <text class="cls-2" transform="translate(354.3 471)"><tspan x="0" y="0">file_type</tspan></text>
+      <path class="cls-10" d="M547.4,458.2h20s2,0,2,2v12s0,2-2,2h-20s-2,0-2-2v-12s0-2,2-2"/>
+      <path class="cls-1" d="M556.2,470.7h-1.2l-4.7-7.6h0c0,.2,0,.4,0,.7,0,.3,0,.5,0,.8,0,.3,0,.6,0,.9v5.2h-.9v-9h1.2l4.7,7.5h0c0-.1,0-.3,0-.6,0-.3,0-.6,0-.9,0-.3,0-.6,0-.9v-5.2h1v9Z"/>
+      <path class="cls-1" d="M565.4,470.7h-1.2l-4.7-7.6h0c0,.2,0,.4,0,.7,0,.3,0,.5,0,.8,0,.3,0,.6,0,.9v5.2h-.9v-9h1.2l4.7,7.5h0c0-.1,0-.3,0-.6,0-.3,0-.6,0-.9,0-.3,0-.6,0-.9v-5.2h1v9Z"/>
+      <text class="cls-5" transform="translate(495.6 471)"><tspan x="0" y="0">varchar</tspan></text>
+      <rect class="cls-9" x="344.3" y="483.7" width="235.1" height="32"/>
+      <text class="cls-2" transform="translate(354.3 503)"><tspan x="0" y="0">file_type_id</tspan></text>
+      <text class="cls-5" transform="translate(553.5 503)"><tspan x="0" y="0">int</tspan></text>
+      <rect class="cls-8" x="344.3" y="515.7" width="235.1" height="32"/>
+      <text class="cls-2" transform="translate(354.3 535)"><tspan x="0" y="0">visibility</tspan></text>
+      <path class="cls-10" d="M547.4,522.2h20s2,0,2,2v12s0,2-2,2h-20s-2,0-2-2v-12s0-2,2-2"/>
+      <path class="cls-1" d="M556.2,534.7h-1.2l-4.7-7.6h0c0,.2,0,.4,0,.7,0,.3,0,.5,0,.8,0,.3,0,.6,0,.9v5.2h-.9v-9h1.2l4.7,7.5h0c0-.1,0-.3,0-.6,0-.3,0-.6,0-.9,0-.3,0-.6,0-.9v-5.2h1v9Z"/>
+      <path class="cls-1" d="M565.4,534.7h-1.2l-4.7-7.6h0c0,.2,0,.4,0,.7,0,.3,0,.5,0,.8,0,.3,0,.6,0,.9v5.2h-.9v-9h1.2l4.7,7.5h0c0-.1,0-.3,0-.6,0-.3,0-.6,0-.9,0-.3,0-.6,0-.9v-5.2h1v9Z"/>
+      <text class="cls-5" transform="translate(495.6 535)"><tspan x="0" y="0">varchar</tspan></text>
+      <rect class="cls-8" x="344.3" y="547.7" width="235.1" height="32"/>
+      <text class="cls-2" transform="translate(354.3 567)"><tspan x="0" y="0">uploaded_at</tspan></text>
+      <text class="cls-5" transform="translate(504.1 567)"><tspan x="0" y="0">timestamp</tspan></text>
+      <rect class="cls-12" x="624.3" y="291.7" width="238" height="32"/>
+      <text class="cls-6" transform="translate(634.3 311)"><tspan x="0" y="0">history</tspan></text>
+      <rect class="cls-8" x="624.3" y="323.7" width="238" height="32"/>
+      <text class="cls-3" transform="translate(634.3 343)"><tspan x="0" y="0">history_id</tspan></text>
+      <path class="cls-1" d="M708.3,334c1.6,0,3,1.3,3,3s-1.3,3-3,3-.8,0-1.1-.2l-.9.9h-.7v1h-1v1h-2v-2l2.8-2.8c0-.3-.1-.6-.1-.9,0-1.6,1.3-3,3-3ZM708.3,333c-2.2,0-3.9,1.8-3.9,3.9s0,.4,0,.5l-2.5,2.5c0,0-.1.2-.1.3v2.7c0,.3.2.5.5.5h3c.3,0,.5-.2.5-.5v-.5h.5c.3,0,.5-.2.5-.5v-.4l.8-.8c.3,0,.5,0,.8,0,2.2,0,3.9-1.8,3.9-3.9s-1.8-3.9-3.9-3.9ZM708.3,335.9c0,.5.4,1,1,1s1-.4,1-1-.4-1-1-1-1,.4-1,1Z"/>
+      <text class="cls-4" transform="translate(834.1 343)"><tspan x="0" y="0">int</tspan></text>
+      <rect class="cls-9" x="624.3" y="355.7" width="238" height="32"/>
+      <text class="cls-2" transform="translate(634.3 375)"><tspan x="0" y="0">user_id</tspan></text>
+      <text class="cls-5" transform="translate(836.4 375)"><tspan x="0" y="0">int</tspan></text>
+      <rect class="cls-8" x="624.3" y="387.7" width="238" height="32"/>
+      <text class="cls-2" transform="translate(634.3 407)"><tspan x="0" y="0">action_type</tspan></text>
+      <path class="cls-10" d="M830.3,394.2h20s2,0,2,2v12s0,2-2,2h-20s-2,0-2-2v-12s0-2,2-2"/>
+      <path class="cls-1" d="M839.1,406.7h-1.2l-4.7-7.6h0c0,.2,0,.4,0,.7,0,.3,0,.5,0,.8,0,.3,0,.6,0,.9v5.2h-.9v-9h1.2l4.7,7.5h0c0-.1,0-.3,0-.6,0-.3,0-.6,0-.9,0-.3,0-.6,0-.9v-5.2h1v9Z"/>
+      <path class="cls-1" d="M848.3,406.7h-1.2l-4.7-7.6h0c0,.2,0,.4,0,.7,0,.3,0,.5,0,.8,0,.3,0,.6,0,.9v5.2h-.9v-9h1.2l4.7,7.5h0c0-.1,0-.3,0-.6,0-.3,0-.6,0-.9,0-.3,0-.6,0-.9v-5.2h1v9Z"/>
+      <text class="cls-5" transform="translate(778.5 407)"><tspan x="0" y="0">varchar</tspan></text>
+      <rect class="cls-8" x="624.3" y="419.7" width="238" height="32"/>
+      <text class="cls-2" transform="translate(634.3 439)"><tspan x="0" y="0">action_details</tspan></text>
+      <path class="cls-10" d="M830.3,426.2h20s2,0,2,2v12s0,2-2,2h-20s-2,0-2-2v-12s0-2,2-2"/>
+      <path class="cls-1" d="M839.1,438.7h-1.2l-4.7-7.6h0c0,.2,0,.4,0,.7,0,.3,0,.5,0,.8,0,.3,0,.6,0,.9v5.2h-.9v-9h1.2l4.7,7.5h0c0-.1,0-.3,0-.6,0-.3,0-.6,0-.9,0-.3,0-.6,0-.9v-5.2h1v9Z"/>
+      <path class="cls-1" d="M848.3,438.7h-1.2l-4.7-7.6h0c0,.2,0,.4,0,.7,0,.3,0,.5,0,.8,0,.3,0,.6,0,.9v5.2h-.9v-9h1.2l4.7,7.5h0c0-.1,0-.3,0-.6,0-.3,0-.6,0-.9,0-.3,0-.6,0-.9v-5.2h1v9Z"/>
+      <text class="cls-5" transform="translate(778.5 439)"><tspan x="0" y="0">varchar</tspan></text>
+      <rect class="cls-9" x="624.3" y="451.7" width="238" height="32"/>
+      <text class="cls-2" transform="translate(634.3 471)"><tspan x="0" y="0">entity_type</tspan></text>
+      <path class="cls-10" d="M830.3,458.2h20s2,0,2,2v12s0,2-2,2h-20s-2,0-2-2v-12s0-2,2-2"/>
+      <path class="cls-1" d="M839.1,470.7h-1.2l-4.7-7.6h0c0,.2,0,.4,0,.7,0,.3,0,.5,0,.8,0,.3,0,.6,0,.9v5.2h-.9v-9h1.2l4.7,7.5h0c0-.1,0-.3,0-.6,0-.3,0-.6,0-.9,0-.3,0-.6,0-.9v-5.2h1v9Z"/>
+      <path class="cls-1" d="M848.3,470.7h-1.2l-4.7-7.6h0c0,.2,0,.4,0,.7,0,.3,0,.5,0,.8,0,.3,0,.6,0,.9v5.2h-.9v-9h1.2l4.7,7.5h0c0-.1,0-.3,0-.6,0-.3,0-.6,0-.9,0-.3,0-.6,0-.9v-5.2h1v9Z"/>
+      <text class="cls-5" transform="translate(778.5 471)"><tspan x="0" y="0">varchar</tspan></text>
+      <rect class="cls-8" x="624.3" y="483.7" width="238" height="32"/>
+      <text class="cls-2" transform="translate(634.3 503)"><tspan x="0" y="0">entity_id</tspan></text>
+      <path class="cls-10" d="M830.3,490.2h20s2,0,2,2v12s0,2-2,2h-20s-2,0-2-2v-12s0-2,2-2"/>
+      <path class="cls-1" d="M839.1,502.7h-1.2l-4.7-7.6h0c0,.2,0,.4,0,.7,0,.3,0,.5,0,.8,0,.3,0,.6,0,.9v5.2h-.9v-9h1.2l4.7,7.5h0c0-.1,0-.3,0-.6,0-.3,0-.6,0-.9,0-.3,0-.6,0-.9v-5.2h1v9Z"/>
+      <path class="cls-1" d="M848.3,502.7h-1.2l-4.7-7.6h0c0,.2,0,.4,0,.7,0,.3,0,.5,0,.8,0,.3,0,.6,0,.9v5.2h-.9v-9h1.2l4.7,7.5h0c0-.1,0-.3,0-.6,0-.3,0-.6,0-.9,0-.3,0-.6,0-.9v-5.2h1v9Z"/>
+      <text class="cls-5" transform="translate(808.4 503)"><tspan x="0" y="0">int</tspan></text>
+      <rect class="cls-8" x="624.3" y="515.7" width="238" height="32"/>
+      <text class="cls-2" transform="translate(634.3 535)"><tspan x="0" y="0">timestamp</tspan></text>
+      <text class="cls-5" transform="translate(787 535)"><tspan x="0" y="0">timestamp</tspan></text>
+      <rect class="cls-12" x="925.7" y="291.7" width="224" height="32"/>
+      <text class="cls-6" transform="translate(935.7 311)"><tspan x="0" y="0">events</tspan></text>
+      <rect class="cls-9" x="925.7" y="323.7" width="224" height="32"/>
+      <text class="cls-3" transform="translate(935.7 343)"><tspan x="0" y="0">event_id</tspan></text>
+      <path class="cls-1" d="M1000.7,334c1.6,0,3,1.3,3,3s-1.3,3-3,3-.8,0-1.1-.2l-.9.9h-.7v1h-1v1h-2v-2l2.8-2.8c0-.3-.1-.6-.1-.9,0-1.6,1.3-3,3-3ZM1000.7,333c-2.2,0-3.9,1.8-3.9,3.9s0,.4,0,.5l-2.5,2.5c0,0-.1.2-.1.3v2.7c0,.3.2.5.5.5h3c.3,0,.5-.2.5-.5v-.5h.5c.3,0,.5-.2.5-.5v-.4l.8-.8c.3,0,.5,0,.8,0,2.2,0,3.9-1.8,3.9-3.9s-1.8-3.9-3.9-3.9ZM1000.7,335.9c0,.5.4,1,1,1s1-.4,1-1-.4-1-1-1-1,.4-1,1Z"/>
+      <text class="cls-4" transform="translate(1121.5 343)"><tspan x="0" y="0">int</tspan></text>
+      <rect class="cls-9" x="925.7" y="355.7" width="224" height="32"/>
+      <text class="cls-2" transform="translate(935.7 375)"><tspan x="0" y="0">user_id</tspan></text>
+      <text class="cls-5" transform="translate(1123.8 375)"><tspan x="0" y="0">int</tspan></text>
+      <rect class="cls-8" x="925.7" y="387.7" width="224" height="32"/>
+      <text class="cls-2" transform="translate(935.7 407)"><tspan x="0" y="0">title</tspan></text>
+      <path class="cls-10" d="M1117.7,394.2h20s2,0,2,2v12s0,2-2,2h-20s-2,0-2-2v-12s0-2,2-2"/>
+      <path class="cls-1" d="M1126.5,406.7h-1.2l-4.7-7.6h0c0,.2,0,.4,0,.7,0,.3,0,.5,0,.8,0,.3,0,.6,0,.9v5.2h-.9v-9h1.2l4.7,7.5h0c0-.1,0-.3,0-.6,0-.3,0-.6,0-.9,0-.3,0-.6,0-.9v-5.2h1v9Z"/>
+      <path class="cls-1" d="M1135.7,406.7h-1.2l-4.7-7.6h0c0,.2,0,.4,0,.7,0,.3,0,.5,0,.8,0,.3,0,.6,0,.9v5.2h-.9v-9h1.2l4.7,7.5h0c0-.1,0-.3,0-.6,0-.3,0-.6,0-.9,0-.3,0-.6,0-.9v-5.2h1v9Z"/>
+      <text class="cls-5" transform="translate(1065.9 407)"><tspan x="0" y="0">varchar</tspan></text>
+      <rect class="cls-8" x="925.7" y="419.7" width="224" height="32"/>
+      <text class="cls-2" transform="translate(935.7 439)"><tspan x="0" y="0">description</tspan></text>
+      <path class="cls-10" d="M1117.7,426.2h20s2,0,2,2v12s0,2-2,2h-20s-2,0-2-2v-12s0-2,2-2"/>
+      <path class="cls-1" d="M1126.5,438.7h-1.2l-4.7-7.6h0c0,.2,0,.4,0,.7,0,.3,0,.5,0,.8,0,.3,0,.6,0,.9v5.2h-.9v-9h1.2l4.7,7.5h0c0-.1,0-.3,0-.6,0-.3,0-.6,0-.9,0-.3,0-.6,0-.9v-5.2h1v9Z"/>
+      <path class="cls-1" d="M1135.7,438.7h-1.2l-4.7-7.6h0c0,.2,0,.4,0,.7,0,.3,0,.5,0,.8,0,.3,0,.6,0,.9v5.2h-.9v-9h1.2l4.7,7.5h0c0-.1,0-.3,0-.6,0-.3,0-.6,0-.9,0-.3,0-.6,0-.9v-5.2h1v9Z"/>
+      <text class="cls-5" transform="translate(1065.9 439)"><tspan x="0" y="0">varchar</tspan></text>
+      <rect class="cls-8" x="925.7" y="451.7" width="224" height="32"/>
+      <text class="cls-2" transform="translate(935.7 471)"><tspan x="0" y="0">date</tspan></text>
+      <path class="cls-10" d="M1117.7,458.2h20s2,0,2,2v12s0,2-2,2h-20s-2,0-2-2v-12s0-2,2-2"/>
+      <path class="cls-1" d="M1126.5,470.7h-1.2l-4.7-7.6h0c0,.2,0,.4,0,.7,0,.3,0,.5,0,.8,0,.3,0,.6,0,.9v5.2h-.9v-9h1.2l4.7,7.5h0c0-.1,0-.3,0-.6,0-.3,0-.6,0-.9,0-.3,0-.6,0-.9v-5.2h1v9Z"/>
+      <path class="cls-1" d="M1135.7,470.7h-1.2l-4.7-7.6h0c0,.2,0,.4,0,.7,0,.3,0,.5,0,.8,0,.3,0,.6,0,.9v5.2h-.9v-9h1.2l4.7,7.5h0c0-.1,0-.3,0-.6,0-.3,0-.6,0-.9,0-.3,0-.6,0-.9v-5.2h1v9Z"/>
+      <text class="cls-5" transform="translate(1084.6 471)"><tspan x="0" y="0">date</tspan></text>
+      <rect class="cls-8" x="925.7" y="483.7" width="224" height="32"/>
+      <text class="cls-2" transform="translate(935.7 503)"><tspan x="0" y="0">location</tspan></text>
+      <path class="cls-10" d="M1117.7,490.2h20s2,0,2,2v12s0,2-2,2h-20s-2,0-2-2v-12s0-2,2-2"/>
+      <path class="cls-1" d="M1126.5,502.7h-1.2l-4.7-7.6h0c0,.2,0,.4,0,.7,0,.3,0,.5,0,.8,0,.3,0,.6,0,.9v5.2h-.9v-9h1.2l4.7,7.5h0c0-.1,0-.3,0-.6,0-.3,0-.6,0-.9,0-.3,0-.6,0-.9v-5.2h1v9Z"/>
+      <path class="cls-1" d="M1135.7,502.7h-1.2l-4.7-7.6h0c0,.2,0,.4,0,.7,0,.3,0,.5,0,.8,0,.3,0,.6,0,.9v5.2h-.9v-9h1.2l4.7,7.5h0c0-.1,0-.3,0-.6,0-.3,0-.6,0-.9,0-.3,0-.6,0-.9v-5.2h1v9Z"/>
+      <text class="cls-5" transform="translate(1065.9 503)"><tspan x="0" y="0">varchar</tspan></text>
+      <rect class="cls-8" x="925.7" y="515.7" width="224" height="32"/>
+      <text class="cls-2" transform="translate(935.7 535)"><tspan x="0" y="0">created_at</tspan></text>
+      <text class="cls-5" transform="translate(1074.4 535)"><tspan x="0" y="0">timestamp</tspan></text>
+      <rect class="cls-12" x="24.3" y="667.7" width="268.6" height="32"/>
+      <text class="cls-6" transform="translate(34.3 687)"><tspan x="0" y="0">recommendations</tspan></text>
+      <rect class="cls-8" x="24.3" y="699.7" width="268.6" height="32"/>
+      <text class="cls-3" transform="translate(34.3 719)"><tspan x="0" y="0">recommendation_id</tspan></text>
+      <path class="cls-1" d="M174.7,710c1.6,0,3,1.3,3,3s-1.3,3-3,3-.8,0-1.1-.2l-.9.9h-.7v1h-1v1h-2v-2l2.8-2.8c0-.3-.1-.6-.1-.9,0-1.6,1.3-3,3-3ZM174.7,709c-2.2,0-3.9,1.8-3.9,3.9s0,.4,0,.5l-2.5,2.5c0,0-.1.2-.1.3v2.7c0,.3.2.5.5.5h3c.3,0,.5-.2.5-.5v-.5h.5c.3,0,.5-.2.5-.5v-.4l.8-.8c.3,0,.5,0,.8,0,2.2,0,3.9-1.8,3.9-3.9s-1.8-3.9-3.9-3.9ZM174.7,711.9c0,.5.4,1,1,1s1-.4,1-1-.4-1-1-1-1,.4-1,1Z"/>
+      <text class="cls-4" transform="translate(264.6 719)"><tspan x="0" y="0">int</tspan></text>
+      <rect class="cls-9" x="24.3" y="731.7" width="268.6" height="32"/>
+      <text class="cls-2" transform="translate(34.3 751)"><tspan x="0" y="0">user_id</tspan></text>
+      <text class="cls-5" transform="translate(266.9 751)"><tspan x="0" y="0">int</tspan></text>
+      <rect class="cls-9" x="24.3" y="763.7" width="268.6" height="32"/>
+      <text class="cls-2" transform="translate(34.3 783)"><tspan x="0" y="0">event_id</tspan></text>
+      <text class="cls-5" transform="translate(266.9 783)"><tspan x="0" y="0">int</tspan></text>
+      <rect class="cls-8" x="24.3" y="795.7" width="268.6" height="32"/>
+      <text class="cls-2" transform="translate(34.3 815)"><tspan x="0" y="0">recommended_at</tspan></text>
+      <text class="cls-5" transform="translate(217.5 815)"><tspan x="0" y="0">timestamp</tspan></text>
+      <rect class="cls-9" x="24.3" y="827.7" width="268.6" height="32"/>
+      <text class="cls-2" transform="translate(34.3 847)"><tspan x="0" y="0">status</tspan></text>
+      <path class="cls-10" d="M260.8,834.2h20s2,0,2,2v12s0,2-2,2h-20s-2,0-2-2v-12s0-2,2-2"/>
+      <path class="cls-1" d="M269.6,846.7h-1.2l-4.7-7.6h0c0,.2,0,.4,0,.7,0,.3,0,.5,0,.8,0,.3,0,.6,0,.9v5.2h-.9v-9h1.2l4.7,7.5h0c0-.1,0-.3,0-.6,0-.3,0-.6,0-.9,0-.3,0-.6,0-.9v-5.2h1v9Z"/>
+      <path class="cls-1" d="M278.8,846.7h-1.2l-4.7-7.6h0c0,.2,0,.4,0,.7,0,.3,0,.5,0,.8,0,.3,0,.6,0,.9v5.2h-.9v-9h1.2l4.7,7.5h0c0-.1,0-.3,0-.6,0-.3,0-.6,0-.9,0-.3,0-.6,0-.9v-5.2h1v9Z"/>
+      <text class="cls-5" transform="translate(209 847)"><tspan x="0" y="0">varchar</tspan></text>
+      <rect class="cls-12" x="344.3" y="635.7" width="224" height="32"/>
+      <text class="cls-6" transform="translate(354.3 655)"><tspan x="0" y="0">notifications</tspan></text>
+      <rect class="cls-8" x="344.3" y="667.7" width="224" height="32"/>
+      <text class="cls-3" transform="translate(354.3 687)"><tspan x="0" y="0">notification_id</tspan></text>
+      <path class="cls-1" d="M458.3,678c1.6,0,3,1.3,3,3s-1.3,3-3,3-.8,0-1.1-.2l-.9.9h-.7v1h-1v1h-2v-2l2.8-2.8c0-.3-.1-.6-.1-.9,0-1.6,1.3-3,3-3ZM458.3,677c-2.2,0-3.9,1.8-3.9,3.9s0,.4,0,.5l-2.5,2.5c0,0-.1.2-.1.3v2.7c0,.3.2.5.5.5h3c.3,0,.5-.2.5-.5v-.5h.5c.3,0,.5-.2.5-.5v-.4l.8-.8c.3,0,.5,0,.8,0,2.2,0,3.9-1.8,3.9-3.9s-1.8-3.9-3.9-3.9ZM458.3,679.9c0,.5.4,1,1,1s1-.4,1-1-.4-1-1-1-1,.4-1,1Z"/>
+      <text class="cls-4" transform="translate(540.1 687)"><tspan x="0" y="0">int</tspan></text>
+      <rect class="cls-9" x="344.3" y="699.7" width="224" height="32"/>
+      <text class="cls-2" transform="translate(354.3 719)"><tspan x="0" y="0">user_id</tspan></text>
+      <text class="cls-5" transform="translate(542.4 719)"><tspan x="0" y="0">int</tspan></text>
+      <rect class="cls-8" x="344.3" y="731.7" width="224" height="32"/>
+      <text class="cls-2" transform="translate(354.3 751)"><tspan x="0" y="0">message</tspan></text>
+      <path class="cls-10" d="M536.3,738.2h20s2,0,2,2v12s0,2-2,2h-20s-2,0-2-2v-12s0-2,2-2"/>
+      <path class="cls-1" d="M545.1,750.7h-1.2l-4.7-7.6h0c0,.2,0,.4,0,.7,0,.3,0,.5,0,.8,0,.3,0,.6,0,.9v5.2h-.9v-9h1.2l4.7,7.5h0c0-.1,0-.3,0-.6,0-.3,0-.6,0-.9,0-.3,0-.6,0-.9v-5.2h1v9Z"/>
+      <path class="cls-1" d="M554.3,750.7h-1.2l-4.7-7.6h0c0,.2,0,.4,0,.7,0,.3,0,.5,0,.8,0,.3,0,.6,0,.9v5.2h-.9v-9h1.2l4.7,7.5h0c0-.1,0-.3,0-.6,0-.3,0-.6,0-.9,0-.3,0-.6,0-.9v-5.2h1v9Z"/>
+      <text class="cls-5" transform="translate(484.5 751)"><tspan x="0" y="0">varchar</tspan></text>
+      <rect class="cls-8" x="344.3" y="763.7" width="224" height="32"/>
+      <text class="cls-2" transform="translate(354.3 783)"><tspan x="0" y="0">created_at</tspan></text>
+      <text class="cls-5" transform="translate(493 783)"><tspan x="0" y="0">timestamp</tspan></text>
+      <rect class="cls-12" x="928.2" y="638" width="221.5" height="32"/>
+      <text class="cls-6" transform="translate(938.2 657.3)"><tspan x="0" y="0">privacy_levels</tspan></text>
+      <rect class="cls-9" x="928.2" y="670" width="221.5" height="32"/>
+      <text class="cls-3" transform="translate(938.2 689.3)"><tspan x="0" y="0">level</tspan></text>
+      <path class="cls-1" d="M979.4,680.3c1.6,0,3,1.3,3,3s-1.3,3-3,3-.8,0-1.1-.2l-.9.9h-.7v1h-1v1h-2v-2l2.8-2.8c0-.3-.1-.6-.1-.9,0-1.6,1.3-3,3-3ZM979.4,679.3c-2.2,0-3.9,1.8-3.9,3.9s0,.4,0,.5l-2.5,2.5c0,0-.1.2-.1.3v2.7c0,.3.2.5.5.5h3c.3,0,.5-.2.5-.5v-.5h.5c.3,0,.5-.2.5-.5v-.4l.8-.8c.3,0,.5,0,.8,0,2.2,0,3.9-1.8,3.9-3.9s-1.8-3.9-3.9-3.9ZM979.4,682.2c0,.5.4,1,1,1s1-.4,1-1-.4-1-1-1-1,.4-1,1Z"/>
+      <text class="cls-4" transform="translate(1089.5 689.3)"><tspan x="0" y="0">varchar</tspan></text>
+      <rect class="cls-8" x="928.2" y="702" width="221.5" height="32"/>
+      <text class="cls-2" transform="translate(938.2 721.3)"><tspan x="0" y="0">description</tspan></text>
+      <path class="cls-10" d="M1117.7,708.5h20s2,0,2,2v12s0,2-2,2h-20s-2,0-2-2v-12s0-2,2-2"/>
+      <path class="cls-1" d="M1126.5,721h-1.2l-4.7-7.6h0c0,.2,0,.4,0,.7,0,.3,0,.5,0,.8,0,.3,0,.6,0,.9v5.2h-.9v-9h1.2l4.7,7.5h0c0-.1,0-.3,0-.6,0-.3,0-.6,0-.9,0-.3,0-.6,0-.9v-5.2h1v9Z"/>
+      <path class="cls-1" d="M1135.7,721h-1.2l-4.7-7.6h0c0,.2,0,.4,0,.7,0,.3,0,.5,0,.8,0,.3,0,.6,0,.9v5.2h-.9v-9h1.2l4.7,7.5h0c0-.1,0-.3,0-.6,0-.3,0-.6,0-.9,0-.3,0-.6,0-.9v-5.2h1v9Z"/>
+      <text class="cls-5" transform="translate(1065.9 721.3)"><tspan x="0" y="0">varchar</tspan></text>
+      <rect class="cls-12" x="643" y="635.7" width="219.3" height="32"/>
+      <text class="cls-6" transform="translate(653 655)"><tspan x="0" y="0">file_types</tspan></text>
+      <rect class="cls-9" x="643" y="667.7" width="219.3" height="32"/>
+      <text class="cls-3" transform="translate(653 687)"><tspan x="0" y="0">file_type_id</tspan></text>
+      <path class="cls-1" d="M736,678c1.6,0,3,1.3,3,3s-1.3,3-3,3-.8,0-1.1-.2l-.9.9h-.7v1h-1v1h-2v-2l2.8-2.8c0-.3-.1-.6-.1-.9,0-1.6,1.3-3,3-3ZM736,677c-2.2,0-3.9,1.8-3.9,3.9s0,.4,0,.5l-2.5,2.5c0,0-.1.2-.1.3v2.7c0,.3.2.5.5.5h3c.3,0,.5-.2.5-.5v-.5h.5c.3,0,.5-.2.5-.5v-.4l.8-.8c.3,0,.5,0,.8,0,2.2,0,3.9-1.8,3.9-3.9s-1.8-3.9-3.9-3.9ZM736,679.9c0,.5.4,1,1,1s1-.4,1-1-.4-1-1-1-1,.4-1,1Z"/>
+      <text class="cls-4" transform="translate(834.1 687)"><tspan x="0" y="0">int</tspan></text>
+      <rect class="cls-8" x="643" y="699.7" width="219.3" height="32"/>
+      <text class="cls-2" transform="translate(653 719)"><tspan x="0" y="0">type_name</tspan></text>
+      <path class="cls-10" d="M830.3,706.2h20s2,0,2,2v12s0,2-2,2h-20s-2,0-2-2v-12s0-2,2-2"/>
+      <path class="cls-1" d="M839.1,718.7h-1.2l-4.7-7.6h0c0,.2,0,.4,0,.7,0,.3,0,.5,0,.8,0,.3,0,.6,0,.9v5.2h-.9v-9h1.2l4.7,7.5h0c0-.1,0-.3,0-.6,0-.3,0-.6,0-.9,0-.3,0-.6,0-.9v-5.2h1v9Z"/>
+      <path class="cls-1" d="M848.3,718.7h-1.2l-4.7-7.6h0c0,.2,0,.4,0,.7,0,.3,0,.5,0,.8,0,.3,0,.6,0,.9v5.2h-.9v-9h1.2l4.7,7.5h0c0-.1,0-.3,0-.6,0-.3,0-.6,0-.9,0-.3,0-.6,0-.9v-5.2h1v9Z"/>
+      <text class="cls-5" transform="translate(778.5 719)"><tspan x="0" y="0">varchar</tspan></text>
+      <rect class="cls-12" x="627.9" y="841.7" width="221.5" height="32"/>
+      <text class="cls-6" transform="translate(637.9 861)"><tspan x="0" y="0">entity_types</tspan></text>
+      <rect class="cls-9" x="627.9" y="873.7" width="221.5" height="32"/>
+      <text class="cls-3" transform="translate(637.9 893)"><tspan x="0" y="0">type</tspan></text>
+      <path class="cls-1" d="M677.4,884c1.6,0,3,1.3,3,3s-1.3,3-3,3-.8,0-1.1-.2l-.9.9h-.7v1h-1v1h-2v-2l2.8-2.8c0-.3-.1-.6-.1-.9,0-1.6,1.3-3,3-3ZM677.4,883c-2.2,0-3.9,1.8-3.9,3.9s0,.4,0,.5l-2.5,2.5c0,0-.1.2-.1.3v2.7c0,.3.2.5.5.5h3c.3,0,.5-.2.5-.5v-.5h.5c.3,0,.5-.2.5-.5v-.4l.8-.8c.3,0,.5,0,.8,0,2.2,0,3.9-1.8,3.9-3.9s-1.8-3.9-3.9-3.9ZM677.4,885.9c0,.5.4,1,1,1s1-.4,1-1-.4-1-1-1-1,.4-1,1Z"/>
+      <text class="cls-4" transform="translate(789.3 893)"><tspan x="0" y="0">varchar</tspan></text>
+      <rect class="cls-8" x="627.9" y="905.7" width="221.5" height="32"/>
+      <text class="cls-2" transform="translate(637.9 925)"><tspan x="0" y="0">description</tspan></text>
+      <path class="cls-10" d="M817.4,912.2h20s2,0,2,2v12s0,2-2,2h-20s-2,0-2-2v-12s0-2,2-2"/>
+      <path class="cls-1" d="M826.2,924.7h-1.2l-4.7-7.6h0c0,.2,0,.4,0,.7,0,.3,0,.5,0,.8,0,.3,0,.6,0,.9v5.2h-.9v-9h1.2l4.7,7.5h0c0-.1,0-.3,0-.6,0-.3,0-.6,0-.9,0-.3,0-.6,0-.9v-5.2h1v9Z"/>
+      <path class="cls-1" d="M835.4,924.7h-1.2l-4.7-7.6h0c0,.2,0,.4,0,.7,0,.3,0,.5,0,.8,0,.3,0,.6,0,.9v5.2h-.9v-9h1.2l4.7,7.5h0c0-.1,0-.3,0-.6,0-.3,0-.6,0-.9,0-.3,0-.6,0-.9v-5.2h1v9Z"/>
+      <text class="cls-5" transform="translate(765.6 925)"><tspan x="0" y="0">varchar</tspan></text>
+      <rect class="cls-12" x="344.3" y="843.7" width="228.3" height="32"/>
+      <text class="cls-6" transform="translate(354.3 863)"><tspan x="0" y="0">recommendation_status</tspan></text>
+      <rect class="cls-9" x="344.3" y="875.7" width="228.3" height="32"/>
+      <text class="cls-3" transform="translate(354.3 895)"><tspan x="0" y="0">status</tspan></text>
+      <path class="cls-1" d="M405.4,886c1.6,0,3,1.3,3,3s-1.3,3-3,3-.8,0-1.1-.2l-.9.9h-.7v1h-1v1h-2v-2l2.8-2.8c0-.3-.1-.6-.1-.9,0-1.6,1.3-3,3-3ZM405.4,885c-2.2,0-3.9,1.8-3.9,3.9s0,.4,0,.5l-2.5,2.5c0,0-.1.2-.1.3v2.7c0,.3.2.5.5.5h3c.3,0,.5-.2.5-.5v-.5h.5c.3,0,.5-.2.5-.5v-.4l.8-.8c.3,0,.5,0,.8,0,2.2,0,3.9-1.8,3.9-3.9s-1.8-3.9-3.9-3.9ZM405.4,887.9c0,.5.4,1,1,1s1-.4,1-1-.4-1-1-1-1,.4-1,1Z"/>
+      <text class="cls-4" transform="translate(512.4 895)"><tspan x="0" y="0">varchar</tspan></text>
+      <rect class="cls-8" x="344.3" y="907.7" width="228.3" height="32"/>
+      <text class="cls-2" transform="translate(354.3 927)"><tspan x="0" y="0">description</tspan></text>
+      <path class="cls-10" d="M540.6,914.2h20s2,0,2,2v12s0,2-2,2h-20s-2,0-2-2v-12s0-2,2-2"/>
+      <path class="cls-1" d="M549.4,926.7h-1.2l-4.7-7.6h0c0,.2,0,.4,0,.7,0,.3,0,.5,0,.8,0,.3,0,.6,0,.9v5.2h-.9v-9h1.2l4.7,7.5h0c0-.1,0-.3,0-.6,0-.3,0-.6,0-.9,0-.3,0-.6,0-.9v-5.2h1v9Z"/>
+      <path class="cls-1" d="M558.6,926.7h-1.2l-4.7-7.6h0c0,.2,0,.4,0,.7,0,.3,0,.5,0,.8,0,.3,0,.6,0,.9v5.2h-.9v-9h1.2l4.7,7.5h0c0-.1,0-.3,0-.6,0-.3,0-.6,0-.9,0-.3,0-.6,0-.9v-5.2h1v9Z"/>
+      <text class="cls-5" transform="translate(488.8 927)"><tspan x="0" y="0">varchar</tspan></text>
+    </g>
+  </g>
+</svg>

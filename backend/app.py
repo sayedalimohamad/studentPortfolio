@@ -54,7 +54,7 @@ def create_app():
 
     return app
 
-
+# to get the ip address of the machine
 # def get_ip4_address():
 #     hostname = socket.gethostname()
 #     ip_address = socket.gethostbyname(hostname)

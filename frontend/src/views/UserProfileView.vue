@@ -174,7 +174,7 @@
         <v-row justify="end" class="mt-4">
           <!-- Edit Profile Button -->
           <v-col cols="12" md="4">
-            <v-btn color="primary" dark block  @click="showEditModal = true">
+            <v-btn color="primary" dark block @click="showEditModal = true">
               <v-icon left>mdi-pencil</v-icon>
               Edit Profile
             </v-btn>
@@ -354,6 +354,20 @@
 <script>
 import axios from 'axios';
 import { useToast } from 'vue-toastification';
+
+// Axios interceptor to handle 401 Unauthorized responses
+axios.interceptors.response.use(
+  response => response,
+  error => {
+    if (error.response && error.response.status === 401) {
+      useToast().error("Session expired. Please log in again.");
+      localStorage.removeItem("token");
+      router.push("/login");
+      location.reload();
+    }
+    return Promise.reject(error);
+  }
+);
 
 export default {
   name: 'UserProfileView',

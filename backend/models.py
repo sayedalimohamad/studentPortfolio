@@ -66,8 +66,8 @@ class Email(db.Model):
     def to_dict(self):
         return {
             "email_id": self.email_id,
-            "sender_email": self.sender.email,  # This will fetch the email of the sender directly
-            "recipient_email": self.recipient.email,  # Same for recipient
+            "sender_email": self.sender.email,  
+            "recipient_email": self.recipient.email,  
             "subject": self.subject,
             "message": self.message,
             "timestamp": self.timestamp

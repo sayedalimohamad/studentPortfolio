@@ -429,7 +429,7 @@ Provides a detailed log of user actions for audit and traceability.
 
 ## Database Schema
 
-![Database Schema](./markdown-image/databaseSchema.png)
+![Database Schema](./markdown-image/databaseSchema.svg)
 
 ---
 
