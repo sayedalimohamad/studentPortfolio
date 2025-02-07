@@ -362,8 +362,11 @@ axios.interceptors.response.use(
     if (error.response && error.response.status === 401) {
       useToast().error("Session expired. Please log in again.");
       localStorage.removeItem("token");
-      router.push("/login");
-      location.reload();
+      setTimeout(() => {
+        location.reload().then(() => {
+          this.$router.push("/login");
+        });
+      }, 4000);
     }
     return Promise.reject(error);
   }
