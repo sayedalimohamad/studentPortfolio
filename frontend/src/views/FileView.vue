@@ -21,124 +21,59 @@
         <h2 class="text-2xl font-bold mb-6 word-color">My Files ({{ myFiles.length }})</h2>
         <v-row v-if="myFiles.length > 0" dense>
             <v-col v-for="file in myFiles" :key="file.file_id" cols="12" md="6" lg="4">
-            <v-card class="mb-4 pa-4">
-                <v-row>
-                <v-col cols="12" md="8">
-                    <v-card-title class="d-flex align-center">
-                    <v-avatar class="mr-3">
-                        <v-icon color="primary">mdi-file</v-icon>
-                    </v-avatar>
-                    <span class="text-lg font-bold word-color">{{ file.file_name }}</span>
-                    </v-card-title>
-                    <v-card-subtitle class="text-gray-600 d-flex align-center mb-2">
-                    <v-icon small class="mr-1">mdi-folder</v-icon>
-                    <span>File Path: <span class="word-color">{{ file.file_path }}</span></span>
-                    </v-card-subtitle>
-                    <v-card-subtitle class="text-gray-600 d-flex align-center mb-2">
-                    <v-icon small class="mr-1">mdi-file-find</v-icon>
-                    <span>File Type: <span class="word-color">{{ file.file_type }}</span></span>
-                    </v-card-subtitle>
-                    <v-card-subtitle class="text-gray-600 d-flex align-center mb-2">
-                    <v-icon small class="mr-1">mdi-eye</v-icon>
-                    <span>Visibility: <span>
-                        <v-chip class="ma-1 ml-2"
-                            :color="file.visibility === 'public' ? 'primary' : (file.visibility === 'supervisors' ? 'success' : 'error')"
-                            text-color="white" small>
-                            <strong class="mx-2">{{ file.visibility.toUpperCase() }}</strong>
-                        </v-chip>
-                        </span></span>
-                    </v-card-subtitle>
-                    <v-card-subtitle class="text-gray-600 d-flex align-center mb-2">
-                    <v-icon small class="mr-1">mdi-calendar</v-icon>
-                    <span>Uploaded At: <span class="word-color">{{ new
-                        Date(file.uploaded_at).toLocaleString()
-                        }}</span></span>
-                    </v-card-subtitle>
-                </v-col>
-                <v-col cols="12" md="4" class="d-flex align-center justify-center">
-                    <v-img :src="getFileImage(file.file_type)" max-width="300" max-height="300"></v-img>
-                </v-col>
-                </v-row>
-                <v-card-actions>
-                <v-btn color="primary" @click="editFile(file)">
-                    <v-icon left>mdi-pencil</v-icon>
-                    Edit
-                </v-btn>
-                <v-btn color="red" @click="deleteFile(file.file_id)">
-                    <v-icon left>mdi-delete</v-icon>
-                    Delete
-                </v-btn>
-                </v-card-actions>
-            </v-card>
+                <v-card class="mb-4 pa-4">
+                    <v-row>
+                        <v-col cols="12" md="8">
+                            <v-card-title class="d-flex align-center">
+                                <v-avatar class="mr-3">
+                                    <v-icon color="primary">mdi-file</v-icon>
+                                </v-avatar>
+                                <span class="text-lg font-bold word-color">{{ file.file_name }}</span>
+                            </v-card-title>
+                            <v-card-subtitle class="text-gray-600 d-flex align-center mb-2">
+                                <v-icon small class="mr-1">mdi-folder</v-icon>
+                                <span>File Path: <span class="word-color">{{ file.file_path }}</span></span>
+                            </v-card-subtitle>
+                            <v-card-subtitle class="text-gray-600 d-flex align-center mb-2">
+                                <v-icon small class="mr-1">mdi-file-find</v-icon>
+                                <span>File Type: <span class="word-color">{{ file.file_type }}</span></span>
+                            </v-card-subtitle>
+                            <v-card-subtitle class="text-gray-600 d-flex align-center mb-2">
+                                <v-icon small class="mr-1">mdi-eye</v-icon>
+                                <span>Visibility: <span>
+                                        <v-chip class="ma-1 ml-2"
+                                            :color="file.visibility === 'public' ? 'primary' : (file.visibility === 'supervisors' ? 'success' : 'error')"
+                                            text-color="white" small>
+                                            <strong class="mx-2">{{ file.visibility.toUpperCase() }}</strong>
+                                        </v-chip>
+                                    </span></span>
+                            </v-card-subtitle>
+                            <v-card-subtitle class="text-gray-600 d-flex align-center mb-2">
+                                <v-icon small class="mr-1">mdi-calendar</v-icon>
+                                <span>Uploaded At: <span class="word-color">{{ new
+                                    Date(file.uploaded_at).toLocaleString()
+                                        }}</span></span>
+                            </v-card-subtitle>
+                        </v-col>
+                        <v-col cols="12" md="4" class="d-flex align-center justify-center">
+                            <v-img :src="getFileImage(file.file_type)" max-width="300" max-height="300"></v-img>
+                        </v-col>
+                    </v-row>
+                    <v-card-actions>
+                        <v-btn color="primary" @click="editFile(file)">
+                            <v-icon left>mdi-pencil</v-icon>
+                            Edit
+                        </v-btn>
+                        
+                        <v-btn color="red" @click="showDeleteConfirmation(file)">
+                            <v-icon left>mdi-delete</v-icon>
+                            Delete
+                        </v-btn>
+                    </v-card-actions>
+                </v-card>
             </v-col>
         </v-row>
         <v-alert v-else type="info" class="mt-6">You have no files uploaded yet.</v-alert>
-
-        <!-- All Files Section -->
-        <h2 class="text-2xl font-bold mb-6 word-color mt-8">All Files ({{ filteredAllFiles.length }})</h2>
-        <v-text-field v-model="search" label="Search by file name or username or type" prepend-inner-icon="mdi-magnify" class="mb-4"
-            outlined dense></v-text-field>
-
-        <!-- File Type Navigation -->
-        <v-row class="mb-6">
-            <v-col cols="12">
-                <v-chip-group v-model="selectedFileType" mandatory active-class="primary--text">
-                    <v-chip @click="filterByFileType('')">All</v-chip>
-                    <v-chip v-for="type in fileTypes" :key="type" @click="filterByFileType(type)">
-                        {{ type.charAt(0).toUpperCase() + type.slice(1) }}
-                    </v-chip>
-                </v-chip-group>
-            </v-col>
-        </v-row>
-
-        <v-row v-if="filteredAllFiles.length > 0" dense>
-            <v-col v-for="file in filteredAllFiles" :key="file.file_id" cols="12" md="6" lg="4">
-            <v-card class="mb-4 pa-4">
-                <v-row>
-                <v-col cols="12" md="8">
-                    <v-card-title class="d-flex align-center">
-                    <v-avatar class="mr-3">
-                        <v-icon color="primary">mdi-file</v-icon>
-                    </v-avatar>
-                    <span class="text-lg font-bold word-color">{{ file.file_name }}</span>
-                    </v-card-title>
-                    <v-card-subtitle class="text-gray-600 d-flex align-center mb-2">
-                    <v-icon small class="mr-1">mdi-folder</v-icon>
-                    <span>File Path: <span class="word-color">{{ file.file_path }}</span></span>
-                    </v-card-subtitle>
-                    <v-card-subtitle class="text-gray-600 d-flex align-center mb-2">
-                    <v-icon small class="mr-1">mdi-file-find</v-icon>
-                    <span>File Type: <span class="word-color">{{ file.file_type }}</span></span>
-                    </v-card-subtitle>
-                    <v-card-subtitle class="text-gray-600 d-flex align-center mb-2">
-                    <v-icon small class="mr-1">mdi-eye</v-icon>
-                    <span>Visibility: <span>
-                        <v-chip class="ma-1 ml-2"
-                            :color="file.visibility === 'public' ? 'primary' : (file.visibility === 'supervisors' ? 'success' : 'error')"
-                            text-color="white" small>
-                            <strong class="mx-2">{{ file.visibility.toUpperCase() }}</strong>
-                        </v-chip>
-                        </span></span>
-                    </v-card-subtitle>
-                    <v-card-subtitle class="text-gray-600 d-flex align-center mb-2">
-                    <v-icon small class="mr-1">mdi-calendar</v-icon>
-                    <span>Uploaded At: <span class="word-color">{{ new
-                        Date(file.uploaded_at).toLocaleString()
-                        }}</span></span>
-                    </v-card-subtitle>
-                    <v-card-subtitle class="text-gray-600 d-flex align-center mb-2">
-                    <v-icon small class="mr-1">mdi-account</v-icon>
-                    <span>Username: <span class="word-color">{{ file.username }}</span></span>
-                    </v-card-subtitle>
-                </v-col>
-                <v-col cols="12" md="4" class="d-flex align-center justify-center">
-                    <v-img :src="getFileImage(file.file_type)" max-width="300" max-height="300"></v-img>
-                </v-col>
-                </v-row>
-            </v-card>
-            </v-col>
-        </v-row>
-        <v-alert v-else type="info" class="mt-6">No files found.</v-alert>
 
         <!-- Add New File Modal -->
         <v-dialog v-model="showAddModal" max-width="600">
@@ -151,9 +86,6 @@
                     <v-form ref="addFileForm" v-model="addFileFormValid">
                         <v-text-field v-model="newFile.file_name" label="File Name"
                             :rules="[v => !!v || 'File Name is required']" required outlined dense
-                            class="mb-4"></v-text-field>
-                        <v-text-field v-model="newFile.file_path" label="File Path"
-                            :rules="[v => !!v || 'File Path is required']" required outlined dense
                             class="mb-4"></v-text-field>
                         <v-select v-model="newFile.file_type" :items="fileTypes" label="File Type"
                             :rules="[v => !!v || 'File Type is required']" required outlined dense
@@ -171,11 +103,77 @@
                     </v-btn>
                     <v-btn color="green darken-1" text @click="uploadFile" :disabled="!addFileFormValid">
                         <v-icon left>mdi-check</v-icon>
-                        Save
+                        Add
                     </v-btn>
                 </v-card-actions>
             </v-card>
         </v-dialog>
+
+        <!-- All Files Section -->
+        <h2 class="text-2xl font-bold mb-6 word-color mt-8">All Files ({{ filteredAllFiles.length }})</h2>
+        <v-text-field v-model="search" label="Search by file name or username or type" prepend-inner-icon="mdi-magnify"
+            class="mb-4" outlined dense></v-text-field>
+
+        <!-- File Type Navigation -->
+        <v-row class="mb-6">
+            <v-col cols="12">
+                <v-chip-group v-model="selectedFileType" mandatory active-class="primary--text">
+                    <v-chip @click="filterByFileType('')">All</v-chip>
+                    <v-chip v-for="type in fileTypes" :key="type" @click="filterByFileType(type)">
+                        {{ type.charAt(0).toUpperCase() + type.slice(1) }}
+                    </v-chip>
+                </v-chip-group>
+            </v-col>
+        </v-row>
+
+        <v-row v-if="filteredAllFiles.length > 0" dense>
+            <v-col v-for="file in filteredAllFiles" :key="file.file_id" cols="12" md="6" lg="4">
+                <v-card class="mb-4 pa-4">
+                    <v-row>
+                        <v-col cols="12" md="8">
+                            <v-card-title class="d-flex align-center">
+                                <v-avatar class="mr-3">
+                                    <v-icon color="primary">mdi-file</v-icon>
+                                </v-avatar>
+                                <span class="text-lg font-bold word-color">{{ file.file_name }}</span>
+                            </v-card-title>
+                            <v-card-subtitle class="text-gray-600 d-flex align-center mb-2">
+                                <v-icon small class="mr-1">mdi-folder</v-icon>
+                                <span>File Path: <span class="word-color">{{ file.file_path }}</span></span>
+                            </v-card-subtitle>
+                            <v-card-subtitle class="text-gray-600 d-flex align-center mb-2">
+                                <v-icon small class="mr-1">mdi-file-find</v-icon>
+                                <span>File Type: <span class="word-color">{{ file.file_type }}</span></span>
+                            </v-card-subtitle>
+                            <v-card-subtitle class="text-gray-600 d-flex align-center mb-2">
+                                <v-icon small class="mr-1">mdi-eye</v-icon>
+                                <span>Visibility: <span>
+                                        <v-chip class="ma-1 ml-2"
+                                            :color="file.visibility === 'public' ? 'primary' : (file.visibility === 'supervisors' ? 'success' : 'error')"
+                                            text-color="white" small>
+                                            <strong class="mx-2">{{ file.visibility.toUpperCase() }}</strong>
+                                        </v-chip>
+                                    </span></span>
+                            </v-card-subtitle>
+                            <v-card-subtitle class="text-gray-600 d-flex align-center mb-2">
+                                <v-icon small class="mr-1">mdi-calendar</v-icon>
+                                <span>Uploaded At: <span class="word-color">{{ new
+                                    Date(file.uploaded_at).toLocaleString()
+                                        }}</span></span>
+                            </v-card-subtitle>
+                            <v-card-subtitle class="text-gray-600 d-flex align-center mb-2">
+                                <v-icon small class="mr-1">mdi-account</v-icon>
+                                <span>Username: <span class="word-color">{{ file.username }}</span></span>
+                            </v-card-subtitle>
+                        </v-col>
+                        <v-col cols="12" md="4" class="d-flex align-center justify-center">
+                            <v-img :src="getFileImage(file.file_type)" max-width="300" max-height="300"></v-img>
+                        </v-col>
+                    </v-row>
+                </v-card>
+            </v-col>
+        </v-row>
+        <v-alert v-else type="info" class="mt-6">No files found.</v-alert>
 
         <!-- Edit File Modal -->
         <v-dialog v-model="showEditDialog" max-width="600">
@@ -187,13 +185,13 @@
                 <v-card-text class="pa-6">
                     <v-form ref="editFileForm" v-model="editFileFormValid">
                         <v-text-field v-model="editedFile.file_name" label="File Name"
-                            :rules="[v => !!v || 'File Name is required']" required outlined dense
+                            :rules="[v => !!v || 'File Name is required']" outlined dense disabled
                             class="mb-4"></v-text-field>
                         <v-text-field v-model="editedFile.file_path" label="File Path"
-                            :rules="[v => !!v || 'File Path is required']" required outlined dense
+                            :rules="[v => !!v || 'File Path is required']" outlined dense disabled
                             class="mb-4"></v-text-field>
                         <v-select v-model="editedFile.file_type" :items="fileTypes" label="File Type"
-                            :rules="[v => !!v || 'File Type is required']" required outlined dense
+                            :rules="[v => !!v || 'File Type is required']" outlined dense disabled
                             class="mb-4"></v-select>
                         <v-select v-model="editedFile.visibility" :items="visibilityOptions" label="Visibility"
                             :rules="[v => !!v || 'Visibility is required']" required outlined dense
@@ -209,6 +207,30 @@
                     <v-btn color="green darken-1" text @click="updateFile" :disabled="!editFileFormValid">
                         <v-icon left>mdi-check</v-icon>
                         Save Changes
+                    </v-btn>
+                </v-card-actions>
+            </v-card>
+        </v-dialog>
+
+        <!-- Delete File Dialog -->
+        <v-dialog v-model="showDeleteDialog" max-width="500">
+            <v-card>
+                <v-card-title class="headline pa-6">
+                    <v-icon color="red" left>mdi-alert</v-icon>
+                    Confirm Delete
+                </v-card-title>
+                <v-card-text class="pa-6">
+                    Are you sure you want to delete the file <strong>{{ fileToDelete.file_name }}</strong>?
+                </v-card-text>
+                <v-card-actions class="pa-6">
+                    <v-spacer></v-spacer>
+                    <v-btn color="blue darken-1" text @click="showDeleteDialog = false">
+                        <v-icon left>mdi-cancel</v-icon>
+                        Cancel
+                    </v-btn>
+                    <v-btn color="red darken-1" text @click="confirmDeleteFile">
+                        <v-icon left>mdi-delete</v-icon>
+                        Delete
                     </v-btn>
                 </v-card-actions>
             </v-card>
@@ -232,8 +254,8 @@ export default {
                 file_name: '',
                 file_path: '',
                 file_type: '',
-                file_type_id: 1, // Default file type ID
-                visibility: 'public',
+                file_type_id: null, // Default file type ID
+                visibility: '',
             },
             editedFile: {
                 file_id: null,
@@ -249,6 +271,8 @@ export default {
             editFileFormValid: false,
             fileTypes: ['document', 'image', 'video'],
             visibilityOptions: ['public', 'supervisors', 'private'],
+            showDeleteDialog: false,
+            fileToDelete: {},
         };
     },
     computed: {
@@ -292,16 +316,20 @@ export default {
         },
         async uploadFile() {
             try {
-                const response = await axios.post('/api/files', this.newFile, {
-                    headers: {
-                        Authorization: `Bearer ${localStorage.getItem('token')}`,
-                    },
+                const token = localStorage.getItem('token');
+
+                // Generate file path dynamically
+                this.newFile.file_path = `/path/to/${this.newFile.file_type}s/${this.newFile.file_name}`;
+
+                const response = await axios.post('/api/files/', this.newFile, {
+                    headers: { Authorization: `Bearer ${token}` },
                 });
+
                 this.myFiles.push(response.data);
                 this.newFile = { file_name: '', file_path: '', file_type: '', file_type_id: 1, visibility: 'public' };
                 this.showAddModal = false;
                 useToast().success('File uploaded successfully.');
-                await this.fetchFiles(); // Refresh the file list
+                await this.fetchFiles();
             } catch (error) {
                 console.error('Error uploading file:', error);
                 useToast().error('Failed to upload file. Please try again.');
@@ -328,19 +356,25 @@ export default {
                 useToast().error('Failed to update file. Please try again.');
             }
         },
-        async deleteFile(fileId) {
+        showDeleteConfirmation(file) {
+            this.fileToDelete = file;
+            this.showDeleteDialog = true;
+        },
+        async confirmDeleteFile() {
             try {
-                await axios.delete(`/api/files/${fileId}`, {
+                await axios.delete(`/api/files/${this.fileToDelete.file_id}`, {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem('token')}`,
                     },
                 });
-                this.myFiles = this.myFiles.filter(f => f.file_id !== fileId);
+                this.myFiles = this.myFiles.filter(f => f.file_id !== this.fileToDelete.file_id);
                 useToast().success('File deleted successfully.');
                 await this.fetchFiles(); // Refresh the file list
             } catch (error) {
                 console.error('Error deleting file:', error);
                 useToast().error('Failed to delete file. Please try again.');
+            } finally {
+                this.showDeleteDialog = false;
             }
         },
         filterByFileType(type) {
