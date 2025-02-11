@@ -59,12 +59,16 @@
                             <v-img :src="getFileImage(file.file_type)" max-width="300" max-height="300"></v-img>
                         </v-col>
                     </v-row>
-                    <v-card-actions>
+                    <v-card-actions class="d-flex justify-end mt-2">
+                        <v-btn color="success" @click="downloadFile(file)">
+                            <v-icon left>mdi-download</v-icon>
+                            Download
+                        </v-btn>
                         <v-btn color="primary" @click="editFile(file)">
                             <v-icon left>mdi-pencil</v-icon>
                             Edit
                         </v-btn>
-                        
+
                         <v-btn color="red" @click="showDeleteConfirmation(file)">
                             <v-icon left>mdi-delete</v-icon>
                             Delete
@@ -170,6 +174,14 @@
                             <v-img :src="getFileImage(file.file_type)" max-width="300" max-height="300"></v-img>
                         </v-col>
                     </v-row>
+                    <v-row class="mt-2">
+                        <v-col class="d-flex justify-end">
+                            <v-btn color="primary" @click="downloadFile(file)">
+                                <v-icon left color="white">mdi-download</v-icon>
+                                Download
+                            </v-btn>
+                        </v-col>
+                    </v-row>
                 </v-card>
             </v-col>
         </v-row>
@@ -184,15 +196,12 @@
                 </v-card-title>
                 <v-card-text class="pa-6">
                     <v-form ref="editFileForm" v-model="editFileFormValid">
-                        <v-text-field v-model="editedFile.file_name" label="File Name"
-                             outlined dense disabled
+                        <v-text-field v-model="editedFile.file_name" label="File Name" outlined dense disabled
                             class="mb-4"></v-text-field>
-                        <v-text-field v-model="editedFile.file_path" label="File Path"
-                             outlined dense disabled
+                        <v-text-field v-model="editedFile.file_path" label="File Path" outlined dense disabled
                             class="mb-4"></v-text-field>
-                        <v-select v-model="editedFile.file_type" :items="fileTypes" label="File Type"
-                             outlined dense disabled
-                            class="mb-4"></v-select>
+                        <v-select v-model="editedFile.file_type" :items="fileTypes" label="File Type" outlined dense
+                            disabled class="mb-4"></v-select>
                         <v-select v-model="editedFile.visibility" :items="visibilityOptions" label="Visibility"
                             :rules="[v => !!v || 'Visibility is required']" required outlined dense
                             class="mb-4"></v-select>
@@ -292,6 +301,14 @@ export default {
         await this.fetchFiles();
     },
     methods: {
+        downloadFile(file) {
+            const link = document.createElement("a");
+            link.href = file.file_url; // Make sure file_url is a valid direct link to the file
+            link.setAttribute("download", file.file_name);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        },
         async fetchFiles() {
             try {
                 // Fetch files uploaded by the current user
