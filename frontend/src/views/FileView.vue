@@ -185,13 +185,13 @@
                 <v-card-text class="pa-6">
                     <v-form ref="editFileForm" v-model="editFileFormValid">
                         <v-text-field v-model="editedFile.file_name" label="File Name"
-                            :rules="[v => !!v || 'File Name is required']" outlined dense disabled
+                             outlined dense disabled
                             class="mb-4"></v-text-field>
                         <v-text-field v-model="editedFile.file_path" label="File Path"
-                            :rules="[v => !!v || 'File Path is required']" outlined dense disabled
+                             outlined dense disabled
                             class="mb-4"></v-text-field>
                         <v-select v-model="editedFile.file_type" :items="fileTypes" label="File Type"
-                            :rules="[v => !!v || 'File Type is required']" outlined dense disabled
+                             outlined dense disabled
                             class="mb-4"></v-select>
                         <v-select v-model="editedFile.visibility" :items="visibilityOptions" label="Visibility"
                             :rules="[v => !!v || 'Visibility is required']" required outlined dense

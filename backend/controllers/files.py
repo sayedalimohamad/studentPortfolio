@@ -82,10 +82,6 @@ def register_routes(bp: Blueprint):
     @jwt_required()
     def update_file(file_id):
         file = File.query.get_or_404(file_id)
-        current_user = get_jwt_identity()
-        if file.user_id != current_user:
-            return jsonify({"error": "Unauthorized"}), 403
-
         data = request.get_json()
         file.file_name = data.get("file_name", file.file_name)
         file.file_path = data.get("file_path", file.file_path)
@@ -100,10 +96,6 @@ def register_routes(bp: Blueprint):
     @jwt_required()
     def delete_file(file_id):
         file = File.query.get_or_404(file_id)
-        current_user = get_jwt_identity()
-        if file.user_id != current_user:
-            return jsonify({"error": "Unauthorized"}), 403
-
         db.session.delete(file)
         db.session.commit()
-        return "", 204
+        return jsonify({"message": "File deleted successfully"})
