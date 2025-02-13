@@ -439,9 +439,7 @@ This database is a well-engineered solution that provides scalability, efficienc
 
 ---
 
-## UI Design
-
-### Student Dashboard
+## UI Design 
 
 ### Homepage (Dark View)
 
