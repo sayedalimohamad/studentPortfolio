@@ -436,3 +436,43 @@ Provides a detailed log of user actions for audit and traceability.
 ## Conclusion of database
 
 This database is a well-engineered solution that provides scalability, efficiency, and security. Its modular structure supports diverse workflows, empowering students, supervisors, and admins to collaborate effectively. Every aspect—from privacy controls to audit logs—is designed to meet professional standards and adapt to future needs.
+
+---
+
+## UI Design
+
+### Student Dashboard
+
+### Homepage (Dark View)
+
+![Homepage Dark View](./markdown-image/homepage_dark.png)
+*The dark view of the homepage provides a sleek and modern interface for users who prefer a darker theme.*
+
+### Homepage (Light View)
+
+![Homepage Light View](./markdown-image/homepage_light.png)
+*The light view of the homepage offers a clean and bright interface for users who prefer a lighter theme.*
+
+### Events View
+
+![Events View](./markdown-image/events_view.png)
+*The events view allows users to browse and participate in various academic and extracurricular events.*
+*The events view allows supervisors and administrators to browse, update, and manage various academic and extracurricular events, including their data and status.*
+
+
+### Register
+
+![Register](./markdown-image/register.png)
+*The registration interface guides new users through the process of creating an account on the platform.*
+
+### Students View
+
+![Students View](./markdown-image/students_view.png)
+*The students view provides a comprehensive list of students, showcasing their profiles and achievements.*
+
+### User Admin
+
+![User Admin](./markdown-image/user_admin.png)
+*The user admin interface offers administrators tools to manage user accounts and platform settings.*
+
+---
