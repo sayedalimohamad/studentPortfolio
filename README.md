@@ -1,5 +1,6 @@
 # StudentPortfolio: Comprehensive Project Description
 
+
 ## Main Purpose
 
 StudentPortfolio is an advanced platform that revolutionizes how students manage their academic and professional growth. It provides a centralized, user-friendly system to create and maintain portfolios while promoting collaboration and guided learning. The project leverages AI tools, intuitive design, and robust backend systems to cater to the needs of students, supervisors, and administrators in educational and professional settings.
@@ -168,6 +169,37 @@ Here are some recommended topics based on your question:
 - **Vite:** Build tool for optimizing and bundling frontend assets.
 - **ESLint:** Linting tool for maintaining code quality and consistency.
 - **Prettier:** Code formatter for ensuring a consistent code style.
+
+---
+## Installation & Setup
+### **Prerequisites**
+- Python 3.9+
+- Node.js & npm
+- SQLite (or PostgreSQL for production)
+
+### **Steps to Run Locally**
+1. **Clone the Repository:**
+   ```sh
+   git clone https://github.com/sayedalimohamad/studentPortfolio.git
+   cd studentPortfolio
+   ```
+2. **Backend Setup:**
+   ```sh
+   cd backend
+   python3 -m venv venv
+   source venv/bin/activate  # On Windows use `venv\Scripts\activate`
+   pip install -r requirements.txt
+   flask run
+   ```
+3. **Frontend Setup:**
+   ```sh
+   cd frontend
+   npm install
+   npm run dev
+   ```
+4. **Access the App:**
+   - Backend API: `http://127.0.0.1:5000`
+   - Frontend: `http://localhost:5173`
 
 ---
 
