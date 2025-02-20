@@ -1,8 +1,15 @@
 <template>
   <v-container class="py-12">
     <h1 class="text-3xl font-bold mb-6 word-color">Students List ({{ filteredStudents.length }})</h1>
-    <v-text-field v-model="searchQuery" label="Search by name" prepend-inner-icon="mdi-magnify" class="mb-6" outlined
-      dense></v-text-field>
+    <v-row dense>
+      <v-col cols="12" md="6">
+        <v-text-field v-model="searchQuery" label="Search by name" prepend-inner-icon="mdi-magnify" class="mb-6" outlined dense></v-text-field>
+      </v-col>
+      <v-col cols="12" md="6">
+        <v-select v-model="selectedPrivacyLevel" :items="privacyLevels" label="Filter by Privacy Level" class="mb-6" prepend-inner-icon="mdi-filter"
+        outlined dense clearable></v-select>
+      </v-col>
+    </v-row>
     <v-row v-if="filteredStudents.length > 0" dense align="stretch">
       <v-col v-for="student in filteredStudents" :key="student.student_id" cols="12" md="6" lg="4">
         <v-card class="mb-4 pa-4 d-flex flex-column justify-space-between elevation-2">
@@ -13,7 +20,6 @@
             <span class="text-lg font-bold word-color">{{ student.full_name }}
               <h6>{{ calculateAge(student.dob) }} year-old</h6>
             </span>
-            
           </v-card-title>
           <v-card-subtitle class="text-gray-600 d-flex align-center mb-2">
             <v-icon small class="mr-1">mdi-email</v-icon>
@@ -33,8 +39,7 @@
           </v-card-subtitle>
           <v-card-subtitle class="text-gray-600 d-flex align-center mb-2">
             <v-icon small class="mr-1">mdi-calendar</v-icon>
-            <span>Date of Birth: <span class="word-color">{{ new Date(student.dob).toDateString() }}</span>
-          </span>
+            <span>Date of Birth: <span class="word-color">{{ new Date(student.dob).toDateString() }}</span></span>
           </v-card-subtitle>
           <v-card-subtitle class="text-gray-600 d-flex align-center mb-2">
             <v-icon small class="mr-1">mdi-lock</v-icon>
@@ -50,7 +55,6 @@
                   :color="student.privacy_level === 'public' ? 'primary' : (student.privacy_level === 'supervisors' ? 'success' : 'error')">{{
                     student.privacy_level === 'public' ? 'mdi-earth' : (student.privacy_level ===
                       'supervisors' ? 'mdi-account-supervisor' : 'mdi-lock') }}</v-icon>
-
               </v-chip>
             </span>
           </v-card-subtitle>
@@ -71,7 +75,7 @@
 </template>
 
 <script>
-import axios from 'axios'; // Import the custom Axios instance
+import axios from 'axios'; 
 
 export default {
   name: 'StudentView',
@@ -79,6 +83,8 @@ export default {
     return {
       students: [],
       searchQuery: '',
+      selectedPrivacyLevel: null,
+      privacyLevels: ['public', 'supervisors', 'private'],
     };
   },
   async created() {
@@ -111,7 +117,8 @@ export default {
         const fullName = student.full_name.toLowerCase().includes(this.searchQuery.toLowerCase());
         const institution = student.institution.toLowerCase().includes(this.searchQuery.toLowerCase());
         const privacyLevel = student.privacy_level.toString().includes(this.searchQuery);
-        return fullName || institution || privacyLevel;
+        const matchesPrivacyLevel = this.selectedPrivacyLevel ? student.privacy_level === this.selectedPrivacyLevel : true;
+        return (fullName || institution || privacyLevel) && matchesPrivacyLevel;
       });
     },
   },
