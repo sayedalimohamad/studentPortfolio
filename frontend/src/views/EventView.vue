@@ -10,20 +10,27 @@
       </v-col>
     </v-row>
 
-    <!-- Search Bar and Status Filter (Only for Admins/Supervisors) -->
+    <!-- Search Bar, Status Filter, and Date Filter -->
     <v-row class="mb-6">
-      <v-col cols="12" :md="userRole === 'admin' || userRole === 'supervisor' ? 6 : 12">
-        <v-text-field v-model="searchQuery" label="Search by title, description, location, or status"
+      <v-col cols="12" :md="userRole === 'admin' || userRole === 'supervisor' ? 4 : 8">
+        <v-text-field v-model="searchQuery" label="Search by title, description, or location"
           prepend-inner-icon="mdi-magnify" outlined dense></v-text-field>
       </v-col>
-      <v-col cols="12" md="6" v-if="userRole === 'admin' || userRole === 'supervisor'">
+
+      <v-col v-if="userRole === 'admin' || userRole === 'supervisor'" cols="12" :md="userRole ? 4 : 12">
         <v-select v-model="statusFilter" :items="statusOptions" label="Filter by Status" prepend-inner-icon="mdi-filter"
           outlined dense clearable></v-select>
       </v-col>
+
+      <v-col cols="12" :md="userRole === 'admin' || userRole === 'supervisor' ? 4 : 4">
+        <v-select v-model="dateFilter" :items="dateFilterOptions" label="Filter by Date"
+          prepend-inner-icon="mdi-calendar" outlined dense clearable></v-select>
+      </v-col>
     </v-row>
 
+
     <!-- Create Event Button  -->
-    <v-row  class="mb-8">
+    <v-row class="mb-8">
       <v-col cols="12" class="text-right">
         <v-btn color="primary" dark @click="showCreateEventModal = true">
           <v-icon left>mdi-plus</v-icon>
@@ -216,6 +223,8 @@ export default {
       searchQuery: '',
       statusFilter: null,
       statusOptions: ['pending', 'accepted', 'rejected'],
+      dateFilter: null,
+      dateFilterOptions: ['all', 'upcoming'],
       loading: true,
       error: null,
       userRole: localStorage.getItem('userRole'),
@@ -389,6 +398,12 @@ export default {
       } else {
         // Students can only see accepted events
         events = events.filter(event => event.status === 'accepted');
+      }
+
+      // Filter by date
+      if (this.dateFilter === 'upcoming') {
+        const today = new Date();
+        events = events.filter(event => new Date(event.date) >= today);
       }
 
       // Ensure searchQuery is not null or undefined
